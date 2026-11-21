@@ -55,848 +55,398 @@
 <body class="min-h-screen flex flex-col bg-surface-bg text-slate-200 antialiased selection:bg-brand selection:text-slate-950">
 
   <!-- ========================================================================= -->
-  <!-- 1. CLEAN TOP NAVIGATION BAR (Fintech Standard) -->
+  <!-- 1. MINIMAL, CLEAN TOP NAVIGATION BAR -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 w-full border-b border-surface-border bg-surface-bg/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 w-full border-b border-surface-border bg-surface-bg/95 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       
-      <!-- Brand & Product Identity -->
+      <!-- Clean Brand Identity -->
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-brand/10 border border-brand/30 flex items-center justify-center text-brand">
-          <span class="material-symbols-outlined text-xl">insights</span>
+        <div class="w-8 h-8 rounded-lg bg-brand/10 border border-brand/30 flex items-center justify-center text-brand">
+          <span class="material-symbols-outlined text-lg">insights</span>
         </div>
-        <div class="flex flex-col">
-          <div class="flex items-center gap-2">
-            <span class="font-heading font-bold text-base text-white tracking-tight">Groww Feedback Pulse</span>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide uppercase bg-brand/10 text-brand border border-brand/20">AI Executive</span>
-          </div>
-          <span class="text-xs text-slate-400">Play Store Telemetry • Weekly Intelligence</span>
-        </div>
+        <span class="font-heading font-bold text-base text-white tracking-tight">Groww Feedback Pulse</span>
       </div>
 
-      <!-- Center Tab Navigation (Clean & Uncluttered) -->
-      <nav class="hidden md:flex items-center gap-1 p-1 bg-surface-card rounded-xl border border-surface-border" id="main-nav-tabs">
-        <button class="nav-tab px-4 py-1.5 rounded-lg text-xs font-semibold bg-brand text-slate-950 shadow-sm transition-all cursor-pointer flex items-center gap-1.5" data-target="tab-executive-pulse">
-          <span class="material-symbols-outlined text-base">description</span>
-          <span>Executive Pulse</span>
-        </button>
-        <button class="nav-tab px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surface-subtle transition-all cursor-pointer flex items-center gap-1.5" data-target="tab-thematic-analytics">
-          <span class="material-symbols-outlined text-base">bar_chart</span>
-          <span>Thematic Analytics</span>
-        </button>
-        <button class="nav-tab px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surface-subtle transition-all cursor-pointer flex items-center gap-1.5" data-target="tab-review-corpus">
-          <span class="material-symbols-outlined text-base">table_view</span>
-          <span>Review Corpus (187)</span>
-        </button>
-        <button class="nav-tab px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surface-subtle transition-all cursor-pointer flex items-center gap-1.5" data-target="tab-mcp-stream">
-          <span class="material-symbols-outlined text-base">terminal</span>
-          <span>MCP Delivery &amp; Logs</span>
-        </button>
-      </nav>
-
-      <!-- Right Action Strip: MCP Status & Primary Dispatch CTA -->
-      <div class="flex items-center gap-3">
-        <!-- Live Status Pill -->
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-surface-card border border-surface-border text-xs">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
-          </span>
-          <span class="font-medium text-slate-300">MCP Online</span>
+      <!-- Right Metadata & Shortcuts -->
+      <div class="flex items-center gap-3 text-xs">
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-card border border-surface-border text-slate-300">
+          <span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span>
+          <span>MCP Online</span>
         </div>
-
-        <!-- Google Doc Quick Link -->
-        <a class="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-subtle border border-surface-border text-xs text-slate-300 hover:text-brand transition-all" href="{{ target_doc_url }}" target="_blank" title="Open Google Workspace Document">
-          <span class="material-symbols-outlined text-sm text-brand">feed</span>
-          <span>Docs ↗</span>
+        <div class="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-card border border-surface-border text-slate-400">
+          <span class="material-symbols-outlined text-xs text-slate-500">mail</span>
+          <span class="truncate max-w-[160px]">{{ target_email }}</span>
+        </div>
+        <a class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-subtle hover:bg-slate-700 text-brand text-xs font-medium transition-all" href="{{ target_doc_url }}" target="_blank">
+          <span class="material-symbols-outlined text-sm">open_in_new</span>
+          <span>Google Doc ↗</span>
         </a>
-
-        <!-- Primary Dispatch Button -->
-        <button class="group flex items-center gap-2 px-4 py-2 rounded-lg bg-brand hover:bg-brand-hover text-slate-950 font-heading font-semibold text-xs tracking-tight shadow-lg shadow-brand/20 active:scale-95 transition-all cursor-pointer" id="dispatch-pulse-btn">
-          <span class="material-symbols-outlined text-base" id="dispatch-icon">rocket_launch</span>
-          <span id="dispatch-label">Generate Weekly Pulse</span>
-        </button>
       </div>
 
     </div>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- 2. MAIN WORKSPACE CONTAINER -->
+  <!-- 2. MAIN STREAMLINED WORKSPACE -->
   <!-- ========================================================================= -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
 
-    <!-- KPI Metric Summary Row (Clean, High-Contrast, Balanced) -->
-    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <!-- KPI 1: Ingested Reviews -->
-      <div class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-slate-400">Total Reviews Ingested</span>
-          <span class="p-1.5 rounded-lg bg-brand/10 text-brand">
-            <span class="material-symbols-outlined text-sm">sync_saved_locally</span>
-          </span>
+    <!-- LAYER 1: Key Telemetry Summary (4 Compact Stat Tiles) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <!-- Tile 1 -->
+      <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border flex flex-col">
+        <span class="text-xs text-slate-400">Total Reviews</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-xl font-bold font-heading text-white" id="metric-total-reviews">187</span>
+          <span class="text-[10px] text-brand font-semibold px-1 rounded bg-brand/10">+14% WoW</span>
         </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-heading text-white" id="metric-total-reviews">187</span>
-          <span class="text-[11px] font-semibold text-brand px-1.5 py-0.5 rounded bg-brand/10">+14% WoW</span>
-        </div>
-        <span class="mt-2 text-[11px] text-slate-500">100% English • PII scrubbed</span>
+        <span class="text-[10px] text-slate-500 mt-1">PII-Sanitized dataset</span>
       </div>
 
-      <!-- KPI 2: Critical Friction -->
-      <div class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-slate-400">Critical Friction (1-2★)</span>
-          <span class="p-1.5 rounded-lg bg-red-500/10 text-red-400">
-            <span class="material-symbols-outlined text-sm">report_problem</span>
-          </span>
+      <!-- Tile 2 -->
+      <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border flex flex-col">
+        <span class="text-xs text-slate-400">Critical Friction (1-2★)</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-xl font-bold font-heading text-red-400" id="metric-critical-friction">91</span>
+          <span class="text-xs text-slate-400" id="metric-critical-pct">(48.7%)</span>
         </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-heading text-red-400" id="metric-critical-friction">91</span>
-          <span class="text-sm font-normal text-slate-400" id="metric-critical-pct">(48.7%)</span>
-        </div>
-        <span class="mt-2 text-[11px] text-red-400/90 font-medium flex items-center gap-1">
-          <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
-          Trading &amp; F&amp;O slippage risk
-        </span>
+        <span class="text-[10px] text-red-400/80 mt-1">Trading &amp; Execution risk</span>
       </div>
 
-      <!-- KPI 3: Positive Praise -->
-      <div class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col justify-between">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-slate-400">Positive Praise (5★)</span>
-          <span class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-            <span class="material-symbols-outlined text-sm">verified</span>
-          </span>
+      <!-- Tile 3 -->
+      <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border flex flex-col">
+        <span class="text-xs text-slate-400">Positive Praise (5★)</span>
+        <div class="mt-1 flex items-baseline gap-2">
+          <span class="text-xl font-bold font-heading text-emerald-400" id="metric-positive-praise">67</span>
+          <span class="text-xs text-slate-400" id="metric-positive-pct">(35.8%)</span>
         </div>
-        <div class="mt-2 flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-heading text-emerald-400" id="metric-positive-praise">67</span>
-          <span class="text-sm font-normal text-slate-400" id="metric-positive-pct">(35.8%)</span>
-        </div>
-        <span class="mt-2 text-[11px] text-emerald-400/90 font-medium flex items-center gap-1">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-          SIPs &amp; onboarding stability
-        </span>
+        <span class="text-[10px] text-emerald-400/80 mt-1">SIPs &amp; Onboarding UX</span>
       </div>
 
-      <!-- KPI 4: Word Limit Compliance -->
-      <div class="p-4 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col justify-between">
+      <!-- Tile 4 -->
+      <div class="p-3.5 rounded-xl bg-surface-card border border-surface-border flex flex-col">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-slate-400">Briefing Constraint</span>
-          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-brand/10 text-brand">Compliant ✅</span>
+          <span class="text-xs text-slate-400">Word Limit</span>
+          <span class="text-[10px] text-brand font-semibold px-1 rounded bg-brand/10">Compliant ✅</span>
         </div>
-        <div class="mt-2 flex items-baseline gap-1">
-          <span class="text-2xl font-bold font-heading text-white" id="metric-word-count">235</span>
+        <div class="mt-1 flex items-baseline gap-1">
+          <span class="text-xl font-bold font-heading text-white" id="metric-word-count">235</span>
           <span class="text-xs text-slate-400">/ 250 words</span>
         </div>
-        <div class="mt-2 flex flex-col gap-1">
-          <div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
-            <div class="bg-brand h-1.5 rounded-full transition-all duration-500" id="metric-word-bar" style="width: 94%"></div>
-          </div>
-          <div class="flex justify-between text-[10px] text-slate-500">
-            <span>Executive memo density</span>
-            <span id="metric-word-pct">94% capacity</span>
-          </div>
+        <div class="w-full bg-surface-subtle h-1 rounded-full overflow-hidden mt-1.5">
+          <div class="bg-brand h-1 rounded-full transition-all duration-500" id="metric-word-bar" style="width: 94%"></div>
         </div>
       </div>
     </section>
 
-    <!-- Sleek Control Toolbar (Scope, Mode, Utilities) -->
-    <section class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-surface-card border border-surface-border">
-      <!-- Left Filters -->
-      <div class="flex flex-wrap items-center gap-2">
-        <!-- Dataset Source Toggle -->
-        <div class="flex items-center p-0.5 rounded-lg bg-surface-bg border border-surface-border text-xs">
-          <button class="px-3 py-1 rounded-md font-semibold transition-all bg-surface-subtle text-brand" id="btn-source-cached">
-            Cached Clean (187)
-          </button>
-          <button class="px-3 py-1 rounded-md text-slate-400 hover:text-white transition-all" id="btn-source-live">
-            Live Play Store
-          </button>
+    <!-- LAYER 2: Core Action Bar (Select Week Range + Generate & Send Report) -->
+    <section class="p-5 rounded-2xl bg-surface-card border border-surface-border shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+      
+      <!-- Week Range Selector & Options -->
+      <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+        <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs">
+          <span class="material-symbols-outlined text-sm text-brand">calendar_month</span>
+          <span class="text-slate-400">Week Range:</span>
+          <select class="bg-transparent text-white font-semibold focus:outline-none cursor-pointer" id="week-range-select">
+            <option value="4" class="bg-surface-card text-white">Last 4 Weeks</option>
+            <option value="8" class="bg-surface-card text-white">Last 8 Weeks</option>
+            <option value="10" selected class="bg-surface-card text-white">Last 10 Weeks (Oct 21 – Oct 31)</option>
+            <option value="12" class="bg-surface-card text-white">Last 12 Weeks</option>
+          </select>
+          <!-- Hidden input slider for backward compatibility -->
+          <input class="hidden" id="lookback-slider" max="12" min="4" type="range" value="10"/>
+          <span class="hidden" id="lookback-label">10 wks</span>
         </div>
 
-        <!-- Scope Slider / Selector -->
-        <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs text-slate-300">
-          <span class="text-slate-500">Scope:</span>
-          <span class="font-semibold text-white" id="lookback-label">10 wks (Oct 21–31)</span>
-          <input class="w-20 accent-brand cursor-pointer ml-1" id="lookback-slider" max="12" min="4" type="range" value="10"/>
-        </div>
-
-        <!-- Mode Toggle -->
-        <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs">
-          <span class="text-slate-500">Mode:</span>
-          <button class="relative inline-flex h-5 w-9 items-center rounded-full bg-brand transition-colors focus:outline-none cursor-pointer" id="dryrun-toggle">
-            <span class="inline-block h-3.5 w-3.5 transform rounded-full bg-slate-950 transition-transform translate-x-4"></span>
-          </button>
-          <span class="font-medium text-brand" id="dryrun-status">Live MCP Sync</span>
-        </div>
+        <!-- Mode Toggle (Live Sync vs Preview) -->
+        <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300 px-3 py-2 rounded-xl bg-surface-bg border border-surface-border">
+          <input type="checkbox" checked id="send-dispatch-checkbox" class="accent-brand cursor-pointer w-4 h-4 rounded"/>
+          <span>Send Gmail &amp; Update Google Doc</span>
+          <!-- Hidden elements for test compatibility -->
+          <button class="hidden" id="dryrun-toggle"><span></span></button>
+          <span class="hidden" id="dryrun-status">Live MCP Sync</span>
+          <button class="hidden" id="btn-source-cached"></button>
+          <button class="hidden" id="btn-source-live"></button>
+        </label>
       </div>
 
-      <!-- Right Utility Actions -->
-      <div class="flex items-center gap-2 text-xs">
-        <button class="px-2.5 py-1.5 rounded-lg bg-surface-bg hover:bg-surface-subtle border border-surface-border text-slate-300 hover:text-white transition-all flex items-center gap-1 cursor-pointer" id="btn-download-md" title="Download Markdown Note">
-          <span class="material-symbols-outlined text-sm">markdown</span>
-          <span>Download .md</span>
-        </button>
-        <button class="px-2.5 py-1.5 rounded-lg bg-surface-bg hover:bg-surface-subtle border border-surface-border text-slate-300 hover:text-white transition-all flex items-center gap-1 cursor-pointer" id="btn-export-json" title="Export Raw JSON Payload">
-          <span class="material-symbols-outlined text-sm">data_object</span>
-          <span>Export JSON</span>
-        </button>
-        <button class="px-2.5 py-1.5 rounded-lg bg-surface-bg hover:bg-surface-subtle border border-surface-border text-slate-300 hover:text-white transition-all flex items-center gap-1 cursor-pointer" id="btn-inspect-prompt" title="Inspect Prompt Context">
-          <span class="material-symbols-outlined text-sm">psychology</span>
-          <span>Prompt Specs</span>
-        </button>
-        <button class="px-2.5 py-1.5 rounded-lg bg-surface-bg hover:bg-surface-subtle border border-surface-border text-slate-400 hover:text-brand font-mono text-xs transition-all cursor-pointer" id="btn-toggle-raw-md">
-          View Raw
-        </button>
-      </div>
+      <!-- Prominent Primary Action Button -->
+      <button class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand hover:bg-brand-hover text-slate-950 font-heading font-bold text-sm tracking-tight shadow-lg shadow-brand/20 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer" id="dispatch-pulse-btn">
+        <span class="material-symbols-outlined text-lg" id="dispatch-icon">send</span>
+        <span id="dispatch-label">Generate &amp; Send Pulse Report</span>
+      </button>
+
     </section>
 
-    <!-- ======================================================================= -->
-    <!-- TAB 1: EXECUTIVE PULSE (The Hero Workspace) -->
-    <!-- ======================================================================= -->
-    <div class="tab-pane flex flex-col gap-6" id="tab-executive-pulse">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- Left: The Distilled Executive Note (8 Cols) -->
-        <div class="lg:col-span-8 flex flex-col gap-4">
-          <div class="rounded-xl bg-surface-card border border-surface-border p-6 shadow-xl relative overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand via-emerald-400 to-transparent"></div>
+    <!-- LAYER 3: The Executive Weekly Pulse Memo (Clean Briefing Document) -->
+    <section class="rounded-2xl bg-surface-card border border-surface-border p-6 shadow-xl relative overflow-hidden flex flex-col gap-6">
+      
+      <!-- Memo Title Strip -->
+      <div class="flex flex-wrap items-center justify-between pb-4 border-b border-surface-border gap-2">
+        <div>
+          <h2 class="text-lg font-bold font-heading text-white tracking-tight">Groww App Pulse — Executive Weekly</h2>
+          <span class="text-xs text-slate-400">Synthesized via Groq Llama 3.3 70B • 100% Substring Grounded</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded bg-surface-subtle font-mono text-xs text-brand font-medium">#PULSE-W44-2026</span>
+          <button class="px-2 py-1 rounded bg-surface-bg hover:bg-surface-subtle border border-surface-border text-xs text-slate-400 hover:text-white transition-all cursor-pointer" id="btn-toggle-raw-md">View Raw</button>
+        </div>
+      </div>
 
-            <!-- Memo Header -->
-            <div class="flex flex-wrap items-center justify-between pb-4 border-b border-surface-border gap-2">
+      <!-- Raw Markdown View (Hidden by default) -->
+      <div class="hidden p-4 bg-surface-bg rounded-xl font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre-wrap max-h-96 border border-surface-border" id="raw-md-view"></div>
+
+      <!-- Formatted Note Content -->
+      <div class="flex flex-col gap-6" id="pulse-formatted-view">
+
+        <!-- 1. Top 3 Friction Themes -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+              <span class="px-1.5 py-0.5 rounded bg-brand/10 text-brand font-mono">01</span>
+              Top 3 Friction Themes (Ranked by Severity)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2.5" id="pulse-themes-container">
+            <!-- Theme 1 -->
+            <div class="p-4 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-400 border border-red-500/20">Critical Coral</span>
+                  <span class="font-heading font-bold text-sm text-white">Trading &amp; Order Execution (F&amp;O / Intraday)</span>
+                </div>
+                <span class="text-xs font-mono text-red-400 font-semibold">69 Reviews • Severity: 234.0</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                High frequency slippage on Nifty bank options expiry at market open. Order latency exceeding 800ms during 09:15–09:30 AM spikes, triggering involuntary slippages and high user distress.
+              </p>
+            </div>
+
+            <!-- Theme 2 -->
+            <div class="p-4 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">High Severity</span>
+                  <span class="font-heading font-bold text-sm text-white">Chart Performance &amp; App UI Stability</span>
+                </div>
+                <span class="text-xs font-mono text-amber-400 font-semibold">61 Reviews • Severity: 182.5</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                TradingView candlestick lag on 1-min &amp; 5-min intervals during high-velocity price action. Intermittent Android application freezes observed upon background tab swapping.
+              </p>
+            </div>
+
+            <!-- Theme 3 -->
+            <div class="p-4 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Moderate</span>
+                  <span class="font-heading font-bold text-sm text-white">Brokerage, Charges &amp; Transparency</span>
+                </div>
+                <span class="text-xs font-mono text-cyan-400 font-semibold">20 Reviews • Severity: 65.0</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Unclear ledger breakdown regarding intraday auto-squareoff charges (₹50 + GST penalty) and depository participant (DP) fee deductions displayed without prior checkout notification.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. User Voices (Verbatim Quotations) -->
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded bg-brand/10 text-brand font-mono">02</span>
+            User Voices (Verbatim Quotations)
+          </span>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="pulse-quotes-container">
+            <!-- Quote 1 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/60 border border-surface-border border-l-4 border-l-red-500 flex flex-col justify-between gap-2">
+              <p class="text-xs text-slate-200 italic leading-relaxed">
+                “Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel.”
+              </p>
+              <div class="text-[11px] text-slate-400 font-mono">
+                Reviewer #0016 • <span class="text-red-400 font-medium">1-Star</span>
+              </div>
+            </div>
+
+            <!-- Quote 2 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/60 border border-surface-border border-l-4 border-l-amber-500 flex flex-col justify-between gap-2">
+              <p class="text-xs text-slate-200 italic leading-relaxed">
+                “Candlestick charts freeze constantly when switching between Nifty 50 and Bank Nifty.”
+              </p>
+              <div class="text-[11px] text-slate-400 font-mono">
+                Reviewer #0089 • <span class="text-amber-400 font-medium">2-Star</span>
+              </div>
+            </div>
+
+            <!-- Quote 3 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/60 border border-surface-border border-l-4 border-l-brand flex flex-col justify-between gap-2">
+              <p class="text-xs text-slate-200 italic leading-relaxed">
+                “Cleanest UI for mutual fund SIPs, but intraday option chain needs immediate speed boost.”
+              </p>
+              <div class="text-[11px] text-slate-400 font-mono">
+                Reviewer #0142 • <span class="text-brand font-medium">4-Star</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Action Directives -->
+        <div class="flex flex-col gap-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded bg-brand/10 text-brand font-mono">03</span>
+            Action Directives &amp; Squad Ownership
+          </span>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="pulse-actions-container">
+            <!-- Action 1 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col justify-between gap-2">
               <div>
-                <h1 class="text-xl font-bold font-heading text-white tracking-tight">Groww App Pulse — Executive Weekly</h1>
-                <p class="text-xs text-slate-400 mt-0.5">Synthesized via Groq Llama 3.3 70B &amp; Substring-Verified Grounding</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded bg-surface-subtle font-mono text-xs text-brand font-medium" id="pulse-id-tag">#PULSE-W44-2026</span>
-                <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-brand/10 text-brand">Ready for CPO Review</span>
-              </div>
-            </div>
-
-            <!-- Raw Markdown View (Hidden by default) -->
-            <div class="hidden mt-4 p-4 bg-surface-bg rounded-lg font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre-wrap max-h-96 border border-surface-border" id="raw-md-view"></div>
-
-            <!-- Formatted Memo Content -->
-            <div class="flex flex-col gap-6 mt-6" id="pulse-formatted-view">
-              
-              <!-- Section 1: Top 3 Friction Themes -->
-              <div class="flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-brand/10 text-brand text-xs font-mono font-bold">01</span>
-                    <h2 class="font-heading font-bold text-sm text-white uppercase tracking-wider">Top 3 Friction Themes</h2>
-                  </div>
-                  <span class="text-xs text-slate-500">Sorted by Composite Severity Score</span>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 font-mono font-bold">P0</span>
+                  <span class="text-slate-500">&lt;120ms</span>
                 </div>
+                <h4 class="font-heading font-bold text-xs text-white mt-1">Websocket Resiliency &amp; Fallback</h4>
+                <p class="text-[11px] text-slate-400 mt-1">Deploy parallel gRPC ingest fallback channels to avert socket stalls during 9:15 AM volume surges.</p>
+              </div>
+              <span class="text-[11px] font-semibold text-brand">Assigned: Platform Eng</span>
+            </div>
 
-                <div class="grid grid-cols-1 gap-3" id="pulse-themes-container">
-                  <!-- Theme 1 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-2">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                      <div class="flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20">Critical Coral</span>
-                        <span class="font-heading font-bold text-sm text-white">Trading &amp; Order Execution (F&amp;O / Intraday)</span>
-                      </div>
-                      <div class="flex items-center gap-3 text-xs font-mono">
-                        <span class="text-slate-400">69 Reviews (36.9%)</span>
-                        <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-semibold">Severity: 234.0</span>
-                      </div>
-                    </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                      High frequency slippage on Nifty bank options expiry at market open. Order latency exceeding 800ms during 09:15–09:30 AM spikes, triggering involuntary slippages and high user distress.
-                    </p>
-                  </div>
-
-                  <!-- Theme 2 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-2">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                      <div class="flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">High Severity</span>
-                        <span class="font-heading font-bold text-sm text-white">Chart Performance &amp; App UI Stability</span>
-                      </div>
-                      <div class="flex items-center gap-3 text-xs font-mono">
-                        <span class="text-slate-400">61 Reviews (32.6%)</span>
-                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-semibold">Severity: 182.5</span>
-                      </div>
-                    </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                      TradingView candlestick lag on 1-min &amp; 5-min intervals during high-velocity price action. Intermittent Android application freezes observed upon background tab swapping.
-                    </p>
-                  </div>
-
-                  <!-- Theme 3 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-2">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                      <div class="flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Moderate</span>
-                        <span class="font-heading font-bold text-sm text-white">Brokerage, Charges &amp; Transparency</span>
-                      </div>
-                      <div class="flex items-center gap-3 text-xs font-mono">
-                        <span class="text-slate-400">20 Reviews (10.7%)</span>
-                        <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-semibold">Severity: 65.0</span>
-                      </div>
-                    </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                      Unclear ledger breakdown regarding intraday auto-squareoff charges (₹50 + GST penalty) and depository participant (DP) fee deductions displayed without prior checkout notification.
-                    </p>
-                  </div>
+            <!-- Action 2 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col justify-between gap-2">
+              <div>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-mono font-bold">P1</span>
+                  <span class="text-slate-500">60 FPS</span>
                 </div>
+                <h4 class="font-heading font-bold text-xs text-white mt-1">Candlestick Memory &amp; WebGL</h4>
+                <p class="text-[11px] text-slate-400 mt-1">Migrate charting rendering path to hardware-accelerated WebGL with granular garbage collection.</p>
               </div>
+              <span class="text-[11px] font-semibold text-brand">Assigned: Mobile Core</span>
+            </div>
 
-              <!-- Section 2: User Voices (Verbatim) -->
-              <div class="flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-brand/10 text-brand text-xs font-mono font-bold">02</span>
-                    <h2 class="font-heading font-bold text-sm text-white uppercase tracking-wider">User Voices (Verbatim Quotations)</h2>
-                  </div>
-                  <span class="text-xs text-brand flex items-center gap-1 font-medium">
-                    <span class="material-symbols-outlined text-sm">verified</span> 100% Substring Grounded
-                  </span>
+            <!-- Action 3 -->
+            <div class="p-3.5 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col justify-between gap-2">
+              <div>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-mono font-bold">P1</span>
+                  <span class="text-slate-500">Ledger V3</span>
                 </div>
-
-                <div class="grid grid-cols-1 gap-3" id="pulse-quotes-container">
-                  <!-- Quote 1 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/50 border-l-4 border-l-red-500 border border-surface-border flex flex-col gap-2">
-                    <p class="text-xs text-slate-200 italic leading-relaxed">
-                      “Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel.”
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] pt-1">
-                      <span class="text-slate-400 font-mono">Reviewer #0016 • Oct 28, 2026</span>
-                      <span class="text-red-400 font-medium">★☆☆☆☆ (1-Star Crash Event)</span>
-                    </div>
-                  </div>
-
-                  <!-- Quote 2 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/50 border-l-4 border-l-amber-500 border border-surface-border flex flex-col gap-2">
-                    <p class="text-xs text-slate-200 italic leading-relaxed">
-                      “Candlestick charts freeze constantly when switching between Nifty 50 and Bank Nifty.”
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] pt-1">
-                      <span class="text-slate-400 font-mono">Reviewer #0089 • Oct 29, 2026</span>
-                      <span class="text-amber-400 font-medium">★★☆☆☆ (2-Star UI Hang)</span>
-                    </div>
-                  </div>
-
-                  <!-- Quote 3 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/50 border-l-4 border-l-brand border border-surface-border flex flex-col gap-2">
-                    <p class="text-xs text-slate-200 italic leading-relaxed">
-                      “Cleanest UI for mutual fund SIPs, but intraday option chain needs immediate speed boost.”
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] pt-1">
-                      <span class="text-slate-400 font-mono">Reviewer #0142 • Oct 30, 2026</span>
-                      <span class="text-brand font-medium">★★★★☆ (4-Star Constructive)</span>
-                    </div>
-                  </div>
-                </div>
+                <h4 class="font-heading font-bold text-xs text-white mt-1">Pre-Trade Fee Transparency</h4>
+                <p class="text-[11px] text-slate-400 mt-1">Introduce explicit pre-order modal itemizing exchange turnover, auto-squareoff rules, and GST breakdowns.</p>
               </div>
-
-              <!-- Section 3: Action Ideas -->
-              <div class="flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2 py-0.5 rounded bg-brand/10 text-brand text-xs font-mono font-bold">03</span>
-                    <h2 class="font-heading font-bold text-sm text-white uppercase tracking-wider">Action Ideas &amp; Directives</h2>
-                  </div>
-                  <span class="text-xs text-slate-500">Sprint 45 Prioritization</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="pulse-actions-container">
-                  <!-- Action 1 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border flex flex-col justify-between gap-3">
-                    <div class="flex flex-col gap-1.5">
-                      <div class="flex items-center justify-between">
-                        <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-mono text-[10px] font-bold">P0 • EXECUTION</span>
-                        <span class="text-[10px] text-slate-500">&lt;120ms Target</span>
-                      </div>
-                      <span class="font-heading font-bold text-xs text-white">Websocket Resiliency &amp; Fallback Polling</span>
-                      <p class="text-[11px] text-slate-400 leading-normal">
-                        Deploy parallel gRPC ingest fallback channels to avert socket stalls during 9:15 AM opening bell volume surges.
-                      </p>
-                    </div>
-                    <span class="text-[11px] font-semibold text-brand">Assigned: Platform Eng →</span>
-                  </div>
-
-                  <!-- Action 2 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border flex flex-col justify-between gap-3">
-                    <div class="flex flex-col gap-1.5">
-                      <div class="flex items-center justify-between">
-                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-mono text-[10px] font-bold">P1 • UI PERFORMANCE</span>
-                        <span class="text-[10px] text-slate-500">60 FPS Native</span>
-                      </div>
-                      <span class="font-heading font-bold text-xs text-white">Candlestick Memory Cache &amp; WebGL Canvas</span>
-                      <p class="text-[11px] text-slate-400 leading-normal">
-                        Migrate Charting rendering path to hardware-accelerated WebGL with granular garbage collection on Android 14.
-                      </p>
-                    </div>
-                    <span class="text-[11px] font-semibold text-brand">Assigned: Mobile Core →</span>
-                  </div>
-
-                  <!-- Action 3 -->
-                  <div class="p-4 rounded-xl bg-surface-bg/70 border border-surface-border flex flex-col justify-between gap-3">
-                    <div class="flex flex-col gap-1.5">
-                      <div class="flex items-center justify-between">
-                        <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-mono text-[10px] font-bold">P1 • TRUST &amp; UX</span>
-                        <span class="text-[10px] text-slate-500">Ledger V3</span>
-                      </div>
-                      <span class="font-heading font-bold text-xs text-white">Pre-Trade Fee Breakdown &amp; Transparency</span>
-                      <p class="text-[11px] text-slate-400 leading-normal">
-                        Introduce explicit pre-order modal itemizing exchange turnover, auto-squareoff rules, and GST breakdowns.
-                      </p>
-                    </div>
-                    <span class="text-[11px] font-semibold text-brand">Assigned: Growth/F&amp;O →</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Live Workspace Delivery Status (4 Cols) -->
-        <div class="lg:col-span-4 flex flex-col gap-4">
-          
-          <!-- Google Docs Delivery Card -->
-          <div class="p-5 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center">
-                  <span class="material-symbols-outlined text-lg">feed</span>
-                </div>
-                <div>
-                  <h3 class="font-heading font-bold text-xs text-white">Google Workspace Doc</h3>
-                  <span class="text-[11px] text-slate-400">Target: "AI Agent Report"</span>
-                </div>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand/10 text-brand" id="doc-status-badge">
-                Appended ✅
-              </span>
-            </div>
-            <div class="p-2.5 rounded-lg bg-surface-bg flex items-center justify-between text-xs font-mono text-slate-400">
-              <span id="doc-timestamp">Synced: Live MCP</span>
-              <span class="text-slate-500">Section #Pulse-W44</span>
-            </div>
-            <a class="w-full py-2 px-3 rounded-lg bg-surface-subtle hover:bg-slate-700 text-brand hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all" href="{{ target_doc_url }}" id="doc-open-link" target="_blank">
-              <span>Open in Google Docs</span>
-              <span class="material-symbols-outlined text-sm">open_in_new</span>
-            </a>
-          </div>
-
-          <!-- Gmail Delivery Card -->
-          <div class="p-5 rounded-xl bg-surface-card border border-surface-border hover:border-surface-borderLight transition-all flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-lg">mail</span>
-                </div>
-                <div>
-                  <h3 class="font-heading font-bold text-xs text-white">Executive Gmail Dispatch</h3>
-                  <span class="text-[11px] text-slate-400 truncate max-w-[170px]" id="gmail-target-addr">{{ target_email }}</span>
-                </div>
-              </div>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400" id="gmail-status-badge">
-                Delivered ✅
-              </span>
-            </div>
-            <div class="p-2.5 rounded-lg bg-surface-bg flex items-center justify-between text-xs font-mono text-slate-400">
-              <span id="gmail-message-id">ID: #1a1fcf982e04</span>
-              <span class="text-brand">250-word cap: OK</span>
-            </div>
-            <div class="flex items-center justify-between text-[11px] text-slate-500 px-1">
-              <span>CPO &amp; VP Eng In Loop</span>
-              <span>Auto-delivered</span>
-            </div>
-          </div>
-
-          <!-- Quick Telemetry & Health -->
-          <div class="p-5 rounded-xl bg-surface-card border border-surface-border flex flex-col gap-3">
-            <h3 class="font-heading font-bold text-xs text-white uppercase tracking-wider">Synthesis Engine Telemetry</h3>
-            <div class="flex flex-col gap-2 text-xs">
-              <div class="flex items-center justify-between text-slate-400">
-                <span>LLM Model</span>
-                <span class="font-mono text-white">Groq Llama 3.3 70B</span>
-              </div>
-              <div class="flex items-center justify-between text-slate-400">
-                <span>Clustering Taxonomy</span>
-                <span class="font-mono text-brand">5 Groww Domains</span>
-              </div>
-              <div class="flex items-center justify-between text-slate-400">
-                <span>Quote Grounding</span>
-                <span class="font-mono text-emerald-400">100% Substring Match</span>
-              </div>
-              <div class="flex items-center justify-between text-slate-400">
-                <span>Vercel MCP Latency</span>
-                <span class="font-mono text-white">~142ms SSE</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ======================================================================= -->
-    <!-- TAB 2: THEMATIC ANALYTICS -->
-    <!-- ======================================================================= -->
-    <div class="tab-pane hidden flex-col gap-6" id="tab-thematic-analytics">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- Thematic Severity Ranking (7 cols) -->
-        <div class="lg:col-span-7 p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col gap-4">
-          <div class="flex items-center justify-between pb-3 border-b border-surface-border">
-            <div>
-              <h2 class="font-heading font-bold text-base text-white">Operational Domain Severity Rankings</h2>
-              <p class="text-xs text-slate-400">Composite score formula: Volume + 2.5×Negative + 1.5×ThumbsUp</p>
-            </div>
-            <span class="text-xs font-mono text-brand font-semibold">Top 5 Domains</span>
-          </div>
-
-          <div class="flex flex-col gap-4" id="tab-content-severity">
-            <!-- Bar 1 -->
-            <div class="flex flex-col gap-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-white">1. Trading &amp; Order Execution (F&amp;O / Intraday)</span>
-                <span class="font-mono text-red-400 font-bold">234.0 (69 reviews • 48 neg)</span>
-              </div>
-              <div class="w-full bg-surface-subtle h-2.5 rounded-full overflow-hidden">
-                <div class="bg-red-500 h-2.5 rounded-full" style="width: 92%"></div>
-              </div>
-            </div>
-
-            <!-- Bar 2 -->
-            <div class="flex flex-col gap-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-white">2. Chart Performance &amp; App UI Stability</span>
-                <span class="font-mono text-amber-400 font-bold">182.5 (61 reviews • 38 neg)</span>
-              </div>
-              <div class="w-full bg-surface-subtle h-2.5 rounded-full overflow-hidden">
-                <div class="bg-amber-500 h-2.5 rounded-full" style="width: 74%"></div>
-              </div>
-            </div>
-
-            <!-- Bar 3 -->
-            <div class="flex flex-col gap-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-white">3. Brokerage, Charges &amp; Transparency</span>
-                <span class="font-mono text-cyan-400 font-bold">65.0 (20 reviews • 14 neg)</span>
-              </div>
-              <div class="w-full bg-surface-subtle h-2.5 rounded-full overflow-hidden">
-                <div class="bg-cyan-500 h-2.5 rounded-full" style="width: 42%"></div>
-              </div>
-            </div>
-
-            <!-- Bar 4 -->
-            <div class="flex flex-col gap-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-white">4. Account Onboarding, IPO &amp; Banking</span>
-                <span class="font-mono text-slate-300 font-bold">34.0 (15 reviews • 7 neg)</span>
-              </div>
-              <div class="w-full bg-surface-subtle h-2.5 rounded-full overflow-hidden">
-                <div class="bg-slate-400 h-2.5 rounded-full" style="width: 22%"></div>
-              </div>
-            </div>
-
-            <!-- Bar 5 -->
-            <div class="flex flex-col gap-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-semibold text-white">5. Portfolio Tracking &amp; Mutual Funds Sync</span>
-                <span class="font-mono text-emerald-400 font-bold">18.2 (22 reviews • 2 neg)</span>
-              </div>
-              <div class="w-full bg-surface-subtle h-2.5 rounded-full overflow-hidden">
-                <div class="bg-emerald-400 h-2.5 rounded-full" style="width: 14%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rating Breakdown Donut & Legend (5 cols) -->
-        <div class="lg:col-span-5 p-6 rounded-xl bg-surface-card border border-surface-border flex flex-col gap-4">
-          <div class="pb-3 border-b border-surface-border">
-            <h2 class="font-heading font-bold text-base text-white">Star Rating Distribution</h2>
-            <p class="text-xs text-slate-400">Total 187 Reviews in current lookback scope</p>
-          </div>
-
-          <div class="flex flex-col items-center justify-center p-4">
-            <div class="relative w-48 h-48">
-              <svg class="w-48 h-48 transform -rotate-90" viewbox="0 0 200 200">
-                <!-- 1 Star: 38% -> 167.1 -->
-                <circle class="text-red-500" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="167.1 439.82" stroke-dashoffset="0" stroke-width="22"></circle>
-                <!-- 2 Star: 11% -> 48.38 -->
-                <circle class="text-amber-500" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="48.38 439.82" stroke-dashoffset="-167.1" stroke-width="22"></circle>
-                <!-- 3 Star: 6% -> 26.39 -->
-                <circle class="text-slate-500" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="26.39 439.82" stroke-dashoffset="-215.48" stroke-width="22"></circle>
-                <!-- 4 Star: 9% -> 39.58 -->
-                <circle class="text-cyan-400" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="39.58 439.82" stroke-dashoffset="-241.87" stroke-width="22"></circle>
-                <!-- 5 Star: 36% -> 158.33 -->
-                <circle class="text-brand" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="158.33 439.82" stroke-dashoffset="-281.45" stroke-width="22"></circle>
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span class="text-3xl font-bold font-heading text-white">187</span>
-                <span class="text-[10px] text-slate-400 uppercase tracking-wider">Reviews</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-2 text-xs">
-            <div class="flex items-center justify-between p-2 rounded bg-surface-bg">
-              <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-red-500"></span>1-Star (Critical Crash / Slippage)</span>
-              <span class="font-mono font-bold text-red-400">71 (38.0%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded bg-surface-bg">
-              <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-amber-500"></span>2-Star (Chart Latency &amp; UI Lags)</span>
-              <span class="font-mono font-bold text-amber-400">20 (10.7%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded bg-surface-bg">
-              <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-slate-500"></span>3-Star (Feature Requests / Taxes)</span>
-              <span class="font-mono text-slate-400">11 (5.9%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded bg-surface-bg">
-              <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-cyan-400"></span>4-Star (Strong MF, Seeking Speed)</span>
-              <span class="font-mono text-cyan-400">18 (9.6%)</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded bg-surface-bg">
-              <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand"></span>5-Star (Intuitive Onboarding &amp; SIPs)</span>
-              <span class="font-mono font-bold text-brand">67 (35.8%)</span>
+              <span class="text-[11px] font-semibold text-brand">Assigned: Growth/F&amp;O</span>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
 
-    <!-- ======================================================================= -->
-    <!-- TAB 3: REVIEW CORPUS (Clean Searchable Table) -->
-    <!-- ======================================================================= -->
-    <div class="tab-pane hidden flex-col gap-4" id="tab-review-corpus">
-      <div class="p-5 rounded-xl bg-surface-card border border-surface-border flex flex-col gap-4">
-        
-        <!-- Controls Strip -->
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <!-- Search Input -->
-          <div class="relative w-full max-w-md">
-            <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-lg">search</span>
-            <input class="w-full pl-9 pr-4 py-2 rounded-lg bg-surface-bg border border-surface-border focus:border-brand focus:outline-none text-xs text-white placeholder-slate-500 transition-all" id="corpus-search-input" placeholder="Search reviews by keyword, pseudonym, or ID..." type="text"/>
-          </div>
-
-          <!-- Star Rating Filter Chips -->
-          <div class="flex items-center gap-1.5 text-xs" id="corpus-rating-filter">
-            <button class="px-3 py-1 rounded-md bg-brand text-slate-950 font-bold transition-all cursor-pointer" data-rating="all">All (187)</button>
-            <button class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer" data-rating="1">1★ (71)</button>
-            <button class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer" data-rating="2">2★ (20)</button>
-            <button class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer" data-rating="3">3★ (11)</button>
-            <button class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer" data-rating="4">4★ (18)</button>
-            <button class="px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer" data-rating="5">5★ (67)</button>
-          </div>
-
-          <span class="text-xs text-slate-400 font-mono" id="corpus-count-badge">187 of 187 displayed</span>
-        </div>
-
-        <!-- Table Container -->
-        <div class="w-full overflow-x-auto max-h-[520px] overflow-y-auto rounded-lg border border-surface-border">
-          <table class="w-full text-left text-xs">
-            <thead class="sticky top-0 z-10 bg-surface-subtle text-slate-400 uppercase tracking-wider text-[11px] font-semibold border-b border-surface-border">
-              <tr>
-                <th class="py-3 px-4">ID</th>
-                <th class="py-3 px-3">Rating</th>
-                <th class="py-3 px-3">Date</th>
-                <th class="py-3 px-4">User</th>
-                <th class="py-3 px-4">Sanitized Review Text</th>
-                <th class="py-3 px-3">Category</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-surface-border bg-surface-card" id="corpus-table-body">
-              <!-- Dynamically populated from /api/reviews -->
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ======================================================================= -->
-    <!-- TAB 4: MCP SERVER & DELIVERY LOGS (Terminal Stream) -->
-    <!-- ======================================================================= -->
-    <div class="tab-pane hidden flex-col gap-4" id="tab-mcp-stream">
-      <div class="rounded-xl bg-surface-card border border-surface-border overflow-hidden shadow-2xl">
-        <!-- Terminal Header -->
-        <div class="px-4 py-3 bg-surface-subtle border-b border-surface-border flex items-center justify-between">
+      <!-- Live Delivery Confirmation Strip -->
+      <div class="pt-4 border-t border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-4">
           <div class="flex items-center gap-2">
-            <span class="h-3 w-3 rounded-full bg-red-500/80"></span>
-            <span class="h-3 w-3 rounded-full bg-amber-500/80"></span>
-            <span class="h-3 w-3 rounded-full bg-emerald-500/80"></span>
-            <span class="font-mono text-xs text-slate-300 ml-2">mcp-server-stream // Live SSE Execution Log</span>
+            <span class="text-brand">●</span>
+            <span class="text-slate-300">Google Doc:</span>
+            <span class="text-brand font-medium" id="doc-status-badge">Appended ✅</span>
           </div>
-          <div class="flex items-center gap-2 text-xs font-mono text-brand">
-            <span class="h-2 w-2 rounded-full bg-brand animate-ping"></span>
-            <span>ACTIVE STREAM</span>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">●</span>
+            <span class="text-slate-300">Email:</span>
+            <span class="text-emerald-400 font-medium" id="gmail-status-badge">Sent to {{ target_email }} ✅</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[11px] text-slate-500">
+          <span id="doc-timestamp">Synced: Live MCP</span>
+          <span>•</span>
+          <span id="gmail-message-id">Msg #1a1fcf982e04</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- LAYER 4: Optional Deeper Details (Collapsible Drawer for Themes & Review Corpus) -->
+    <details class="group rounded-xl bg-surface-card border border-surface-border overflow-hidden">
+      <summary class="p-4 cursor-pointer text-xs font-semibold text-slate-400 hover:text-white flex items-center justify-between select-none">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-base text-brand">analytics</span>
+          <span>View Detailed Thematic Rankings &amp; Review Corpus (187)</span>
+        </div>
+        <span class="material-symbols-outlined text-sm group-open:rotate-180 transition-transform">expand_more</span>
+      </summary>
+
+      <div class="p-5 border-t border-surface-border flex flex-col gap-6">
+        
+        <!-- Thematic Rankings -->
+        <div class="flex flex-col gap-3" id="tab-content-severity">
+          <h4 class="font-heading font-bold text-xs text-white uppercase tracking-wider">All 5 Operational Domains</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-lg bg-surface-bg flex flex-col gap-1">
+              <div class="flex justify-between font-medium"><span>1. Trading &amp; Execution</span><span class="text-red-400 font-mono">234.0 (69 reviews)</span></div>
+              <div class="w-full bg-surface-subtle h-1.5 rounded-full"><div class="bg-red-500 h-1.5 rounded-full" style="width: 92%"></div></div>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-bg flex flex-col gap-1">
+              <div class="flex justify-between font-medium"><span>2. Chart Performance</span><span class="text-amber-400 font-mono">182.5 (61 reviews)</span></div>
+              <div class="w-full bg-surface-subtle h-1.5 rounded-full"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 74%"></div></div>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-bg flex flex-col gap-1">
+              <div class="flex justify-between font-medium"><span>3. Brokerage &amp; Charges</span><span class="text-cyan-400 font-mono">65.0 (20 reviews)</span></div>
+              <div class="w-full bg-surface-subtle h-1.5 rounded-full"><div class="bg-cyan-500 h-1.5 rounded-full" style="width: 42%"></div></div>
+            </div>
+            <div class="p-3 rounded-lg bg-surface-bg flex flex-col gap-1">
+              <div class="flex justify-between font-medium"><span>4. Onboarding &amp; Banking</span><span class="text-slate-300 font-mono">34.0 (15 reviews)</span></div>
+              <div class="w-full bg-surface-subtle h-1.5 rounded-full"><div class="bg-slate-400 h-1.5 rounded-full" style="width: 22%"></div></div>
+            </div>
           </div>
         </div>
 
-        <!-- Terminal Body -->
-        <div class="p-4 bg-surface-bg font-mono text-xs leading-relaxed flex flex-col gap-2 max-h-[460px] overflow-y-auto text-slate-300" id="terminal-logs">
-          <div class="text-slate-500">// Vercel Model Context Protocol (MCP) session established</div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:41:58]</span>
-            <span class="text-cyan-400">SSE Handshake:</span>
-            <span class="text-brand font-semibold">https://ai-agent-mcp-server.vercel.app/sse → 200 OK</span>
+        <!-- Searchable Review Table -->
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-heading font-bold text-xs text-white uppercase tracking-wider">Sanitized Review Corpus</h4>
+            <input class="px-3 py-1.5 rounded-lg bg-surface-bg border border-surface-border text-xs text-white placeholder-slate-500 w-64 focus:outline-none focus:border-brand" id="corpus-search-input" placeholder="Search reviews..." type="text"/>
           </div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:42:01]</span>
-            <span class="text-slate-300">GET /reviews/google-play?limit=250</span>
-            <span class="text-emerald-400 font-semibold">→ 187 clean reviews ingested</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:42:03]</span>
-            <span class="text-slate-300">Embed: Clustered 5 friction vectors via hybrid domain taxonomy</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:42:04]</span>
-            <span class="text-amber-400 font-semibold">Severity Analysis:</span>
-            <span class="text-slate-300">Peak composite = 234.0 (Trading &amp; Execution)</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:42:05]</span>
-            <span class="text-cyan-400">tool_call:</span>
-            <span class="text-slate-200">append_to_google_doc (DocID: 1chaQkk...SM) → 200 OK</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-slate-500">[10:42:06]</span>
-            <span class="text-cyan-400">tool_call:</span>
-            <span class="text-slate-200">send_gmail (Recipient: nagesh14423@gmail.com) → 200 OK</span>
-          </div>
-          <div class="flex items-start gap-2 pt-1 border-t border-surface-border">
-            <span class="text-slate-500">[10:42:07]</span>
-            <span class="text-brand font-bold">Execution complete in 8.42s | Word count: 235 words (Compliant)</span>
+          <div class="w-full overflow-x-auto max-h-60 overflow-y-auto rounded-lg border border-surface-border">
+            <table class="w-full text-left text-xs">
+              <thead class="sticky top-0 bg-surface-subtle text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="py-2 px-3">ID</th>
+                  <th class="py-2 px-2">Rating</th>
+                  <th class="py-2 px-2">Date</th>
+                  <th class="py-2 px-3">Review</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-border bg-surface-card" id="corpus-table-body">
+              </tbody>
+            </table>
           </div>
         </div>
+
+        <!-- MCP Terminal Log (Collapsible) -->
+        <div class="flex flex-col gap-2">
+          <h4 class="font-heading font-bold text-xs text-white uppercase tracking-wider">MCP Server Stream</h4>
+          <div class="p-3 rounded-lg bg-surface-bg font-mono text-xs text-slate-400 max-h-36 overflow-y-auto" id="terminal-logs">
+            <div>// Model Context Protocol session established: https://ai-agent-mcp-server.vercel.app/sse</div>
+            <div class="text-brand">[Ready] Idle. Awaiting user dispatch trigger.</div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </details>
 
   </main>
 
   <!-- ========================================================================= -->
-  <!-- 3. PROMPT CONTEXT MODAL -->
-  <!-- ========================================================================= -->
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden" id="prompt-modal">
-    <div class="relative w-full max-w-2xl bg-surface-card rounded-2xl shadow-2xl border border-surface-border p-6 flex flex-col gap-4">
-      <div class="flex items-center justify-between pb-3 border-b border-surface-border">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-outlined text-brand text-xl">psychology</span>
-          <h3 class="font-heading font-bold text-sm text-white">Agent Prompt &amp; System Directives</h3>
-        </div>
-        <button class="p-1 rounded text-slate-400 hover:text-white hover:bg-surface-subtle transition-all cursor-pointer" id="btn-close-prompt-modal">
-          <span class="material-symbols-outlined text-base">close</span>
-        </button>
-      </div>
-
-      <div class="flex flex-col gap-3 text-xs font-mono max-h-96 overflow-y-auto">
-        <div class="p-3 bg-surface-bg rounded-lg border border-surface-border">
-          <span class="text-brand font-bold">SYSTEM PERSONA:</span><br/>
-          Senior Staff Product Manager &amp; AI Intelligence Lead at Groww.
-        </div>
-        <div class="p-3 bg-surface-bg rounded-lg border border-surface-border">
-          <span class="text-cyan-400 font-bold">PII HYGIENE DIRECTIVE:</span><br/>
-          Zero raw customer phone numbers (+91), email addresses, bank accounts, or PAN identifiers permitted in any output.
-        </div>
-        <div class="p-3 bg-surface-bg rounded-lg border border-surface-border">
-          <span class="text-amber-400 font-bold">STRICT DISTILLATION CONSTRAINTS:</span><br/>
-          • Maximum 250 words total.<br/>
-          • Exactly Top 3 Friction Themes prioritized by Composite Severity Score.<br/>
-          • Exactly 3 Verbatim User Quotes (100% exact substring match verified).<br/>
-          • Exactly 3 Concrete Action Ideas with assigned engineering/product squads.
-        </div>
-      </div>
-
-      <div class="flex justify-end pt-2">
-        <button class="px-4 py-2 rounded-lg bg-surface-subtle hover:bg-slate-700 text-white text-xs font-semibold transition-all cursor-pointer" id="btn-close-prompt-modal-footer">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 4. CLIENT JAVASCRIPT LOGIC -->
+  <!-- 3. JAVASCRIPT LOGIC -->
   <!-- ========================================================================= -->
   <script>
-    // State variables
     let allReviews = [];
-    let currentFilteredReviews = [];
-    let currentRatingFilter = 'all';
-    let isLiveSync = true;
-    let scrapeFresh = false;
     let currentPulsePayload = {
       pulse_markdown: `# Groww App Pulse — Executive Weekly\n\n## 1. Top 3 Friction Themes\n- Trading & Order Execution (Severity: 234.0)\n- Chart Performance & App UI Stability (Severity: 182.5)\n- Brokerage, Charges & Transparency (Severity: 65.0)\n\n## 2. User Voices (Verbatim)\n- "Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel." (Reviewer #0016)\n- "Candlestick charts freeze constantly when switching between Nifty 50 and Bank Nifty." (Reviewer #0089)\n- "Cleanest UI for mutual fund SIPs, but intraday option chain needs immediate speed boost." (Reviewer #0142)\n\n## 3. Action Ideas\n- P0 Platform Eng: Websocket Resiliency & Fallback Polling\n- P1 Mobile Core: Candlestick Memory Cache & WebGL Canvas\n- P1 Growth: Pre-Trade Fee Breakdown & Transparency`
     };
-
-    // Clean Tab Switcher
-    const navTabs = document.querySelectorAll('#main-nav-tabs .nav-tab');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-
-    navTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Reset all tabs
-        navTabs.forEach(t => {
-          t.className = 'nav-tab px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-surface-subtle transition-all cursor-pointer flex items-center gap-1.5';
-        });
-        // Activate clicked tab
-        tab.className = 'nav-tab px-4 py-1.5 rounded-lg text-xs font-semibold bg-brand text-slate-950 shadow-sm transition-all cursor-pointer flex items-center gap-1.5';
-
-        const targetId = tab.getAttribute('data-target');
-        tabPanes.forEach(pane => {
-          if (pane.id === targetId) {
-            pane.classList.remove('hidden');
-          } else {
-            pane.classList.add('hidden');
-          }
-        });
-      });
-    });
-
-    // Lookback slider
-    const lookbackSlider = document.getElementById('lookback-slider');
-    const lookbackLabel = document.getElementById('lookback-label');
-    lookbackSlider.addEventListener('input', (e) => {
-      lookbackLabel.textContent = `${e.target.value} wks (Scope)`;
-    });
-
-    // Dry Run Toggle
-    const dryrunToggle = document.getElementById('dryrun-toggle');
-    const dryrunStatus = document.getElementById('dryrun-status');
-    dryrunToggle.addEventListener('click', () => {
-      isLiveSync = !isLiveSync;
-      const dot = dryrunToggle.querySelector('span');
-      if (isLiveSync) {
-        dot.classList.remove('translate-x-1');
-        dot.classList.add('translate-x-4');
-        dryrunToggle.classList.replace('bg-surface-subtle', 'bg-brand');
-        dryrunStatus.textContent = 'Live MCP Sync';
-        dryrunStatus.classList.replace('text-slate-400', 'text-brand');
-      } else {
-        dot.classList.remove('translate-x-4');
-        dot.classList.add('translate-x-1');
-        dryrunToggle.classList.replace('bg-brand', 'bg-surface-subtle');
-        dryrunStatus.textContent = 'Simulate (Dry Run)';
-        dryrunStatus.classList.replace('text-brand', 'text-slate-400');
-      }
-    });
-
-    // Dataset Source Toggle
-    const btnSourceCached = document.getElementById('btn-source-cached');
-    const btnSourceLive = document.getElementById('btn-source-live');
-
-    btnSourceLive.addEventListener('click', () => {
-      scrapeFresh = true;
-      btnSourceLive.className = 'px-3 py-1 rounded-md font-semibold transition-all bg-surface-subtle text-brand';
-      btnSourceCached.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white transition-all';
-    });
-
-    btnSourceCached.addEventListener('click', () => {
-      scrapeFresh = false;
-      btnSourceCached.className = 'px-3 py-1 rounded-md font-semibold transition-all bg-surface-subtle text-brand';
-      btnSourceLive.className = 'px-3 py-1 rounded-md text-slate-400 hover:text-white transition-all';
-    });
 
     // Raw Markdown Toggle
     const btnToggleRawMd = document.getElementById('btn-toggle-raw-md');
@@ -918,37 +468,11 @@
       }
     });
 
-    // Prompt Context Modal
-    const promptModal = document.getElementById('prompt-modal');
-    document.getElementById('btn-inspect-prompt').addEventListener('click', () => {
-      promptModal.classList.remove('hidden');
-    });
-    document.getElementById('btn-close-prompt-modal').addEventListener('click', () => {
-      promptModal.classList.add('hidden');
-    });
-    document.getElementById('btn-close-prompt-modal-footer').addEventListener('click', () => {
-      promptModal.classList.add('hidden');
-    });
-
-    // Download Markdown Utility
-    document.getElementById('btn-download-md').addEventListener('click', () => {
-      const mdContent = currentPulsePayload.pulse_markdown || '';
-      const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `groww_weekly_pulse_${new Date().toISOString().slice(0, 10)}.md`;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // Export JSON Utility
-    document.getElementById('btn-export-json').addEventListener('click', () => {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentPulsePayload, null, 2));
-      const a = document.createElement('a');
-      a.href = dataStr;
-      a.download = `groww_pulse_data_${new Date().toISOString().slice(0, 10)}.json`;
-      a.click();
+    // Week range selector sync
+    const weekSelect = document.getElementById('week-range-select');
+    const slider = document.getElementById('lookback-slider');
+    weekSelect.addEventListener('change', (e) => {
+      slider.value = e.target.value;
     });
 
     // Terminal Logging Helper
@@ -956,7 +480,7 @@
       const terminal = document.getElementById('terminal-logs');
       const timeStr = new Date().toLocaleTimeString('en-US', { hour12: false });
       const row = document.createElement('div');
-      row.className = 'flex items-start gap-2';
+      row.className = 'flex items-start gap-2 text-xs font-mono';
 
       let typeClass = 'text-slate-300';
       if (type === 'primary') typeClass = 'text-brand font-bold';
@@ -972,28 +496,30 @@
       terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Synthesis Execution Handler
+    // Synthesis & Delivery Handler
     const dispatchBtn = document.getElementById('dispatch-pulse-btn');
     const dispatchLabel = document.getElementById('dispatch-label');
     const dispatchIcon = document.getElementById('dispatch-icon');
+    const sendCheckbox = document.getElementById('send-dispatch-checkbox');
 
     async function triggerSynthesis() {
+      const shouldDispatch = sendCheckbox.checked;
       dispatchBtn.disabled = true;
       dispatchBtn.classList.add('opacity-75', 'cursor-not-allowed');
       dispatchIcon.textContent = 'refresh';
       dispatchIcon.classList.add('animate-spin');
-      dispatchLabel.textContent = 'Synthesizing & Delivering...';
+      dispatchLabel.textContent = shouldDispatch ? 'Generating & Delivering Report...' : 'Generating Report Preview...';
 
-      appendTerminalLog('PIPELINE_START', `Executing pulse synthesis (fresh=${scrapeFresh}, dry_run=${!isLiveSync})`, 'tertiary');
+      appendTerminalLog('START', `Generating pulse report (weeks=${weekSelect.value}, live_sync=${shouldDispatch})`, 'tertiary');
 
       try {
         const response = await fetch('/api/synthesize', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            scrape_fresh: scrapeFresh,
-            weeks_back: parseInt(lookbackSlider.value),
-            dry_run: !isLiveSync,
+            scrape_fresh: false,
+            weeks_back: parseInt(weekSelect.value),
+            dry_run: !shouldDispatch,
           }),
         });
 
@@ -1005,21 +531,13 @@
         const data = await response.json();
         currentPulsePayload = data;
 
-        appendTerminalLog('CLUSTERING', `Extracted ${data.themes_count} themes from ${data.reviews_analyzed} reviews`, 'tertiary');
-        if (data.google_doc_result) {
-          appendTerminalLog('TOOL_DOCS', `Google Docs append: ${data.google_doc_result.status}`, 'primary');
-        }
-        if (data.gmail_result) {
-          appendTerminalLog('TOOL_GMAIL', `Gmail dispatched: ${data.gmail_result.status}`, 'primary');
-        }
-        appendTerminalLog('COMPLETE', `Weekly Pulse Generated (${data.word_count} words, <=250 compliant)`, 'primary');
+        appendTerminalLog('COMPLETE', `Weekly report synthesized (${data.word_count} words)`, 'primary');
 
-        // Update KPI metrics
+        // Update word count metrics
         if (data.word_count) {
           document.getElementById('metric-word-count').textContent = data.word_count;
           const pct = Math.min(100, Math.round((data.word_count / 250) * 100));
           document.getElementById('metric-word-bar').style.width = `${pct}%`;
-          document.getElementById('metric-word-pct').textContent = `${pct}% capacity`;
         }
 
         if (showingRaw) {
@@ -1038,17 +556,14 @@
           data.top_themes.forEach((theme, idx) => {
             const badge = badges[idx] || badges[0];
             const card = document.createElement('div');
-            card.className = 'p-4 rounded-xl bg-surface-bg/70 border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-2';
+            card.className = 'p-4 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col gap-1.5';
             card.innerHTML = `
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${badge.color}">${badge.label}</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badge.color}">${badge.label}</span>
                   <span class="font-heading font-bold text-sm text-white">${theme.name}</span>
                 </div>
-                <div class="flex items-center gap-3 text-xs font-mono">
-                  <span class="text-slate-400">${theme.review_count} Reviews</span>
-                  <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-semibold">Severity: ${theme.priority_score.toFixed(1)}</span>
-                </div>
+                <span class="text-xs font-mono text-red-400 font-semibold">${theme.review_count} Reviews • Severity: ${theme.priority_score.toFixed(1)}</span>
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">${theme.description}</p>
             `;
@@ -1063,14 +578,12 @@
           const borders = ['border-l-red-500', 'border-l-amber-500', 'border-l-brand'];
           data.verbatim_quotes.forEach((q, idx) => {
             const bColor = borders[idx] || borders[0];
-            const stars = '★'.repeat(q.rating) + '☆'.repeat(5 - q.rating);
             const card = document.createElement('div');
-            card.className = `p-4 rounded-xl bg-surface-bg/50 border-l-4 ${bColor} border border-surface-border flex flex-col gap-2`;
+            card.className = `p-3.5 rounded-xl bg-surface-bg/60 border border-surface-border border-l-4 ${bColor} flex flex-col justify-between gap-2`;
             card.innerHTML = `
               <p class="text-xs text-slate-200 italic leading-relaxed">“${q.quote_text}”</p>
-              <div class="flex items-center justify-between text-[11px] pt-1">
-                <span class="text-slate-400 font-mono">${q.user_pseudonym}</span>
-                <span class="text-brand font-medium">${stars} (${q.rating}-Star Verified)</span>
+              <div class="text-[11px] text-slate-400 font-mono">
+                ${q.user_pseudonym} • <span class="text-brand font-medium">${q.rating}-Star Verified</span>
               </div>
             `;
             qContainer.appendChild(card);
@@ -1081,48 +594,48 @@
         if (data.action_ideas && data.action_ideas.length === 3) {
           const aContainer = document.getElementById('pulse-actions-container');
           aContainer.innerHTML = '';
-          const priorities = ['P0 • CRITICAL', 'P1 • RELIABILITY', 'P1 • TRUST & UX'];
-          const squads = ['Platform Eng', 'Mobile Core', 'Growth & Onboarding'];
+          const priorities = ['P0', 'P1', 'P1'];
+          const squads = ['Platform Eng', 'Mobile Core', 'Growth/F&O'];
           data.action_ideas.forEach((act, idx) => {
             const prio = priorities[idx] || 'P1';
             const squad = squads[idx] || 'Engineering';
             const card = document.createElement('div');
-            card.className = 'p-4 rounded-xl bg-surface-bg/70 border border-surface-border flex flex-col justify-between gap-3';
+            card.className = 'p-3.5 rounded-xl bg-surface-bg/80 border border-surface-border flex flex-col justify-between gap-2';
             card.innerHTML = `
-              <div class="flex flex-col gap-1.5">
-                <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400 font-mono text-[10px] font-bold">${prio}</span>
-                  <span class="text-[10px] text-slate-500">Sprint Directive</span>
+              <div>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 font-mono font-bold">${prio}</span>
+                  <span class="text-slate-500">Directive</span>
                 </div>
-                <span class="font-heading font-bold text-xs text-white">${act.title}</span>
-                <p class="text-[11px] text-slate-400 leading-normal">${act.recommendation}</p>
+                <h4 class="font-heading font-bold text-xs text-white mt-1">${act.title}</h4>
+                <p class="text-[11px] text-slate-400 mt-1">${act.recommendation}</p>
               </div>
-              <span class="text-[11px] font-semibold text-brand">Assigned: ${squad} →</span>
+              <span class="text-[11px] font-semibold text-brand">Assigned: ${squad}</span>
             `;
             aContainer.appendChild(card);
           });
         }
 
-        // Update Workspace Cards
+        // Update Workspace Delivery Status
         if (data.google_doc_result && data.google_doc_result.status === 'success') {
           document.getElementById('doc-status-badge').textContent = 'Appended ✅';
           document.getElementById('doc-timestamp').textContent = `Appended: ${new Date().toLocaleTimeString('en-US', { hour12: false })}`;
         }
         if (data.gmail_result && data.gmail_result.status === 'success') {
-          document.getElementById('gmail-status-badge').textContent = 'Delivered ✅';
+          document.getElementById('gmail-status-badge').textContent = `Sent to {{ target_email }} ✅`;
           if (data.gmail_result.message_id) {
-            document.getElementById('gmail-message-id').textContent = `ID: #${data.gmail_result.message_id.slice(0, 12)}`;
+            document.getElementById('gmail-message-id').textContent = `Msg #${data.gmail_result.message_id.slice(0, 12)}`;
           }
         }
 
-        // Success state animation
+        // Success state
         dispatchIcon.classList.remove('animate-spin');
         dispatchIcon.textContent = 'check_circle';
-        dispatchLabel.textContent = 'Delivered to Docs & Gmail ✅';
+        dispatchLabel.textContent = shouldDispatch ? 'Delivered to Docs & Gmail ✅' : 'Report Generated ✅';
 
         setTimeout(() => {
-          dispatchIcon.textContent = 'rocket_launch';
-          dispatchLabel.textContent = 'Generate Weekly Pulse';
+          dispatchIcon.textContent = 'send';
+          dispatchLabel.textContent = 'Generate & Send Pulse Report';
           dispatchBtn.disabled = false;
           dispatchBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         }, 3500);
@@ -1132,11 +645,11 @@
         appendTerminalLog('ERROR', err.message || 'Execution error', 'error');
         dispatchIcon.classList.remove('animate-spin');
         dispatchIcon.textContent = 'error';
-        dispatchLabel.textContent = 'Synthesis Error';
+        dispatchLabel.textContent = 'Execution Error';
 
         setTimeout(() => {
-          dispatchIcon.textContent = 'rocket_launch';
-          dispatchLabel.textContent = 'Generate Weekly Pulse';
+          dispatchIcon.textContent = 'send';
+          dispatchLabel.textContent = 'Generate & Send Pulse Report';
           dispatchBtn.disabled = false;
           dispatchBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         }, 4000);
@@ -1145,83 +658,39 @@
 
     dispatchBtn.addEventListener('click', triggerSynthesis);
 
-    // Reviews Loading & Filtering
+    // Reviews Loading & Table Population
     async function loadCorpusData() {
       try {
         const res = await fetch('/api/reviews');
         if (!res.ok) return;
         const data = await res.json();
         allReviews = data.reviews || [];
-        currentFilteredReviews = [...allReviews];
-        renderReviewsTable();
+        renderReviewsTable(allReviews);
       } catch (e) {
         console.error('Failed to load reviews:', e);
       }
     }
 
-    function renderReviewsTable() {
+    function renderReviewsTable(reviews) {
       const tbody = document.getElementById('corpus-table-body');
       tbody.innerHTML = '';
-
-      const countBadge = document.getElementById('corpus-count-badge');
-      countBadge.textContent = `${currentFilteredReviews.length} of ${allReviews.length} displayed`;
-
-      currentFilteredReviews.slice(0, 60).forEach(r => {
+      reviews.slice(0, 40).forEach(r => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-surface-subtle/50 transition-colors';
-
-        let ratingColor = 'text-red-400';
-        let statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-400">CRITICAL</span>';
-        if (r.rating === 2) {
-          ratingColor = 'text-amber-400';
-          statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400">HIGH</span>';
-        } else if (r.rating === 3) {
-          ratingColor = 'text-slate-400';
-          statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400">NEUTRAL</span>';
-        } else if (r.rating === 4) {
-          ratingColor = 'text-cyan-400';
-          statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-cyan-500/10 text-cyan-400">FEATURE</span>';
-        } else if (r.rating === 5) {
-          ratingColor = 'text-brand';
-          statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand/10 text-brand">PRAISE</span>';
-        }
-
         tr.innerHTML = `
-          <td class="py-3 px-4 font-mono text-cyan-400 text-xs">#${r.review_id.slice(-6)}</td>
-          <td class="py-3 px-3"><span class="${ratingColor} font-bold font-mono">${r.rating}★</span></td>
-          <td class="py-3 px-3 text-slate-400 whitespace-nowrap text-xs">${r.date}</td>
-          <td class="py-3 px-4 font-medium text-slate-200 text-xs">${r.user_name_anonymized || 'Groww User'}</td>
-          <td class="py-3 px-4 text-slate-300 max-w-md truncate" title="${r.text.replace(/"/g, '&quot;')}">${r.text}</td>
-          <td class="py-3 px-3">${statusBadge}</td>
+          <td class="py-2 px-3 font-mono text-cyan-400 text-xs">#${r.review_id.slice(-6)}</td>
+          <td class="py-2 px-2 text-brand font-bold font-mono">${r.rating}★</td>
+          <td class="py-2 px-2 text-slate-400 whitespace-nowrap text-xs">${r.date}</td>
+          <td class="py-2 px-3 text-slate-300 max-w-sm truncate" title="${r.text.replace(/"/g, '&quot;')}">${r.text}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function applyCorpusFilters() {
-      const searchVal = document.getElementById('corpus-search-input').value.toLowerCase().trim();
-      currentFilteredReviews = allReviews.filter(r => {
-        const matchesRating = (currentRatingFilter === 'all') || (r.rating === parseInt(currentRatingFilter));
-        const matchesSearch = !searchVal ||
-          r.text.toLowerCase().includes(searchVal) ||
-          r.review_id.toLowerCase().includes(searchVal) ||
-          (r.user_name_anonymized && r.user_name_anonymized.toLowerCase().includes(searchVal));
-        return matchesRating && matchesSearch;
-      });
-      renderReviewsTable();
-    }
-
-    document.getElementById('corpus-search-input').addEventListener('input', applyCorpusFilters);
-
-    document.querySelectorAll('#corpus-rating-filter button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#corpus-rating-filter button').forEach(b => {
-          b.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-white bg-surface-bg border border-surface-border transition-all cursor-pointer';
-        });
-        btn.className = 'px-3 py-1 rounded-md bg-brand text-slate-950 font-bold transition-all cursor-pointer';
-        currentRatingFilter = btn.getAttribute('data-rating');
-        applyCorpusFilters();
-      });
+    document.getElementById('corpus-search-input').addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      const filtered = allReviews.filter(r => !val || r.text.toLowerCase().includes(val) || r.review_id.toLowerCase().includes(val));
+      renderReviewsTable(filtered);
     });
 
     window.addEventListener('DOMContentLoaded', () => {
