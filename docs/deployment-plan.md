@@ -304,10 +304,8 @@ content-type: application/json
 
 ---
 
-## 10. Alternative: Deploying to Railway (Paid Plan)
+## 10. Continuous Deployment & Rollback Strategy
 
-If you upgrade or have active credits on Railway, the same repository can still be deployed to Railway without code modifications:
-1. Connect the repository in Railway.
-2. Railway uses `railway.json` and `Dockerfile` automatically.
-3. Configure identical environment variables (`GROQ_API_KEY`, `MCP_AUTH_KEY`, `GOOGLE_DOC_ID`, etc.).
-4. Generate domain under Networking settings.
+Render provides automated continuous deployment and instant rollback capabilities:
+1. **Continuous Deployment**: Every push to the `main` branch on GitHub automatically triggers a zero-downtime rolling build on Render.
+2. **Instant Rollback**: If a deployment encounters issues, navigate to your service in the Render Dashboard $\to$ **Events** tab $\to$ locate the previous successful deploy $\to$ click **Rollback to this deploy**. Render will immediately route traffic back to the previous stable container image.

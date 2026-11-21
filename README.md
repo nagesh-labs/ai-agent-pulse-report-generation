@@ -60,7 +60,7 @@ flowchart TD
 - ⏱️ **Executive Brevity**: Enforces a strict $\le 250$-word limit with automated distillation and scannable formatting.
 - 🔌 **Model Context Protocol (MCP) Native**: Integrates with remote Google Workspace MCP tools (`append_to_google_doc` and `send_gmail`) over SSE without any local Google OAuth credentials or SDK dependencies.
 - 🎨 **Executive Emerald UI**: Clean, responsive frontend designed with Google Stitch guidelines, featuring real-time MCP connection monitoring, date range selection (`Past 1 Week` vs `Past 2 Weeks`), and PII-sanitized review exploration.
-- 🚀 **Railway Cloud Ready**: Fully containerized with `Dockerfile`, dynamic port binding (`${PORT:-8501}`), and multi-tier healthchecks (`/health`, `/_stcore/health`).
+- 🚀 **Render Cloud Ready**: Fully containerized with `Dockerfile`, dynamic port binding (`${PORT:-8501}`), and multi-tier healthchecks (`/health`, `/_stcore/health`).
 
 ---
 
@@ -79,7 +79,7 @@ flowchart TD
 │       └── reviews_clean.jsonl     # 187 PII-sanitized clean review records
 ├── docs/
 │   ├── architecture.md             # Detailed system architecture & design
-│   ├── deployment-plan.md          # End-to-end Railway production deployment guide
+│   ├── deployment-plan.md          # End-to-end Render production deployment guide
 │   ├── edge-case.md                # Edge-case handling & boundary defenses
 │   ├── eval.md                     # Evaluation benchmarks & guardrail metrics
 │   ├── implementation-plan.md      # Phase-by-phase implementation & roadmap
@@ -112,7 +112,7 @@ flowchart TD
 ├── .gitignore
 ├── Dockerfile                      # Production container image definition
 ├── Procfile                        # Process manager file for cloud PaaS
-├── railway.json                    # Railway deployment configuration
+├── render.yaml                     # Render deployment configuration & blueprint
 ├── requirements.txt                # Python project dependencies
 └── README.md                       # Main project documentation
 ```
@@ -191,9 +191,9 @@ python -m src.pipeline --dry-run
 
 ---
 
-## ☁️ Cloud Deployment (Render / Railway)
+## ☁️ Cloud Deployment on Render
 
-The project is pre-configured for automated continuous deployment on **[Render](https://render.com)** (Free Tier with 750 free instance hours/month) or **[Railway](https://railway.com)** using the included `Dockerfile` and `render.yaml`.
+The project is pre-configured for automated continuous deployment on **[Render](https://render.com)** (Free Tier with 750 free instance hours/month) using the included `Dockerfile` and `render.yaml`.
 
 ### Deploying to Render (Free Tier)
 1. Push your repository to GitHub (`nagesh-labs/ai-agent-pulse-report-generation`).
@@ -239,7 +239,7 @@ pytest -v
 ## 📖 Documentation Reference
 
 - 📋 [Implementation Plan](docs/implementation-plan.md): Phase-wise roadmap and verification criteria.
-- 🚢 [Deployment Plan](docs/deployment-plan.md): Production Railway deployment specifications and runbook.
+- 🚢 [Deployment Plan](docs/deployment-plan.md): Production Render deployment specifications and runbook.
 - 🏛️ [Architecture Specification](docs/architecture.md): Deep-dive into technical architecture and data schemas.
 - 📘 [Operational Runbook](docs/runbook.md): Local execution and GitHub Actions operational guide.
 - 🛡️ [Edge Cases & Defenses](docs/edge-case.md): Boundary condition handling and fault tolerance.

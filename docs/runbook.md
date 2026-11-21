@@ -1,6 +1,6 @@
-# Operational Runbook: Interactive Web Dashboard & Railway Deployment
+# Operational Runbook: Interactive Web Dashboard & Render Deployment
 
-This guide covers running the **Groww Mobile App Feedback Pulse** high-fidelity executive dashboard locally, deploying it to **Railway**, and triggering delivery via Web UI or GitHub Actions.
+This guide covers running the **Groww Mobile App Feedback Pulse** high-fidelity executive dashboard locally, deploying it to **Render**, and triggering delivery via Web UI or GitHub Actions.
 
 ---
 
@@ -26,9 +26,9 @@ Open your browser at `http://localhost:8501`.
 
 ---
 
-## 2. Deploying to Cloud (Render / Railway)
+## 2. Deploying to Render (Free Cloud Hosting)
 
-The application runs in a production Docker container using the included `Dockerfile` and `render.yaml` (or `railway.json`).
+The application runs in a production Docker container using the included `Dockerfile` and `render.yaml`.
 
 ```mermaid
 flowchart LR
@@ -71,24 +71,6 @@ flowchart LR
 ### Method B: Deploy via Render Blueprint (`render.yaml`)
 
 - Connect repository at [dashboard.render.com/blueprints](https://dashboard.render.com/blueprints). Render uses `render.yaml` to auto-configure the service and environment variables in 1 click!
-
----
-
-### Method C: Deploy via Railway (Alternative)
-
-If you prefer using the command line:
-
-```powershell
-# 1. Install Railway CLI (via npm or scoop/brew)
-npm i -g @railway/cli
-
-# 2. Login to Railway
-railway login
-
-# 3. Link and Deploy
-railway init
-railway up
-```
 
 ---
 

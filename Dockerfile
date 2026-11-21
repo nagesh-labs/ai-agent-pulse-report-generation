@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application source, data, config, and documentation
 COPY . .
 
-# Expose port (Render/Railway dynamic PORT, or local default 8501)
+# Expose port (Render dynamic PORT or local default 8501)
 EXPOSE 8501
 EXPOSE 10000
 

@@ -50,7 +50,7 @@ class SynthesizeRequest(BaseModel):
 @app.get("/health")
 @app.get("/_stcore/health")
 async def health_check():
-    """Universal healthcheck for Railway, Docker, and uptime monitoring."""
+    """Universal healthcheck for Render, Docker, and uptime monitoring."""
     return {"status": "healthy", "service": "groww-feedback-pulse", "version": "2.8.4"}
 
 
