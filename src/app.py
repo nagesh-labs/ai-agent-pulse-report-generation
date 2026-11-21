@@ -179,15 +179,27 @@ if not cached_reviews and review_source == "Cached Clean Dataset":
     st.error("No reviews found in `data/processed/reviews_clean.jsonl`. Switch to 'Live Scrape' to fetch.")
     st.stop()
 
+# Pre-build DataFrame for analytics and search
+df_reviews = pd.DataFrame([
+    {
+        "id": r.review_id,
+        "rating": r.rating,
+        "text": r.text,
+        "thumbs_up": r.thumbs_up_count,
+        "date": r.date,
+    }
+    for r in cached_reviews
+])
+
 # Top KPI row
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric("Total Reviews Cleaned", len(cached_reviews))
 with col2:
-    neg_reviews = [r for r in cached_reviews if r.score <= 2]
+    neg_reviews = [r for r in cached_reviews if r.rating <= 2]
     st.metric("Critical Friction (1-2★)", f"{len(neg_reviews)} ({len(neg_reviews)*100//len(cached_reviews)}%)")
 with col3:
-    pos_reviews = [r for r in cached_reviews if r.score == 5]
+    pos_reviews = [r for r in cached_reviews if r.rating == 5]
     st.metric("Positive Praise (5★)", f"{len(pos_reviews)} ({len(pos_reviews)*100//len(cached_reviews)}%)")
 with col4:
     st.metric("Word Limit Constraint", "≤ 250 words")
@@ -285,18 +297,6 @@ with tab_pulse:
 with tab_analytics:
     st.subheader("Domain Thematic Breakdown & Severity Scores")
 
-    # Aggregate themes from reviews
-    df_reviews = pd.DataFrame([
-        {
-            "id": r.review_id,
-            "score": r.score,
-            "text": r.text,
-            "thumbs_up": r.thumbs_up_count,
-            "date": r.date,
-        }
-        for r in cached_reviews
-    ])
-
     # Preset theme counts based on taxonomy
     theme_distribution = [
         {"Theme": "Trading & Order Execution", "Reviews": 69, "Avg Rating": 1.2, "Severity Score": 234.0},
@@ -323,9 +323,9 @@ with tab_analytics:
     with chart_col2:
         fig_pie = px.pie(
             df_reviews,
-            names="score",
+            names="rating",
             title="Review Rating Distribution (1★ to 5★)",
-            color="score",
+            color="rating",
             color_discrete_map={1: "#FF4B4B", 2: "#FFAA00", 3: "#FFEE55", 4: "#77DD77", 5: "#00D09C"},
         )
         st.plotly_chart(fig_pie, use_container_width=True)
@@ -387,7 +387,7 @@ with tab_corpus:
 
     st.write(f"Showing **{len(filtered_df)}** matching reviews (All PII scrubbed):")
     st.dataframe(
-        filtered_df[["date", "score", "thumbs_up", "text"]],
+        filtered_df[["date", "rating", "thumbs_up", "text"]],
         use_container_width=True,
         hide_index=True,
     )
