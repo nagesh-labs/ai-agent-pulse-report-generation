@@ -145,8 +145,8 @@
           <span class="material-symbols-outlined text-base text-brand">calendar_month</span>
           <span class="text-slate-400">Week Range:</span>
           <select class="bg-transparent text-white font-semibold focus:outline-none cursor-pointer pr-2" id="week-range-select">
-            <option value="1" class="bg-surface-card text-white">Past 1 Week (Recent Spike)</option>
-            <option value="2" selected class="bg-surface-card text-white">Past 2 Weeks (Oct 21 – Oct 31, 2026)</option>
+            <option value="1" class="bg-surface-card text-white">Past 1 Week</option>
+            <option value="2" selected class="bg-surface-card text-white">Past 2 Weeks</option>
             <option value="4" class="bg-surface-card text-white">Past 4 Weeks (Monthly Scope)</option>
             <option value="8" class="bg-surface-card text-white">Past 8 Weeks (Bi-Monthly Trend)</option>
             <option value="12" class="bg-surface-card text-white">Past 12 Weeks (Quarterly Scope)</option>
@@ -463,11 +463,24 @@
       }
     });
 
-    // Week range selector sync
+    // Week range selector sync & immediate time range preview
     const weekSelect = document.getElementById('week-range-select');
     const slider = document.getElementById('lookback-slider');
+    const dateRangeEl = document.getElementById('pulse-date-range');
+
+    function updateDateRangeForWeeks(weeks) {
+      if (weeks === 1) {
+        dateRangeEl.textContent = 'Oct 24, 2026 – Oct 31, 2026';
+        document.getElementById('metric-total-reviews').textContent = '132';
+      } else {
+        dateRangeEl.textContent = 'Oct 21, 2026 – Oct 31, 2026';
+        document.getElementById('metric-total-reviews').textContent = '187';
+      }
+    }
+
     weekSelect.addEventListener('change', (e) => {
       slider.value = e.target.value;
+      updateDateRangeForWeeks(parseInt(e.target.value));
     });
 
     // Terminal Logging Helper
