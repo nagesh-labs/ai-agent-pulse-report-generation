@@ -1,18 +1,19 @@
-# Production Deployment Plan: Groww Feedback Pulse on Railway
+# Production Deployment Plan: Groww Feedback Pulse on Render
 
-This document outlines the end-to-end production deployment strategy for hosting the **Groww Feedback Pulse Executive Dashboard & AI Agent** on [Railway](https://railway.com).
+This document outlines the end-to-end production deployment strategy for hosting the **Groww Feedback Pulse Executive Dashboard & AI Agent** on [Render](https://render.com) using Render's generous **Free Tier Web Service**.
 
 ---
 
 ## 1. Executive Summary & Objective
 
-The **Groww Feedback Pulse** application is a production-ready AI intelligence system that transforms unfiltered customer feedback from Google Play Store into executive weekly memos for Groww leadership. It features an interactive **FastAPI** web dashboard styled with Google Stitch ("Executive Emerald" aesthetic) and an autonomous **Groq Llama 3.3 70B** agent pipeline communicating with a remote **Vercel MCP Server** over Server-Sent Events (SSE) to update Google Docs and dispatch executive emails.
+The **Groww Feedback Pulse** application is a production-grade AI intelligence system that transforms unfiltered customer feedback from Google Play Store into executive weekly memos for Groww leadership. It features an interactive **FastAPI** web dashboard styled with Google Stitch ("Executive Emerald" design) and an autonomous **Groq Llama 3.3 70B** agent pipeline communicating with a remote **Vercel MCP Server** over Server-Sent Events (SSE) to update Google Docs and dispatch executive emails.
 
 ### Key Deployment Objectives:
-- **Cloud Platform**: Railway (Containerized PaaS with continuous GitHub deployment).
-- **Service Type**: Web Service running FastAPI / Uvicorn in Docker.
-- **Dynamic Port Binding**: Auto-configured by Railway via `${PORT:-8501}`.
+- **Cloud Platform**: Render (Free Tier Web Service with continuous GitHub deployment).
+- **Service Type**: Docker Web Service running FastAPI / Uvicorn.
+- **Dynamic Port Binding**: Auto-configured by Render via `${PORT:-8501}` (Render injects `PORT=10000` by default).
 - **Zero-Downtime Rolling Deploys**: Verified by automated healthchecks (`/health`).
+- **Monthly Free Quota**: **750 free instance hours per month** (sufficient to run the service 24/7 all month without billing).
 - **External Dependencies**:
   - Remote Vercel MCP Server: `https://ai-agent-mcp-server.vercel.app/sse`
   - Target Google Doc: `1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM`
@@ -30,8 +31,8 @@ flowchart TD
         Browser["Web Browser (HTTPS)"]
     end
 
-    subgraph RailwayCloud["Railway Container Platform"]
-        Router["Railway Ingress & SSL Router<br/>(Dynamic Port Mapping)"]
+    subgraph RenderCloud["Render Cloud Platform"]
+        Router["Render Ingress & SSL Router<br/>(Dynamic Port Mapping • *.onrender.com)"]
         Container["FastAPI Docker Container<br/>(Python 3.12-slim + Uvicorn)"]
         Pipeline["Groww Pulse Agent Pipeline<br/>(Clustering & Substring Verification)"]
         ReviewCorpus["Sanitized Review Corpus<br/>(187 Clean Ingested Reviews)"]
@@ -70,34 +71,41 @@ The project includes pre-configured deployment artifacts adhering strictly to pr
 - **Base Image**: `python:3.12-slim` for minimal container footprint (<150MB).
 - **System Tools**: Installs `curl` for container-level healthchecks.
 - **Port Exposure**: Dynamic `$PORT` binding via `sh -c "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"`.
+- **Exposed Ports**: `8501` (local default) and `10000` (Render default).
 - **Healthcheck**: 30-second interval testing `http://127.0.0.1:${PORT:-8501}/health`.
 
-### 3.2 `railway.json`
-Specifies declarative build and deploy instructions for Railway's orchestration engine:
-```json
-{
-  "$schema": "https://railway.app/railway.schema.json",
-  "build": {
-    "builder": "DOCKERFILE"
-  },
-  "deploy": {
-    "startCommand": "sh -c \"uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}\"",
-    "healthcheckPath": "/health",
-    "healthcheckTimeout": 120,
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 3
-  }
-}
+### 3.2 `render.yaml` (Infrastructure-as-Code Blueprint)
+Declarative service specification enabling 1-click Render blueprint deployments:
+```yaml
+services:
+  - type: web
+    name: groww-feedback-pulse
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: MCP_AUTH_KEY
+        value: nagesh
+      - key: GOOGLE_DOC_ID
+        value: 1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM
+      - key: PULSE_EMAIL_RECIPIENT
+        value: nagesh14423@gmail.com
+      - key: MCP_SERVER_URL
+        value: https://ai-agent-mcp-server.vercel.app/sse
+      - key: MCP_HEALTH_URL
+        value: https://ai-agent-mcp-server.vercel.app/health
+      - key: SETTINGS_FILE
+        value: config/settings.yaml
+      - key: MCP_CONFIG_FILE
+        value: config/mcp_config.json
 ```
 
-### 3.3 `Procfile`
-Provides standard process declaration:
-```text
-web: sh -c "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"
-```
-
-### 3.4 `.dockerignore`
-Prevents local artifacts, virtual environments, `.git` histories, and sensitive `.env` files from leaking into the container image:
+### 3.3 `.dockerignore`
+Prevents local virtual environments, `.git` histories, and sensitive `.env` files from leaking into the container:
 ```text
 .git/
 .venv/
@@ -114,9 +122,9 @@ tests/
 
 ## 4. Prerequisites
 
-Before deploying to Railway, ensure you have:
-1. **GitHub Account**: A GitHub account with permissions to create or push repositories.
-2. **Railway Account**: An active account at [railway.com](https://railway.com) (sign in using GitHub).
+Before deploying to Render, ensure you have:
+1. **GitHub Repository**: The code is pushed to [https://github.com/nagesh-labs/ai-agent-pulse-report-generation](https://github.com/nagesh-labs/ai-agent-pulse-report-generation).
+2. **Render Account**: A free account at [render.com](https://render.com) (sign in using your GitHub account).
 3. **Groq Cloud API Key**: Valid API key from [Groq Console](https://console.groq.com/keys) (`gsk_...`).
 4. **Vercel MCP Auth Key**: Master bearer authentication token (`nagesh`).
 5. **Google Workspace Identifiers**:
@@ -125,42 +133,36 @@ Before deploying to Railway, ensure you have:
 
 ---
 
-## 5. Step-by-Step Deployment Instructions
+## 5. Step-by-Step Render Deployment Guide
 
-### Method A: Deploy via GitHub (Recommended for CI/CD)
+### Method A: Deploy via Render Web Dashboard (Recommended)
 
-#### Step 1: Push Local Code to GitHub
-If you have not yet linked a remote GitHub repository, run the following commands:
+#### Step 1: Sign In & Connect GitHub
+1. Open [dashboard.render.com](https://dashboard.render.com).
+2. Sign in with your GitHub account (`nagesh-labs`).
+3. Click the **+ New** button at the top-right $\to$ Select **Web Service**.
 
-```powershell
-# 1. Initialize git (already initialized in this repo)
-git status
+#### Step 2: Select Repository
+1. In the list of repositories, find `ai-agent-pulse-report-generation`.
+2. Click **Connect**.
+   *(If the repository is not listed, click "Configure account" to grant Render access to your repo).*
 
-# 2. Add your GitHub remote (replace with your repository URL)
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/groww-feedback-pulse.git
+#### Step 3: Configure Web Service Parameters
+Fill in the basic settings:
 
-# 3. Commit any pending updates
-git add .
-git commit -m "feat: complete production readiness for Railway deployment"
+| Field | Recommended Value |
+| :--- | :--- |
+| **Name** | `groww-feedback-pulse` |
+| **Region** | `Oregon (US West)` or `Frankfurt (EU Central)` |
+| **Branch** | `main` |
+| **Root Directory** | *(Leave blank)* |
+| **Runtime** | **Docker** *(Render detects the Dockerfile automatically)* |
+| **Instance Type** | **Free** ($0 / month — 512 MB RAM, 0.1 CPU) |
 
-# 4. Push to main branch
-git branch -M main
-git push -u origin main
-```
+#### Step 4: Configure Environment Variables
+Under the **Environment Variables** section, click **Add Environment Variable** for each key:
 
-#### Step 2: Create a New Project on Railway
-1. Navigate to the [Railway Dashboard](https://railway.com/dashboard).
-2. Click **+ New Project**.
-3. Select **Deploy from GitHub repo**.
-4. Choose your repository: `groww-feedback-pulse` (grant Railway GitHub repository access if prompted).
-5. Click **Deploy Now** (Railway will begin initial provisioning).
-
-#### Step 3: Configure Environment Variables
-1. Click on the newly created service card in your Railway project canvas.
-2. Go to the **Variables** tab.
-3. Click **+ New Variable** (or **Raw Editor**) and add the following required keys:
-
-| Variable Name | Value | Purpose |
+| Key | Value | Purpose |
 | :--- | :--- | :--- |
 | `GROQ_API_KEY` | `gsk_...` | Groq Cloud API key for Llama 3.3 70B inference |
 | `MCP_AUTH_KEY` | `nagesh` | Master authorization token for Vercel MCP Server |
@@ -171,48 +173,30 @@ git push -u origin main
 | `SETTINGS_FILE` | `config/settings.yaml` | Application configuration profile |
 | `MCP_CONFIG_FILE` | `config/mcp_config.json` | MCP client tool configuration |
 
-*(Note: Do **NOT** set `PORT` manually. Railway dynamically sets `PORT` to an internal container port and maps it to public HTTPS port 443).*
+*(Note: Do **NOT** manually set `PORT`. Render automatically assigns `PORT=10000` to the container).*
 
-#### Step 4: Generate Public Domain
-1. In the service panel, click the **Settings** tab.
-2. Scroll to the **Networking** section.
-3. Under **Public Networking**, click **Generate Domain**.
-4. Railway will generate a unique HTTPS domain (e.g., `https://groww-feedback-pulse-production.up.railway.app`).
+#### Step 5: Configure Health Check Path
+1. Click **Advanced** at the bottom of the form.
+2. In the **Health Check Path** input, type: `/health`.
+3. Auto-Deploy: Set to **Yes** (Render will redeploy whenever you push to `main`).
 
-#### Step 5: Verification of Auto-Deploy
-- Railway will automatically detect the new environment variables and trigger a redeployment.
-- Once the deployment shows **Active** (with a green indicator), click the public domain to open the live application!
+#### Step 6: Create Web Service
+1. Click the purple **Create Web Service** button.
+2. Render will begin building the Docker image, installing dependencies, and spinning up the container.
+3. Once the build completes and the `/health` endpoint returns `200 OK`, Render will mark the service **Live**.
+4. Your application will be live at a public HTTPS URL (e.g., `https://groww-feedback-pulse.onrender.com`).
 
 ---
 
-### Method B: Deploy via Railway CLI
+### Method B: Deploy via Render Blueprint (`render.yaml`)
 
-If you prefer deploying directly from your PowerShell terminal:
-
-```powershell
-# 1. Install Railway CLI (via npm)
-npm install -g @railway/cli
-
-# 2. Login to Railway
-railway login
-
-# 3. Initialize Railway Project in the root directory
-railway init --name groww-feedback-pulse
-
-# 4. Set Environment Variables
-railway variables --set GROQ_API_KEY="gsk_..."
-railway variables --set MCP_AUTH_KEY="nagesh"
-railway variables --set GOOGLE_DOC_ID="1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM"
-railway variables --set PULSE_EMAIL_RECIPIENT="nagesh14423@gmail.com"
-railway variables --set MCP_SERVER_URL="https://ai-agent-mcp-server.vercel.app/sse"
-railway variables --set MCP_HEALTH_URL="https://ai-agent-mcp-server.vercel.app/health"
-
-# 5. Deploy container
-railway up
-
-# 6. Generate public domain
-railway domain
-```
+Because the repository includes `render.yaml`, you can also deploy using Render's Blueprint engine:
+1. Go to [dashboard.render.com/blueprints](https://dashboard.render.com/blueprints).
+2. Click **New Blueprint Instance**.
+3. Connect `nagesh-labs/ai-agent-pulse-report-generation`.
+4. Render will read `render.yaml` and pre-populate the service configuration and all environment variables.
+5. Enter your `GROQ_API_KEY` secret when prompted.
+6. Click **Apply**.
 
 ---
 
@@ -226,39 +210,36 @@ railway domain
 | `PULSE_EMAIL_RECIPIENT` | String | `nagesh14423@gmail.com` | **Yes** | Target leadership email. If omitted, defaults to internal config fallback. |
 | `MCP_SERVER_URL` | URL | `https://ai-agent-mcp-server.vercel.app/sse` | **Yes** | SSE transport URL. If unreachable, delivery tools fallback to offline logging. |
 | `MCP_HEALTH_URL` | URL | `https://ai-agent-mcp-server.vercel.app/health` | Optional | Healthcheck URL polled by web UI to display `MCP Online` status badge. |
-| `PORT` | Integer | Assigned by Railway | Auto | Injected dynamically by Railway. `Dockerfile` uses `${PORT:-8501}`. |
+| `PORT` | Integer | Assigned by Render (10000) | Auto | Injected dynamically by Render. `Dockerfile` uses `${PORT:-8501}`. |
 | `SETTINGS_FILE` | Path | `config/settings.yaml` | Optional | Path to local settings YAML file. |
 | `MCP_CONFIG_FILE` | Path | `config/mcp_config.json` | Optional | Path to MCP tool schema configuration. |
 
 ---
 
-## 7. Healthchecks & Reliability
+## 7. Healthchecks, Cold-Starts & Free-Tier Optimization
 
-The application provides multi-tier healthchecks to guarantee zero-downtime rolling deployments:
+Render Free Tier provides **750 free instance hours per month** (enough to run 1 service continuously 24/7). Understanding its behavior ensures smooth operation:
 
-1. **Primary Healthcheck Endpoint**:
-   - `GET /health`
-   - Returns: `{"status": "healthy", "service": "groww-feedback-pulse", "version": "2.8.4"}`
-   - HTTP Status: `200 OK`
-2. **Compatibility Healthcheck Endpoint**:
-   - `GET /_stcore/health`
-   - Returns: `{"status": "healthy", "service": "groww-feedback-pulse", "version": "2.8.4"}`
-   - Guarantees backward compatibility for any lingering browser cache or monitoring probes.
-3. **Railway Healthcheck Settings**:
-   - Path: `/health`
-   - Timeout: `120s` (configured in `railway.json` to allow cold container boot and library initialization).
-   - Restart Policy: `ON_FAILURE` (max 3 retries).
+1. **Inactivity Sleep (Spindown)**:
+   - Render spins down free web services after **15 minutes** of no incoming web requests.
+   - When a user visits the URL, Render automatically wakes the container up.
+   - **Cold Start Time**: Because our container is slim and dataset is local (<150KB), cold wake-up takes only **~15–25 seconds**.
+2. **Automated Healthchecks**:
+   - Render polls `GET /health` during deployment.
+   - Only when `/health` returns HTTP 200 `{"status": "healthy", ...}` does Render switch traffic to the new container, guaranteeing zero-downtime deploys.
+3. **Preventing Inactivity Sleep (Optional)**:
+   - If you want the service to stay warm 24/7, you can use a free uptime monitor (such as [UptimeRobot](https://uptimerobot.com) or [Cron-job.org](https://cron-job.org)) to ping `https://<your-service>.onrender.com/health` once every 10 minutes.
 
 ---
 
 ## 8. Post-Deployment Verification & Smoke Tests
 
-After deployment completes, execute this verification protocol:
+After Render marks the service **Live**, execute this verification protocol:
 
 ### Step 1: Healthcheck Test via cURL
 Run in terminal:
 ```powershell
-curl -i https://<YOUR_RAILWAY_DOMAIN>.up.railway.app/health
+curl -i https://<YOUR_RENDER_SUBDOMAIN>.onrender.com/health
 ```
 **Expected Output**:
 ```http
@@ -269,7 +250,7 @@ content-type: application/json
 ```
 
 ### Step 2: Web Dashboard UI Verification
-1. Open `https://<YOUR_RAILWAY_DOMAIN>.up.railway.app` in your browser.
+1. Open `https://<YOUR_RENDER_SUBDOMAIN>.onrender.com` in your browser.
 2. Confirm the **Header** renders cleanly with the `MCP Online` green status pill and Google Doc direct link.
 3. Confirm the **4 Context Tiles** display:
    - Total Reviews Ingested: `187`
@@ -301,32 +282,32 @@ content-type: application/json
 
 ## 9. Troubleshooting & Operations
 
-### Issue 1: Application fails to start or healthcheck times out
-- **Symptom**: Railway deployment log shows `Healthcheck timed out after 120s`.
-- **Root Cause**: The application is binding to `127.0.0.1` instead of `0.0.0.0` or ignoring Railway's `$PORT`.
-- **Solution**: Confirm `railway.json` contains `"startCommand": "sh -c \"uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}\""`. The `Dockerfile` handles this with `${PORT:-8501}`.
+### Issue 1: "Timed out waiting for port 10000 to be open"
+- **Symptom**: Render build logs show `==> Port scan timeout reached`.
+- **Root Cause**: The application bound to `127.0.0.1` instead of `0.0.0.0`, or hardcoded port `8501` instead of using Render's `$PORT`.
+- **Solution**: Confirm `Dockerfile` uses `uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}`. This is pre-configured and verified.
 
-### Issue 2: MCP Tool Delivery indicates "Error" or "Offline"
+### Issue 2: Dashboard initial load takes 25 seconds
+- **Symptom**: First load after inactivity takes ~20–30s.
+- **Root Cause**: Expected behavior on Render Free Tier when the container wakes up from sleep. Subsequent clicks are instantaneous.
+- **Solution**: Optional free ping every 10 minutes via UptimeRobot to `/health`.
+
+### Issue 3: MCP Tool Delivery indicates "Error" or "Offline"
 - **Symptom**: Dashboard displays `MCP Offline` or delivery returns status `failed`.
-- **Root Cause**: `MCP_AUTH_KEY` is missing or mismatched in Railway Variables.
-- **Solution**: Go to Railway Dashboard $\to$ **Variables** $\to$ Verify `MCP_AUTH_KEY` is set to `nagesh` and `MCP_SERVER_URL` is `https://ai-agent-mcp-server.vercel.app/sse`.
+- **Root Cause**: `MCP_AUTH_KEY` is missing or mismatched in Render Environment Variables.
+- **Solution**: Go to Render Dashboard $\to$ **Environment** $\to$ Verify `MCP_AUTH_KEY` is set to `nagesh` and `MCP_SERVER_URL` is `https://ai-agent-mcp-server.vercel.app/sse`.
 
-### Issue 3: Google Doc Append fails (HTTP 401/403)
+### Issue 4: Google Doc Append fails (HTTP 401/403)
 - **Symptom**: MCP server returns OAuth authentication error for Google Docs.
 - **Root Cause**: The Google OAuth refresh token on the Vercel MCP server may need re-authorization.
 - **Solution**: Access the Vercel MCP Server administrative console or trigger the Google OAuth re-consent flow to refresh credentials.
 
-### Issue 4: Groq API Rate Limit (HTTP 429)
-- **Symptom**: Agent synthesis fails with `RateLimitError`.
-- **Root Cause**: Free-tier Groq API limit exceeded for `llama-3.3-70b-versatile`.
-- **Solution**: Ensure your Groq Cloud project has available tier quota or configure fallback to `llama-3.1-8b-instant` in `config/settings.yaml`.
-
 ---
 
-## 10. Rollback & Maintenance Plan
+## 10. Alternative: Deploying to Railway (Paid Plan)
 
-Railway provides one-click instant rollbacks:
-1. Navigate to your project on Railway $\to$ Select the **Deployments** tab.
-2. Locate the previous stable deployment commit.
-3. Click the three dots (`...`) $\to$ Click **Rollback**.
-4. Railway instantly routes ingress traffic back to the previous stable container without downtime.
+If you upgrade or have active credits on Railway, the same repository can still be deployed to Railway without code modifications:
+1. Connect the repository in Railway.
+2. Railway uses `railway.json` and `Dockerfile` automatically.
+3. Configure identical environment variables (`GROQ_API_KEY`, `MCP_AUTH_KEY`, `GOOGLE_DOC_ID`, etc.).
+4. Generate domain under Networking settings.

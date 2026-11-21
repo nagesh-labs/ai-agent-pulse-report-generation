@@ -26,35 +26,32 @@ Open your browser at `http://localhost:8501`.
 
 ---
 
-## 2. Deploying to Railway
+## 2. Deploying to Cloud (Render / Railway)
 
-Railway runs the application in a production Docker container using the included `Dockerfile` and `railway.json`.
+The application runs in a production Docker container using the included `Dockerfile` and `render.yaml` (or `railway.json`).
 
 ```mermaid
 flowchart LR
-    A["GitHub Repo<br/>(Main Branch)"] --> B["Railway Project<br/>(Dockerfile Build)"]
+    A["GitHub Repo<br/>(Main Branch)"] --> B["Render Web Service<br/>(Docker Build • Free Tier)"]
     B --> C["FastAPI Uvicorn Container<br/>(Port: $PORT)"]
     C --> D["Vercel MCP Server<br/>(ai-agent-mcp-server.vercel.app)"]
     D --> E["Google Docs & Gmail"]
 ```
 
-### Method A: Deploy via Railway Dashboard (Recommended)
+### Method A: Deploy on Render Free Tier (Recommended)
 
-1. **Push your code to GitHub**:
-   ```powershell
-   git add .
-   git commit -m "feat: implement high-fidelity Google Stitch executive frontend on FastAPI"
-   git push -u origin main
-   ```
+1. **Sign in to Render**:
+   - Go to [dashboard.render.com](https://dashboard.render.com) and log in with GitHub.
+   - Click **+ New** $\to$ Select **Web Service**.
+   - Choose `ai-agent-pulse-report-generation` repository.
 
-2. **Create New Project on Railway**:
-   - Go to [railway.com](https://railway.com) and log in.
-   - Click **+ New Project** $\to$ Select **Deploy from GitHub repo**.
-   - Choose your repository `groww-feedback-pulse-agent`.
+2. **Configure Service Details**:
+   - **Runtime**: `Docker`
+   - **Instance Type**: `Free` ($0/mo, 512MB RAM, 750 free hours/month)
+   - **Health Check Path**: `/health`
 
-3. **Configure Environment Variables in Railway**:
-   - In your Railway project, navigate to the **Variables** tab.
-   - Add the following environment variables:
+3. **Configure Environment Variables in Render**:
+   - In the **Environment Variables** section, add:
 
 | Variable Name | Example Value | Purpose |
 | :--- | :--- | :--- |
@@ -65,14 +62,19 @@ flowchart LR
 | `MCP_SERVER_URL` | `https://ai-agent-mcp-server.vercel.app/sse` | MCP SSE endpoint |
 | `MCP_HEALTH_URL` | `https://ai-agent-mcp-server.vercel.app/health` | MCP Health endpoint |
 
-4. **Generate Public Domain**:
-   - In your Railway service $\to$ **Settings** $\to$ **Networking** $\to$ Click **Generate Domain**.
-   - Railway will provide a live URL like `https://groww-feedback-pulse-production.up.railway.app`.
-   - Open this URL in any browser to access the interactive dashboard!
+4. **Deploy**:
+   - Click **Create Web Service**.
+   - Render will build the container and provide a live URL like `https://groww-feedback-pulse.onrender.com`.
 
 ---
 
-### Method B: Deploy via Railway CLI
+### Method B: Deploy via Render Blueprint (`render.yaml`)
+
+- Connect repository at [dashboard.render.com/blueprints](https://dashboard.render.com/blueprints). Render uses `render.yaml` to auto-configure the service and environment variables in 1 click!
+
+---
+
+### Method C: Deploy via Railway (Alternative)
 
 If you prefer using the command line:
 

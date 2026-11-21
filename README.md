@@ -191,23 +191,28 @@ python -m src.pipeline --dry-run
 
 ---
 
-## ☁️ Deployment on Railway
+## ☁️ Cloud Deployment (Render / Railway)
 
-The project is pre-configured for automated continuous deployment on [Railway](https://railway.com) using the included `Dockerfile` and `railway.json`.
+The project is pre-configured for automated continuous deployment on **[Render](https://render.com)** (Free Tier with 750 free instance hours/month) or **[Railway](https://railway.com)** using the included `Dockerfile` and `render.yaml`.
 
-### Method A: Deploy from GitHub (Recommended)
-1. Push your repository to GitHub.
-2. In Railway, click **+ New Project** $\to$ **Deploy from GitHub repo**.
-3. Under the **Variables** tab, set:
+### Deploying to Render (Free Tier)
+1. Push your repository to GitHub (`nagesh-labs/ai-agent-pulse-report-generation`).
+2. Go to [dashboard.render.com](https://dashboard.render.com) $\to$ Click **+ New** $\to$ **Web Service**.
+3. Connect your repository and select **Docker** as the Runtime.
+4. Under **Instance Type**, select **Free** ($0/month).
+5. In **Environment Variables**, configure:
    - `GROQ_API_KEY`: `gsk_...`
    - `MCP_AUTH_KEY`: `nagesh`
    - `GOOGLE_DOC_ID`: `1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM`
    - `PULSE_EMAIL_RECIPIENT`: `nagesh14423@gmail.com`
    - `MCP_SERVER_URL`: `https://ai-agent-mcp-server.vercel.app/sse`
-4. Under **Settings** $\to$ **Networking**, click **Generate Domain**.
-5. Your dashboard will be live at `https://<your-project>.up.railway.app`!
+   - `MCP_HEALTH_URL`: `https://ai-agent-mcp-server.vercel.app/health`
+6. Under **Advanced** $\to$ **Health Check Path**, set `/health`.
+7. Click **Create Web Service**. Your live dashboard will be up at `https://<your-service>.onrender.com`!
 
-For detailed instructions, troubleshooting, and rollback procedures, see [docs/deployment-plan.md](docs/deployment-plan.md).
+*(Alternatively, deploy with 1-click via Render Blueprints using the included `render.yaml`).*
+
+For full step-by-step instructions, cold-start optimization, and troubleshooting, see [docs/deployment-plan.md](docs/deployment-plan.md).
 
 ---
 

@@ -21,8 +21,9 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application source, data, config, and documentation
 COPY . .
 
-# Expose port (Default or Railway dynamic PORT)
+# Expose port (Render/Railway dynamic PORT, or local default 8501)
 EXPOSE 8501
+EXPOSE 10000
 
 # Run healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \

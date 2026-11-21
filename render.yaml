@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: groww-feedback-pulse
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: MCP_AUTH_KEY
+        value: nagesh
+      - key: GOOGLE_DOC_ID
+        value: 1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM
+      - key: PULSE_EMAIL_RECIPIENT
+        value: nagesh14423@gmail.com
+      - key: MCP_SERVER_URL
+        value: https://ai-agent-mcp-server.vercel.app/sse
+      - key: MCP_HEALTH_URL
+        value: https://ai-agent-mcp-server.vercel.app/health
+      - key: SETTINGS_FILE
+        value: config/settings.yaml
+      - key: MCP_CONFIG_FILE
+        value: config/mcp_config.json
