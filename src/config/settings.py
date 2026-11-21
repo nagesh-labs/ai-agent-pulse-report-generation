@@ -48,9 +48,9 @@ class AgentConfig(BaseModel):
 
 
 class DeliveryConfig(BaseModel):
-    email_recipient: str = "stakeholders@groww.in"
+    email_recipient: str = "nagesh14423@gmail.com"
     pulse_title_prefix: str = "[Weekly Pulse] Groww App Reviews"
-    google_doc_id: str = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+    google_doc_id: str = "1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM"
 
 
 class MCPConfig(BaseModel):

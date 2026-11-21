@@ -26,7 +26,7 @@ EXPOSE 8501
 
 # Run healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/health || exit 1
+    CMD curl -f http://127.0.0.1:${PORT:-8501}/health || exit 1
 
 # Launch FastAPI web application
 CMD ["sh", "-c", "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"]

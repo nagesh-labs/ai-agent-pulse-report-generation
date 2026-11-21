@@ -70,7 +70,7 @@ The project includes pre-configured deployment artifacts adhering strictly to pr
 - **Base Image**: `python:3.12-slim` for minimal container footprint (<150MB).
 - **System Tools**: Installs `curl` for container-level healthchecks.
 - **Port Exposure**: Dynamic `$PORT` binding via `sh -c "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"`.
-- **Healthcheck**: 30-second interval testing `http://localhost:${PORT}/health`.
+- **Healthcheck**: 30-second interval testing `http://127.0.0.1:${PORT:-8501}/health`.
 
 ### 3.2 `railway.json`
 Specifies declarative build and deploy instructions for Railway's orchestration engine:
@@ -81,7 +81,7 @@ Specifies declarative build and deploy instructions for Railway's orchestration 
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "uvicorn src.web:app --host 0.0.0.0 --port $PORT",
+    "startCommand": "sh -c \"uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}\"",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 120,
     "restartPolicyType": "ON_FAILURE",
@@ -93,7 +93,7 @@ Specifies declarative build and deploy instructions for Railway's orchestration 
 ### 3.3 `Procfile`
 Provides standard process declaration:
 ```text
-web: uvicorn src.web:app --host 0.0.0.0 --port $PORT
+web: sh -c "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"
 ```
 
 ### 3.4 `.dockerignore`
@@ -304,7 +304,7 @@ content-type: application/json
 ### Issue 1: Application fails to start or healthcheck times out
 - **Symptom**: Railway deployment log shows `Healthcheck timed out after 120s`.
 - **Root Cause**: The application is binding to `127.0.0.1` instead of `0.0.0.0` or ignoring Railway's `$PORT`.
-- **Solution**: Confirm `railway.json` contains `"startCommand": "uvicorn src.web:app --host 0.0.0.0 --port $PORT"`. The `Dockerfile` handles this with `${PORT:-8501}`.
+- **Solution**: Confirm `railway.json` contains `"startCommand": "sh -c \"uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}\""`. The `Dockerfile` handles this with `${PORT:-8501}`.
 
 ### Issue 2: MCP Tool Delivery indicates "Error" or "Offline"
 - **Symptom**: Dashboard displays `MCP Offline` or delivery returns status `failed`.

@@ -27,9 +27,9 @@ agent:
   max_word_count: 250
 
 delivery:
-  email_recipient: "stakeholders@groww.in"
+  email_recipient: "nagesh14423@gmail.com"
   pulse_title_prefix: "[Weekly Pulse] Groww App Reviews"
-  google_doc_id: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+  google_doc_id: "1chaQkkUovsVC7OGYM1HOSiPPFGW3bdcuOKSm6eLopSM"
 
 mcp:
   server_url: "https://ai-agent-mcp-server.vercel.app/sse"
