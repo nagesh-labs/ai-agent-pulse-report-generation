@@ -1,36 +1,39 @@
 # Operational Runbook: Interactive Web Dashboard & Railway Deployment
 
-This guide covers running the **Groww Mobile App Feedback Pulse** interactive Streamlit dashboard locally, deploying it to **Railway**, and triggering delivery via Web UI or GitHub Actions.
+This guide covers running the **Groww Mobile App Feedback Pulse** high-fidelity executive dashboard locally, deploying it to **Railway**, and triggering delivery via Web UI or GitHub Actions.
 
 ---
 
-## 1. Interactive Web Dashboard Overview
+## 1. High-Fidelity Executive Dashboard Overview
 
-The dashboard (`src/app.py`) provides a complete visual command center for the feedback pulse agent:
-- **Real-Time KPIs**: Total clean reviews (187), critical friction volume (1-2★), positive praise, and word count adherence ($\le 250$ words).
-- **Executive Pulse & Delivery Tab**: Click "Run Synthesis & Deliver" to generate the report and append to Google Docs & send Gmail via the remote Vercel MCP server.
-- **Thematic Analytics Tab**: Interactive Plotly charts ranking the 5 taxonomy themes by composite severity score and star rating breakdowns.
-- **Verified User Voices Tab**: Verbatim quotes with exact review text, reviewer pseudonym, and 100% verified substring checks.
-- **Review Corpus Explorer Tab**: Searchable and filterable table of the sanitized customer reviews.
+The dashboard (`src/web.py` + `src/templates/index.html`), designed according to Google Stitch ("Executive Emerald Pulse" theme), provides an executive command center for the feedback pulse agent:
+- **Real-Time KPIs**: Total clean reviews (187), critical friction volume (1-2★, 48.7%), positive praise (5★, 35.8%), and word count adherence ($\le 250$ words, 94% capacity).
+- **Executive Pulse Workspace**: Complete weekly executive note preview with Top 3 Friction Themes, Verbatim Quotations, Action Ideas, and a raw markdown toggle.
+- **Live Toolchain Dispatch Cards**: Direct status indicators and links to Google Docs (`AI Agent Report ↗`) and Gmail (`nagesh14423@gmail.com`).
+- **Live MCP Terminal Stream**: Real-time console showing SSE handshakes, tool executions, and latency metrics.
+- **Thematic Analytics & Donut Charts**: Ranked domain themes with composite severity bars and an interactive SVG rating breakdown donut.
+- **PII-Sanitized Corpus Explorer**: Full client-side searchable table of 187 clean reviews with star rating filter chips.
 
 ### Local Dashboard Testing
-Run the dashboard locally from your project directory:
+Run the executive dashboard locally from your project directory:
 
 ```powershell
-.\.venv\Scripts\streamlit.exe run src/app.py
+.\.venv\Scripts\python.exe -m uvicorn src.web:app --host 0.0.0.0 --port 8501
 ```
 Open your browser at `http://localhost:8501`.
+
+*(Note: The legacy Streamlit interface remains accessible via `.\.venv\Scripts\streamlit.exe run src/app.py` if desired).*
 
 ---
 
 ## 2. Deploying to Railway
 
-Railway runs the application in a Docker container using the included `Dockerfile` and `railway.json`.
+Railway runs the application in a production Docker container using the included `Dockerfile` and `railway.json`.
 
 ```mermaid
 flowchart LR
     A["GitHub Repo<br/>(Main Branch)"] --> B["Railway Project<br/>(Dockerfile Build)"]
-    B --> C["Streamlit Container<br/>(Port: $PORT)"]
+    B --> C["FastAPI Uvicorn Container<br/>(Port: $PORT)"]
     C --> D["Vercel MCP Server<br/>(ai-agent-mcp-server.vercel.app)"]
     D --> E["Google Docs & Gmail"]
 ```
@@ -39,11 +42,8 @@ flowchart LR
 
 1. **Push your code to GitHub**:
    ```powershell
-   git init
-   git branch -M main
    git add .
-   git commit -m "feat: add interactive Streamlit dashboard and Railway deployment configuration"
-   git remote add origin https://github.com/<your-username>/groww-feedback-pulse-agent.git
+   git commit -m "feat: implement high-fidelity Google Stitch executive frontend on FastAPI"
    git push -u origin main
    ```
 

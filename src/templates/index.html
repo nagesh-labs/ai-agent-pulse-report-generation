@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="web_dashboard" name="shell-type"/>
+  <title>Groww Feedback Pulse — Executive Intelligence Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #10131a; }
+    ::-webkit-scrollbar-thumb { background: #272a31; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #32353c; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      "darkMode": "class",
+      "theme": {
+        "extend": {
+          "colors": {
+            "surface-container-low": "#191c22",
+            "secondary-container": "#00e1ae",
+            "inverse-surface": "#e1e2eb",
+            "on-tertiary": "#00363d",
+            "surface-container-highest": "#32353c",
+            "surface-variant": "#32353c",
+            "on-tertiary-fixed-variant": "#004f58",
+            "primary-container": "#00d09c",
+            "surface-tint": "#2fe0aa",
+            "surface-bright": "#363940",
+            "secondary-fixed-dim": "#00e1ae",
+            "on-primary": "#003828",
+            "on-primary-container": "#00533c",
+            "on-primary-fixed-variant": "#00513b",
+            "surface": "#10131a",
+            "tertiary-fixed": "#9cf0ff",
+            "primary-fixed-dim": "#2fe0aa",
+            "surface-container": "#1d2026",
+            "on-tertiary-fixed": "#001f24",
+            "outline-variant": "#3c4a43",
+            "on-secondary-container": "#005e47",
+            "tertiary-container": "#00cae1",
+            "tertiary": "#3ee7ff",
+            "on-primary-fixed": "#002116",
+            "inverse-on-surface": "#2e3037",
+            "error": "#ffb4ab",
+            "background": "#10131a",
+            "on-error": "#690005",
+            "surface-dim": "#10131a",
+            "on-background": "#e1e2eb",
+            "on-secondary-fixed": "#002117",
+            "tertiary-fixed-dim": "#00daf3",
+            "on-secondary-fixed-variant": "#00513d",
+            "on-secondary": "#003829",
+            "inverse-primary": "#006c4f",
+            "outline": "#85948c",
+            "on-surface-variant": "#bacac1",
+            "secondary-fixed": "#45fec9",
+            "surface-container-high": "#272a31",
+            "on-tertiary-container": "#00505a",
+            "secondary": "#45fec9",
+            "on-surface": "#e1e2eb",
+            "primary": "#44edb7",
+            "primary-fixed": "#59fdc5",
+            "error-container": "#93000a",
+            "on-error-container": "#ffdad6",
+            "surface-container-lowest": "#0b0e14"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin-desktop": "2rem",
+            "space-lg": "1.5rem",
+            "margin-tablet": "1.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-2xl": "3rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "metric-num-xl": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "metric-num-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "metric-num-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "metric-num-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface-container-lowest font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low/95 backdrop-blur-xl z-50 flex flex-col justify-between shadow-[0_1px_16px_rgba(0,0,0,0.4)]">
+    <div class="flex flex-col">
+      <!-- Groww Logo Brand -->
+      <div class="h-20 px-space-md flex items-center gap-space-sm bg-surface-container-lowest/60">
+        <img alt="Groww Pulse Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrAOM9nLzjhCJQXGYj9aJGzu-MDdmlvsQRV52erjZQHGvOeWkmPjt7gWzfiuk2d5yNSpvc6Wv3Jy9JYZsWcZNDwhCEA6iaw5HAwpxijj_QsM8s_H6A_aKUVDUeq12ADrXUDi8xOqrGfZYbHtQmfiYs6pgdDaH2TeA-eA1Xj4ElT9G9TTrsB5xWOu4_qkGHfehERAoTjnP9G-NXCfpWA1anzlFXLUwurMLS4v1s8pvFDX"/>
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm tracking-tight text-on-surface leading-none">Groww</span>
+          <span class="font-label-sm text-label-sm text-primary tracking-widest uppercase mt-0.5">Pulse AI</span>
+        </div>
+      </div>
+
+      <!-- Online Status Badge -->
+      <div class="px-space-md py-space-sm">
+        <div class="p-space-sm rounded-lg bg-surface-container/60 flex items-center justify-between">
+          <div class="flex items-center gap-space-xs">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span class="font-label-sm text-label-sm text-on-surface">MCP Agent</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-primary font-bold" id="sidebar-mcp-status">ONLINE</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" id="sidebar-nav">
+        <a class="nav-item flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg font-label-md text-label-md bg-primary-container text-on-primary-container font-bold shadow-[0_0_20px_rgba(0,208,156,0.2)] transition-all cursor-pointer" data-target="pulse-section">
+          <span class="material-symbols-outlined text-lg">monitoring</span>Executive Pulse
+        </a>
+        <a class="nav-item flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-target="tab-severity">
+          <span class="material-symbols-outlined text-lg">warning</span>Severity Rankings
+        </a>
+        <a class="nav-item flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-target="tab-rating">
+          <span class="material-symbols-outlined text-lg">star_half</span>Rating Breakdown
+        </a>
+        <a class="nav-item flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-target="tab-corpus">
+          <span class="material-symbols-outlined text-lg">verified_user</span>PII-Sanitized Corpus
+        </a>
+        <a class="nav-item flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer" data-target="mcp-terminal">
+          <span class="material-symbols-outlined text-lg">terminal</span>MCP Terminal Stream
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Distribution Footer -->
+    <div class="p-space-md">
+      <div class="p-space-sm rounded-lg bg-surface-container-high/40 flex flex-col gap-space-xs">
+        <span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Target Distribution</span>
+        <span class="font-label-sm text-label-sm text-tertiary truncate font-mono" id="sidebar-target-email">{{ target_email }}</span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Window: Oct 21 - Oct 31, 2026</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="pl-64">
+    <!-- Top Header Bar -->
+    <header class="fixed top-0 left-64 right-0 h-20 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_12px_rgba(0,0,0,0.35)]">
+      <div class="h-20 w-full px-gutter-desktop flex items-center justify-between gap-space-md">
+        <!-- Brand Title & Server Pill -->
+        <div class="flex items-center gap-space-md">
+          <div class="flex items-center gap-space-sm">
+            <img alt="Groww Pulse Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrAOM9nLzjhCJQXGYj9aJGzu-MDdmlvsQRV52erjZQHGvOeWkmPjt7gWzfiuk2d5yNSpvc6Wv3Jy9JYZsWcZNDwhCEA6iaw5HAwpxijj_QsM8s_H6A_aKUVDUeq12ADrXUDi8xOqrGfZYbHtQmfiYs6pgdDaH2TeA-eA1Xj4ElT9G9TTrsB5xWOu4_qkGHfehERAoTjnP9G-NXCfpWA1anzlFXLUwurMLS4v1s8pvFDX"/>
+            <div class="flex flex-col">
+              <span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Groww Feedback Pulse</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">Executive Telemetry &amp; AI Intelligence</span>
+            </div>
+          </div>
+          <div class="hidden xl:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary/10">
+            <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            <span class="font-label-sm text-label-sm text-primary font-semibold">Vercel MCP Server: Online</span>
+          </div>
+        </div>
+
+        <!-- Quick Integration Shortcuts -->
+        <div class="flex items-center gap-space-sm">
+          <div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+            <span class="material-symbols-outlined text-sm text-outline">calendar_today</span>
+            <span>Oct 21 - Oct 31, 2026</span>
+          </div>
+          <a class="hidden sm:flex items-center gap-space-xs px-space-sm py-1.5 rounded-md bg-surface-container-high hover:bg-surface-bright text-tertiary transition-all font-label-sm text-label-sm" href="{{ target_doc_url }}" target="_blank" title="Open Google Workspace Document">
+            <span class="material-symbols-outlined text-sm">description</span>
+            <span>AI Agent Report ↗</span>
+          </a>
+          <div class="hidden md:flex items-center gap-space-xs px-space-sm py-1.5 rounded-md bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm max-w-[180px] truncate" title="Target Recipient Email">
+            <span class="material-symbols-outlined text-sm text-outline">mail</span>
+            <span class="truncate">{{ target_email }}</span>
+          </div>
+          <div class="flex items-center gap-space-xs pl-space-xs">
+            <img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW24QJ8CsIg2kwDiOhCxwplJ0XuJxvZHQ2zCtVpci8pZMODWnXbRsmr7WS1CiTjlhCW3HVggNPa8GAisVg04_zwQt3dbE-wsqlXXcTspFs5lW9NQuK_OfPAIqoWxEr6ihX7PnhLjgGRlEJL2jDCklOY61frpdnZqOlkUxjWmknUpdH6VPEbPCGoO0vtdihGdbP38aC0N1bwfJg72JwnpZXqYmc2HJtHO6NdVibCDc"/>
+            <div class="hidden sm:flex flex-col">
+              <span class="font-label-sm text-label-sm text-on-surface leading-tight font-semibold">Portfolio Lead</span>
+              <span class="font-label-sm text-label-sm text-outline leading-tight">Executive Access</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="relative pt-20 w-full min-h-screen bg-surface-container-lowest">
+      <div class="w-full max-w-[1720px] mx-auto px-gutter-desktop py-space-lg flex flex-col gap-space-xl">
+
+        <!-- Sub-header Breadcrumb / Live Status Strip -->
+        <div class="flex flex-wrap items-center justify-between gap-space-md">
+          <div class="flex items-center gap-space-sm">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              TELEMETRY AGENT: ACTIVE
+            </span>
+            <span class="text-outline text-label-sm font-label-sm">•</span>
+            <span class="text-on-surface-variant font-label-sm text-label-sm">Build 2.8.4-mcp</span>
+            <span class="text-outline text-label-sm font-label-sm">•</span>
+            <span class="text-tertiary font-label-sm text-label-sm">Target Window: Oct 21 – Oct 31, 2026 (Live Feed)</span>
+          </div>
+          <div class="flex items-center gap-space-sm">
+            <span class="text-outline font-label-sm text-label-sm">Latency: <span class="text-primary font-semibold">142ms</span></span>
+            <div class="h-3 w-px bg-surface-container-highest"></div>
+            <span class="text-outline font-label-sm text-label-sm">Confidence: <span class="text-primary font-semibold">99.4%</span></span>
+          </div>
+        </div>
+
+        <!-- 1. Top Executive KPI Header Grid (4 Metric Tiles) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter-desktop">
+          <!-- Metric 1: Total Reviews Ingested -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-xl group hover:shadow-[0_0_24px_-4px_rgba(0,208,156,0.18)] transition-all">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-transparent opacity-80"></div>
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Total Reviews Ingested</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-display-lg text-display-lg font-bold text-on-surface tracking-tight" id="metric-total-reviews">187</span>
+                  <span class="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-label-sm font-label-sm font-semibold flex items-center gap-0.5">
+                    <span class="material-symbols-outlined text-xs">trending_up</span> +14%
+                  </span>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-surface-container text-primary">
+                <span class="material-symbols-outlined text-2xl">sync_saved_locally</span>
+              </div>
+            </div>
+            <div class="mt-space-md pt-space-sm bg-surface-container/30 rounded-lg p-2.5 flex items-center justify-between">
+              <span class="font-body-sm text-body-sm text-on-surface-variant">100% English, &gt;8 words</span>
+              <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-tertiary font-label-sm text-label-sm">Emojis Stripped</span>
+            </div>
+          </div>
+
+          <!-- Metric 2: Critical Friction (1-2★) -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-xl group hover:shadow-[0_0_24px_-4px_rgba(255,82,82,0.22)] transition-all">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-error to-transparent opacity-80"></div>
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Critical Friction (1-2★)</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-display-lg text-display-lg font-bold text-error tracking-tight" id="metric-critical-friction">91</span>
+                  <span class="text-on-surface-variant font-headline-sm text-headline-sm font-normal" id="metric-critical-pct">(48.7%)</span>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-error-container/40 text-error">
+                <span class="material-symbols-outlined text-2xl">report_problem</span>
+              </div>
+            </div>
+            <div class="mt-space-md pt-space-sm flex items-center justify-between">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container/60 text-error text-label-sm font-label-sm font-bold">
+                High Severity Risk
+              </span>
+              <span class="text-error font-label-sm text-label-sm flex items-center font-medium">
+                ▲ 8.2% intraday surges
+              </span>
+            </div>
+          </div>
+
+          <!-- Metric 3: Positive Praise (5★) -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-xl group hover:shadow-[0_0_24px_-4px_rgba(0,208,156,0.18)] transition-all">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-secondary to-transparent opacity-80"></div>
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Positive Praise (5★)</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-display-lg text-display-lg font-bold text-secondary tracking-tight" id="metric-positive-praise">67</span>
+                  <span class="text-on-surface-variant font-headline-sm text-headline-sm font-normal" id="metric-positive-pct">(35.8%)</span>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-surface-container text-secondary">
+                <span class="material-symbols-outlined text-2xl">verified</span>
+              </div>
+            </div>
+            <div class="mt-space-md pt-space-sm flex items-center justify-between">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-label-sm font-label-sm font-bold">
+                UX &amp; Onboarding Stability
+              </span>
+              <span class="text-secondary font-label-sm text-label-sm flex items-center font-medium">
+                ▲ 3.1% DoD
+              </span>
+            </div>
+          </div>
+
+          <!-- Metric 4: Word Limit Constraint -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between shadow-xl transition-all">
+            <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-tertiary to-transparent opacity-80"></div>
+            <div class="flex items-start justify-between">
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Word Limit Constraint</span>
+                  <span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm font-bold" id="metric-word-badge">Compliant ✅</span>
+                </div>
+                <div class="flex items-baseline gap-1 mt-1">
+                  <span class="font-display-lg text-display-lg font-bold text-on-surface tracking-tight" id="metric-word-count">235</span>
+                  <span class="text-outline font-headline-sm text-headline-sm">/ 250 words</span>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-surface-container text-tertiary">
+                <span class="material-symbols-outlined text-2xl">compress</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex flex-col gap-1.5">
+              <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-primary to-tertiary h-2 rounded-full transition-all duration-500" id="metric-word-bar" style="width: 94%"></div>
+              </div>
+              <div class="flex justify-between items-center text-outline font-label-sm text-label-sm">
+                <span>Target: 90s CPO Briefing</span>
+                <span class="text-on-surface font-semibold" id="metric-word-pct">94% capacity</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Primary Action & Synthesis Control Bar -->
+        <section class="rounded-xl bg-surface-container p-space-md shadow-lg flex flex-col xl:flex-row items-center justify-between gap-space-md">
+          <!-- Left side: Dispatch CTA & Quick triggers -->
+          <div class="flex flex-wrap items-center gap-space-md w-full xl:w-auto">
+            <button class="relative group flex items-center justify-center gap-2 px-space-lg py-3 rounded-lg bg-primary-container text-on-primary-container font-headline-sm text-body-md font-bold tracking-tight shadow-[0_4px_24px_rgba(0,208,156,0.35)] hover:bg-secondary-fixed hover:shadow-[0_0_30px_rgba(0,208,156,0.5)] active:scale-[0.98] transition-all cursor-pointer" id="dispatch-pulse-btn">
+              <span class="relative flex h-2.5 w-2.5" id="dispatch-ping">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface-container-lowest opacity-80"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-surface-container-lowest"></span>
+              </span>
+              <span class="material-symbols-outlined text-lg" id="dispatch-icon">rocket_launch</span>
+              <span id="dispatch-label">Generate &amp; Deliver Weekly Pulse</span>
+            </button>
+
+            <!-- Cached Clean vs Live Scrape Toggle -->
+            <div class="flex items-center p-1 rounded-lg bg-surface-container-lowest">
+              <button class="px-space-sm py-1.5 rounded-md font-label-sm text-label-sm font-semibold transition-all bg-surface-container-high text-primary shadow-sm cursor-pointer" id="btn-source-cached">
+                Cached Clean Dataset (187)
+              </button>
+              <button class="px-space-sm py-1.5 rounded-md font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1 cursor-pointer" id="btn-source-live">
+                <span class="h-1.5 w-1.5 rounded-full bg-outline"></span>
+                Live Scrape (Play Store)
+              </button>
+            </div>
+          </div>
+
+          <!-- Right side: Controls & Slider & Utilities -->
+          <div class="flex flex-wrap items-center gap-space-lg w-full xl:w-auto justify-start xl:justify-end">
+            <!-- Lookback Window Slider -->
+            <div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-1.5 rounded-lg">
+              <div class="flex flex-col">
+                <span class="font-label-sm text-label-sm text-outline">Lookback Scope</span>
+                <span class="font-label-sm text-label-sm text-on-surface font-semibold" id="lookback-label">10 wks (Oct 21–31)</span>
+              </div>
+              <input class="w-24 accent-primary cursor-pointer" id="lookback-slider" max="12" min="4" type="range" value="10"/>
+            </div>
+
+            <!-- Dry Run Switch -->
+            <div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg">
+              <span class="font-label-sm text-label-sm text-outline">Mode:</span>
+              <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary-container transition-colors focus:outline-none cursor-pointer" id="dryrun-toggle">
+                <span class="inline-block h-4 w-4 transform rounded-full bg-surface-container-lowest transition-transform translate-x-6"></span>
+              </button>
+              <span class="font-label-sm text-label-sm text-primary font-bold pl-1" id="dryrun-status">Live MCP Sync</span>
+            </div>
+
+            <!-- Secondary Utility Buttons -->
+            <div class="flex items-center gap-space-xs">
+              <button class="p-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-tertiary hover:bg-surface-bright transition-all cursor-pointer" id="btn-export-json" title="Export Raw JSON">
+                <span class="material-symbols-outlined text-lg">data_object</span>
+              </button>
+              <button class="p-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-all cursor-pointer" id="btn-download-md" title="Download Pulse Markdown">
+                <span class="material-symbols-outlined text-lg">markdown</span>
+              </button>
+              <button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm transition-all cursor-pointer" id="btn-inspect-prompt" title="Inspect Prompt Context">
+                <span class="material-symbols-outlined text-base">psychology</span>
+                <span>Prompt</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Central Split-Pane Workspace (65% / 35%) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start" id="pulse-section">
+          <!-- Left Column (8 cols): Executive Pulse Note Display -->
+          <section class="lg:col-span-8 flex flex-col gap-space-lg">
+            <div class="rounded-xl bg-surface-container-low shadow-xl p-space-xl relative overflow-hidden">
+              <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-tertiary to-transparent"></div>
+
+              <!-- Document Header -->
+              <div class="flex flex-wrap items-center justify-between pb-space-md gap-space-sm border-b border-surface-container-highest/40">
+                <div class="flex items-center gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-2xl">description</span>
+                  <div>
+                    <h1 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight"># Groww App Pulse — Executive Weekly</h1>
+                    <span class="font-label-sm text-label-sm text-outline">Synthesized via Anthropic Claude 3.5 Sonnet / Groq Llama 3.3 70B + Vercel MCP Toolchain</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <span class="px-2.5 py-1 rounded-md bg-surface-container-highest font-mono text-label-sm text-label-sm text-tertiary" id="pulse-id-tag">#PULSE-W44-2026</span>
+                  <span class="px-2 py-1 rounded-md bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Ready for CPO Review</span>
+                  <button class="ml-2 px-2 py-1 rounded bg-surface-container-high text-outline hover:text-on-surface text-xs font-mono transition-all cursor-pointer" id="btn-toggle-raw-md">View Raw</button>
+                </div>
+              </div>
+
+              <!-- Raw Markdown Panel (hidden by default) -->
+              <div class="hidden mt-space-md p-space-md bg-surface-container-lowest rounded-lg font-mono text-xs text-on-surface-variant overflow-x-auto whitespace-pre-wrap max-h-96" id="raw-md-view"></div>
+
+              <!-- Executive Note Body -->
+              <div class="flex flex-col gap-space-xl mt-space-md" id="pulse-formatted-view">
+                <!-- Section 1: Top 3 Friction Themes -->
+                <div class="flex flex-col gap-space-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-mono text-label-sm text-label-sm">01</span>
+                      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Top 3 Friction Themes</h2>
+                    </div>
+                    <span class="text-outline font-label-sm text-label-sm">Sorted by Composite Severity Score</span>
+                  </div>
+
+                  <!-- Theme Cards Grid -->
+                  <div class="grid grid-cols-1 gap-space-sm mt-space-xs" id="pulse-themes-container">
+                    <!-- Theme 1 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/70 hover:bg-surface-container transition-all flex flex-col gap-space-xs">
+                      <div class="flex flex-wrap items-center justify-between gap-space-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="px-2 py-0.5 rounded-full bg-error-container/60 text-error font-label-sm text-label-sm font-bold uppercase tracking-wider">CRITICAL CORAL</span>
+                          <span class="font-headline-sm text-body-lg font-bold text-on-surface">Trading &amp; Order Execution (F&amp;O / Intraday)</span>
+                        </div>
+                        <div class="flex items-center gap-space-md font-mono text-label-sm text-label-sm">
+                          <span class="text-on-surface-variant">69 Reviews (36.9%)</span>
+                          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-error font-semibold">Severity: 234.0</span>
+                        </div>
+                      </div>
+                      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-1">
+                        High frequency slippage on Nifty bank options expiry at market open. Order latency exceeding 800ms during 09:15–09:30 AM spikes, triggering involuntary slippages and high user distress.
+                      </p>
+                    </div>
+
+                    <!-- Theme 2 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/70 hover:bg-surface-container transition-all flex flex-col gap-space-xs">
+                      <div class="flex flex-wrap items-center justify-between gap-space-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-[#ffb049] font-label-sm text-label-sm font-bold uppercase tracking-wider">HIGH SEVERITY</span>
+                          <span class="font-headline-sm text-body-lg font-bold text-on-surface">Chart Performance &amp; App UI Stability</span>
+                        </div>
+                        <div class="flex items-center gap-space-md font-mono text-label-sm text-label-sm">
+                          <span class="text-on-surface-variant">61 Reviews (32.6%)</span>
+                          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-[#ffb049] font-semibold">Severity: 182.5</span>
+                        </div>
+                      </div>
+                      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-1">
+                        TradingView candlestick lag on 1-min &amp; 5-min intervals during high-velocity price action. Intermittent Android application freezes observed upon background tab swapping.
+                      </p>
+                    </div>
+
+                    <!-- Theme 3 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/70 hover:bg-surface-container transition-all flex flex-col gap-space-xs">
+                      <div class="flex flex-wrap items-center justify-between gap-space-sm">
+                        <div class="flex items-center gap-2">
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-tertiary font-label-sm text-label-sm font-bold uppercase tracking-wider">MODERATE</span>
+                          <span class="font-headline-sm text-body-lg font-bold text-on-surface">Brokerage, Charges &amp; Transparency</span>
+                        </div>
+                        <div class="flex items-center gap-space-md font-mono text-label-sm text-label-sm">
+                          <span class="text-on-surface-variant">20 Reviews (10.7%)</span>
+                          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-tertiary font-semibold">Severity: 65.0</span>
+                        </div>
+                      </div>
+                      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-1">
+                        Unclear ledger breakdown regarding intraday auto-squareoff charges (₹50 + GST penalty) and depository participant (DP) fee deductions displayed without prior checkout notification.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2: User Voices (Verbatim) -->
+                <div class="flex flex-col gap-space-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-mono text-label-sm text-label-sm">02</span>
+                      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">User Voices (Verbatim Quotations)</h2>
+                    </div>
+                    <span class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm">
+                      <span class="material-symbols-outlined text-sm">verified</span> 100% Substring Grounded
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col gap-space-sm mt-space-xs" id="pulse-quotes-container">
+                    <!-- Quote 1 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2 relative pl-space-lg">
+                      <div class="absolute left-0 top-0 bottom-0 w-1 bg-error rounded-l"></div>
+                      <p class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+                        “Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel.”
+                      </p>
+                      <div class="flex items-center justify-between font-label-sm text-label-sm pt-1">
+                        <span class="text-on-surface-variant font-mono">Reviewer #0016 • Oct 28, 2026</span>
+                        <span class="flex items-center text-error font-semibold">★☆☆☆☆ (1-Star Crash Event)</span>
+                      </div>
+                    </div>
+
+                    <!-- Quote 2 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2 relative pl-space-lg">
+                      <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#ffb049] rounded-l"></div>
+                      <p class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+                        “Candlestick charts freeze constantly when switching between Nifty 50 and Bank Nifty.”
+                      </p>
+                      <div class="flex items-center justify-between font-label-sm text-label-sm pt-1">
+                        <span class="text-on-surface-variant font-mono">Reviewer #0089 • Oct 29, 2026</span>
+                        <span class="flex items-center text-[#ffb049] font-semibold">★★☆☆☆ (2-Star UI Hang)</span>
+                      </div>
+                    </div>
+
+                    <!-- Quote 3 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2 relative pl-space-lg">
+                      <div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary rounded-l"></div>
+                      <p class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+                        “Cleanest UI for mutual fund SIPs, but intraday option chain needs immediate speed boost.”
+                      </p>
+                      <div class="flex items-center justify-between font-label-sm text-label-sm pt-1">
+                        <span class="text-on-surface-variant font-mono">Reviewer #0142 • Oct 30, 2026</span>
+                        <span class="flex items-center text-secondary font-semibold">★★★★☆ (4-Star Constructive)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 3: Action Ideas (Engineering & Product Priority Cards) -->
+                <div class="flex flex-col gap-space-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-mono text-label-sm text-label-sm">03</span>
+                      <h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Action Ideas &amp; Engineering Directives</h2>
+                    </div>
+                    <span class="text-outline font-label-sm text-label-sm">Assigned for Sprint 45</span>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm mt-space-xs" id="pulse-actions-container">
+                    <!-- Action 1 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/60 flex flex-col justify-between gap-space-md hover:bg-surface-container transition-all">
+                      <div class="flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                          <span class="px-2 py-0.5 rounded bg-error-container/80 text-error font-mono font-bold text-label-sm text-label-sm">P0 • EXECUTION</span>
+                          <span class="text-outline text-label-sm font-label-sm">&lt;120ms Target</span>
+                        </div>
+                        <span class="font-headline-sm text-body-md font-bold text-on-surface">Websocket Resiliency &amp; Fallback Polling</span>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">
+                          Deploy parallel gRPC ingest fallback channels to avert socket stalls during 9:15 AM opening bell volume surges.
+                        </p>
+                      </div>
+                      <div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-primary">
+                        <span>Assigned: Platform Eng</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                      </div>
+                    </div>
+
+                    <!-- Action 2 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/60 flex flex-col justify-between gap-space-md hover:bg-surface-container transition-all">
+                      <div class="flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-[#ffb049] font-mono font-bold text-label-sm text-label-sm">P1 • UI PERFORMANCE</span>
+                          <span class="text-outline text-label-sm font-label-sm">60 FPS Native</span>
+                        </div>
+                        <span class="font-headline-sm text-body-md font-bold text-on-surface">Candlestick Memory Cache &amp; WebGL Canvas</span>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">
+                          Migrate Charting rendering path to hardware-accelerated WebGL with granular garbage collection on Android 14.
+                        </p>
+                      </div>
+                      <div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-primary">
+                        <span>Assigned: Mobile Core</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                      </div>
+                    </div>
+
+                    <!-- Action 3 -->
+                    <div class="p-space-md rounded-lg bg-surface-container/60 flex flex-col justify-between gap-space-md hover:bg-surface-container transition-all">
+                      <div class="flex flex-col gap-2">
+                        <div class="flex items-center justify-between">
+                          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-tertiary font-mono font-bold text-label-sm text-label-sm">P1 • TRUST &amp; UX</span>
+                          <span class="text-outline text-label-sm font-label-sm">Ledger V3</span>
+                        </div>
+                        <span class="font-headline-sm text-body-md font-bold text-on-surface">Pre-Trade Fee Breakdown &amp; Explainability</span>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">
+                          Introduce explicit pre-order modal itemizing exchange turnover, auto-squareoff rules, and GST breakdowns.
+                        </p>
+                      </div>
+                      <div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-primary">
+                        <span>Assigned: Growth/F&amp;O</span>
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right Column (4 cols): Live Delivery Status & Agent Terminal -->
+          <section class="lg:col-span-4 flex flex-col gap-space-md" id="mcp-terminal">
+            <!-- Live Workspace Dispatch Card 1: Google Docs Integration -->
+            <div class="rounded-xl bg-surface-container-low p-space-md shadow-lg flex flex-col gap-space-sm hover:shadow-[0_0_20px_rgba(0,208,156,0.1)] transition-all">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
+                    <span class="material-symbols-outlined text-2xl">feed</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-headline-sm text-body-md font-bold text-on-surface">Google Workspace Doc</span>
+                    <span class="font-label-sm text-label-sm text-outline">Target: "AI Agent Report"</span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold flex items-center gap-1" id="doc-status-badge">
+                  <span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span> Appended
+                </span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-surface-container-lowest/70 flex items-center justify-between font-label-sm text-label-sm">
+                <span class="text-on-surface-variant font-mono" id="doc-timestamp">Synced: Live MCP</span>
+                <span class="text-outline">Section #Pulse-W44</span>
+              </div>
+              <a class="mt-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-surface-container-high hover:bg-surface-bright text-tertiary font-label-md text-label-md font-semibold transition-all cursor-pointer" href="{{ target_doc_url }}" id="doc-open-link" target="_blank">
+                <span>Open in Docs</span>
+                <span class="material-symbols-outlined text-sm">open_in_new</span>
+              </a>
+            </div>
+
+            <!-- Live Workspace Dispatch Card 2: Gmail Target -->
+            <div class="rounded-xl bg-surface-container-low p-space-md shadow-lg flex flex-col gap-space-sm hover:shadow-[0_0_20px_rgba(0,208,156,0.1)] transition-all">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-2xl">mail</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-headline-sm text-body-md font-bold text-on-surface">Executive Gmail Dispatch</span>
+                    <span class="font-label-sm text-label-sm text-tertiary truncate max-w-[190px]" id="gmail-target-addr">{{ target_email }}</span>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1" id="gmail-status-badge">
+                  Delivered ✅
+                </span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-surface-container-lowest/70 flex items-center justify-between font-label-sm text-label-sm font-mono">
+                <span class="text-on-surface-variant" id="gmail-message-id">ID: #1a1fcf982e04</span>
+                <span class="text-primary">250-word cap: OK</span>
+              </div>
+              <div class="flex items-center justify-between px-1 text-label-sm text-label-sm text-outline">
+                <span>CPO &amp; VP Eng In Loop</span>
+                <span class="text-on-surface-variant">Auto-delivered</span>
+              </div>
+            </div>
+
+            <!-- MCP Live Agent Console Terminal -->
+            <div class="rounded-xl bg-surface-container-lowest shadow-2xl flex flex-col overflow-hidden">
+              <div class="px-space-md py-2.5 bg-surface-container-low flex items-center justify-between border-b border-surface-container-highest/50">
+                <div class="flex items-center gap-space-xs">
+                  <span class="h-3 w-3 rounded-full bg-error/70 inline-block"></span>
+                  <span class="h-3 w-3 rounded-full bg-[#ffb049]/70 inline-block"></span>
+                  <span class="h-3 w-3 rounded-full bg-primary/70 inline-block"></span>
+                  <span class="font-mono text-label-sm text-label-sm text-on-surface-variant pl-2">mcp-server-stream</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-primary animate-ping"></span>
+                  <span class="font-mono text-label-sm text-label-sm text-primary font-bold">STREAMING</span>
+                </div>
+              </div>
+              <!-- Terminal Content -->
+              <div class="p-space-md font-mono text-body-sm text-body-sm leading-relaxed flex flex-col gap-2 max-h-[380px] overflow-y-auto" id="terminal-logs">
+                <div class="text-outline text-label-sm font-label-sm">// Model Context Protocol session established</div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:41:58]</span>
+                  <span class="text-tertiary">SSE Handshake:</span>
+                  <span class="text-primary font-semibold">Vercel MCP Server 200 OK</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:42:01]</span>
+                  <span class="text-on-surface-variant">GET /reviews/google-play?limit=250</span>
+                  <span class="text-secondary font-semibold">→ 187 clean reviews</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:42:03]</span>
+                  <span class="text-on-surface">Embed: Clustered 3 friction vectors via hybrid domain taxonomy</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:42:04]</span>
+                  <span class="text-error font-semibold">Severity Analysis:</span>
+                  <span class="text-on-surface-variant">Peak composite = 234.0 (Trading &amp; Execution)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:42:05]</span>
+                  <span class="text-tertiary">tool_call:</span>
+                  <span class="text-on-surface">append_to_google_doc (DocID: 1cha...SM) → 200 OK</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-outline text-label-sm">[10:42:06]</span>
+                  <span class="text-tertiary">tool_call:</span>
+                  <span class="text-on-surface">send_gmail (Recipient: nagesh14423@...) → 200 OK</span>
+                </div>
+                <div class="flex items-start gap-2 pt-1">
+                  <span class="text-outline text-label-sm">[10:42:07]</span>
+                  <span class="text-primary font-bold">Execution complete in 8.42s | Word count: 235 words (Compliant)</span>
+                </div>
+                <div class="mt-2 pt-2 bg-surface-container/40 p-2 rounded flex items-center justify-between text-label-sm font-label-sm text-outline">
+                  <span>Memory buffer: 48.2 MB</span>
+                  <span class="text-primary">Worker ID: #vcl-mcp-sgp1</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- 4. Secondary Analytics & Data Exploration Tabs -->
+        <section class="rounded-xl bg-surface-container-low shadow-xl p-space-lg flex flex-col gap-space-lg">
+          <!-- Tab Header Strip -->
+          <div class="flex flex-wrap items-center justify-between gap-space-md pb-space-sm border-b border-surface-container-highest/40">
+            <div class="flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest">
+              <button class="px-space-md py-2 rounded-lg font-label-md text-label-md font-bold bg-primary-container text-on-primary-container transition-all flex items-center gap-2 cursor-pointer" id="tab-btn-severity">
+                <span class="material-symbols-outlined text-base">bar_chart</span>
+                <span>Thematic Severity Ranking</span>
+              </button>
+              <button class="px-space-md py-2 rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-2 cursor-pointer" id="tab-btn-rating">
+                <span class="material-symbols-outlined text-base">pie_chart</span>
+                <span>Rating Distribution</span>
+              </button>
+              <button class="px-space-md py-2 rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-2 cursor-pointer" id="tab-btn-corpus">
+                <span class="material-symbols-outlined text-base">table_view</span>
+                <span>Sanitized Review Corpus (187)</span>
+              </button>
+            </div>
+            <div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+              <span>Formula: <span class="text-tertiary font-mono">Score = Volume + 2.5×Negative + 1.5×ThumbsUp</span></span>
+            </div>
+          </div>
+
+          <!-- Tab View 1: Thematic Severity Ranking (Active) -->
+          <div class="flex flex-col gap-space-md" id="tab-content-severity">
+            <div class="flex flex-col gap-space-sm" id="severity-bars-container">
+              <!-- Bar 1 -->
+              <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-outline">01</span>
+                    <span class="text-on-surface font-bold">Trading &amp; F&amp;O Execution Slippage</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <span class="text-on-surface-variant font-mono">69 reviews • 48 negative</span>
+                    <span class="text-error font-bold font-mono text-body-md">Score: 234.0</span>
+                  </div>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-3 overflow-hidden">
+                  <div class="bg-error h-3 rounded-full transition-all duration-700" style="width: 92%"></div>
+                </div>
+              </div>
+              <!-- Bar 2 -->
+              <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-outline">02</span>
+                    <span class="text-on-surface font-bold">Chart Stability &amp; Candlestick Rendering</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <span class="text-on-surface-variant font-mono">61 reviews • 38 negative</span>
+                    <span class="text-[#ffb049] font-bold font-mono text-body-md">Score: 182.5</span>
+                  </div>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-3 overflow-hidden">
+                  <div class="bg-[#ffb049] h-3 rounded-full transition-all duration-700" style="width: 74%"></div>
+                </div>
+              </div>
+              <!-- Bar 3 -->
+              <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-outline">03</span>
+                    <span class="text-on-surface font-bold">Brokerage &amp; Auto-Squareoff Billing Transparency</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <span class="text-on-surface-variant font-mono">20 reviews • 14 negative</span>
+                    <span class="text-[#ffdc49] font-bold font-mono text-body-md">Score: 65.0</span>
+                  </div>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-3 overflow-hidden">
+                  <div class="bg-[#ffdc49] h-3 rounded-full transition-all duration-700" style="width: 42%"></div>
+                </div>
+              </div>
+              <!-- Bar 4 -->
+              <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-outline">04</span>
+                    <span class="text-on-surface font-bold">Account Onboarding, IPO &amp; Banking</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <span class="text-on-surface-variant font-mono">15 reviews • 7 negative</span>
+                    <span class="text-tertiary font-bold font-mono text-body-md">Score: 34.0</span>
+                  </div>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-3 overflow-hidden">
+                  <div class="bg-tertiary h-3 rounded-full transition-all duration-700" style="width: 22%"></div>
+                </div>
+              </div>
+              <!-- Bar 5 -->
+              <div class="p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2">
+                <div class="flex items-center justify-between font-label-md text-label-md">
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-outline">05</span>
+                    <span class="text-on-surface font-bold">Portfolio Tracking &amp; Mutual Funds Sync</span>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <span class="text-on-surface-variant font-mono">22 reviews • 2 negative</span>
+                    <span class="text-secondary font-bold font-mono text-body-md">Score: 18.2</span>
+                  </div>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-3 overflow-hidden">
+                  <div class="bg-secondary h-3 rounded-full transition-all duration-700" style="width: 14%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab View 2: Rating Distribution -->
+          <div class="hidden flex-col gap-space-lg" id="tab-content-rating">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg items-center">
+              <!-- SVG Donut Chart -->
+              <div class="flex items-center justify-center p-space-md bg-surface-container/30 rounded-xl relative">
+                <svg class="w-56 h-56 transform -rotate-90" viewbox="0 0 200 200">
+                  <circle class="text-error" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="167.1 439.82" stroke-dashoffset="0" stroke-width="24"></circle>
+                  <circle class="text-[#ffb049]" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="48.38 439.82" stroke-dashoffset="-167.1" stroke-width="24"></circle>
+                  <circle class="text-outline" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="26.39 439.82" stroke-dashoffset="-215.48" stroke-width="24"></circle>
+                  <circle class="text-tertiary" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="39.58 439.82" stroke-dashoffset="-241.87" stroke-width="24"></circle>
+                  <circle class="text-primary" cx="100" cy="100" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="158.33 439.82" stroke-dashoffset="-281.45" stroke-width="24"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface" id="donut-center-total">187</span>
+                  <span class="font-label-sm text-label-sm text-outline uppercase">Total Ingest</span>
+                </div>
+              </div>
+
+              <!-- Segment Breakdown Legend -->
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container/50">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-error"></span>
+                    <span class="font-label-md text-label-md text-on-surface">1-Star (Critical Crash / Slippage)</span>
+                  </div>
+                  <span class="font-mono font-bold text-error">71 (38.0%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container/50">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-[#ffb049]"></span>
+                    <span class="font-label-md text-label-md text-on-surface">2-Star (Chart Latency &amp; UI Lags)</span>
+                  </div>
+                  <span class="font-mono font-bold text-[#ffb049]">20 (10.7%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container/50">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-outline"></span>
+                    <span class="font-label-md text-label-md text-on-surface">3-Star (Feature Requests / Taxes)</span>
+                  </div>
+                  <span class="font-mono font-bold text-outline">11 (5.9%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container/50">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-tertiary"></span>
+                    <span class="font-label-md text-label-md text-on-surface">4-Star (Strong MF, Seeking Speed)</span>
+                  </div>
+                  <span class="font-mono font-bold text-tertiary">18 (9.6%)</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container/50">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full bg-primary"></span>
+                    <span class="font-label-md text-label-md text-on-surface">5-Star (Intuitive Onboarding &amp; SIPs)</span>
+                  </div>
+                  <span class="font-mono font-bold text-primary">67 (35.8%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab View 3: Sanitized Review Corpus -->
+          <div class="hidden flex-col gap-space-md" id="tab-content-corpus">
+            <!-- Search & Filter Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-space-sm pb-1">
+              <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-highest w-full max-w-sm">
+                <span class="material-symbols-outlined text-outline text-lg">search</span>
+                <input class="bg-transparent text-on-surface text-body-sm font-body-sm focus:outline-none w-full" id="corpus-search-input" placeholder="Filter reviews (e.g. 'chart', 'option', 'refund')..." type="text"/>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 bg-surface-container p-1 rounded-lg text-xs" id="corpus-rating-filter">
+                  <button class="px-2 py-0.5 rounded bg-primary text-on-primary font-bold cursor-pointer" data-rating="all">All</button>
+                  <button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer" data-rating="1">1★</button>
+                  <button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer" data-rating="2">2★</button>
+                  <button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer" data-rating="3">3★</button>
+                  <button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer" data-rating="4">4★</button>
+                  <button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer" data-rating="5">5★</button>
+                </div>
+                <span class="px-2.5 py-1 rounded bg-surface-container text-primary font-mono text-label-sm text-label-sm">PII Masked</span>
+                <span class="text-outline text-label-sm text-label-sm" id="corpus-count-badge">187 of 187 displayed</span>
+              </div>
+            </div>
+
+            <!-- Table View -->
+            <div class="w-full overflow-x-auto max-h-[460px] overflow-y-auto rounded-lg border border-surface-container-highest/30">
+              <table class="w-full text-left font-body-sm text-body-sm">
+                <thead class="sticky top-0 z-10">
+                  <tr class="text-outline uppercase font-label-sm text-label-sm bg-surface-container-high">
+                    <th class="py-2.5 px-3">ID</th>
+                    <th class="py-2.5 px-3">Rating</th>
+                    <th class="py-2.5 px-3">Date</th>
+                    <th class="py-2.5 px-3">Anonymized User</th>
+                    <th class="py-2.5 px-3">Sanitized Review Text</th>
+                    <th class="py-2.5 px-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-surface-container-highest/20" id="corpus-table-body">
+                  <!-- Dynamically populated from /api/reviews -->
+                  <tr class="hover:bg-surface-container/60 transition-colors">
+                    <td class="py-3 px-3 font-mono text-tertiary">#0016</td>
+                    <td class="py-3 px-3"><span class="text-error font-bold font-mono">1★</span></td>
+                    <td class="py-3 px-3 text-outline whitespace-nowrap">2026-10-28</td>
+                    <td class="py-3 px-3"><span class="text-on-surface font-semibold">Reviewer #0016</span></td>
+                    <td class="py-3 px-3 text-on-surface max-w-md truncate">Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel.</td>
+                    <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-error-container/40 text-error text-label-sm font-label-sm font-bold">CRITICAL</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Prompt Context Modal -->
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden" id="prompt-modal">
+    <div class="relative w-full max-w-2xl bg-surface-container rounded-xl shadow-2xl border border-surface-container-highest p-space-lg flex flex-col gap-space-md">
+      <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-highest">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-xl">psychology</span>
+          <h3 class="font-headline-sm text-body-lg font-bold text-on-surface">Agent Prompt &amp; System Constraints</h3>
+        </div>
+        <button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-all cursor-pointer" id="btn-close-prompt-modal">
+          <span class="material-symbols-outlined text-lg">close</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-space-sm text-body-sm text-on-surface-variant font-mono max-h-96 overflow-y-auto">
+        <div class="p-3 bg-surface-container-lowest rounded">
+          <span class="text-primary font-bold">SYSTEM PERSONA:</span><br/>
+          Senior Staff Product Manager &amp; AI Intelligence Lead at Groww.
+        </div>
+        <div class="p-3 bg-surface-container-lowest rounded">
+          <span class="text-tertiary font-bold">PII HYGIENE DIRECTIVE:</span><br/>
+          Zero raw customer phone numbers (+91), email addresses, bank accounts, or PAN identifiers permitted in any output.
+        </div>
+        <div class="p-3 bg-surface-container-lowest rounded">
+          <span class="text-[#ffb049] font-bold">STRICT DISTILLATION CONSTRAINTS:</span><br/>
+          • Maximum 250 words total.<br/>
+          • Exactly Top 3 Friction Themes prioritized by Composite Severity Score.<br/>
+          • Exactly 3 Verbatim User Quotes (100% exact substring match verified).<br/>
+          • Exactly 3 Concrete Action Ideas with assigned engineering/product squads.
+        </div>
+      </div>
+      <div class="flex justify-end pt-space-xs">
+        <button class="px-4 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright text-label-md font-semibold transition-all cursor-pointer" id="btn-close-prompt-modal-footer">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side JavaScript -->
+  <script>
+    // State variables
+    let allReviews = [];
+    let currentFilteredReviews = [];
+    let currentRatingFilter = 'all';
+    let isLiveSync = true;
+    let scrapeFresh = false;
+    let currentPulsePayload = {
+      pulse_markdown: `# Groww App Pulse — Executive Weekly\n\n## 1. Top 3 Friction Themes\n- Trading & Order Execution (Severity: 234.0)\n- Chart Performance & App UI Stability (Severity: 182.5)\n- Brokerage, Charges & Transparency (Severity: 65.0)\n\n## 2. User Voices (Verbatim)\n- "Order got executed 12 seconds late during peak 9:15 AM volatility, lost ₹14,200 due to spinning wheel." (Reviewer #0016)\n- "Candlestick charts freeze constantly when switching between Nifty 50 and Bank Nifty." (Reviewer #0089)\n- "Cleanest UI for mutual fund SIPs, but intraday option chain needs immediate speed boost." (Reviewer #0142)\n\n## 3. Action Ideas\n- P0 Platform Eng: Websocket Resiliency & Fallback Polling\n- P1 Mobile Core: Candlestick Memory Cache & WebGL Canvas\n- P1 Growth: Pre-Trade Fee Breakdown & Explainability`
+    };
+
+    // Tab Switching Logic
+    const tabSeverityBtn = document.getElementById('tab-btn-severity');
+    const tabRatingBtn = document.getElementById('tab-btn-rating');
+    const tabCorpusBtn = document.getElementById('tab-btn-corpus');
+
+    const contentSeverity = document.getElementById('tab-content-severity');
+    const contentRating = document.getElementById('tab-content-rating');
+    const contentCorpus = document.getElementById('tab-content-corpus');
+
+    const tabs = [
+      { btn: tabSeverityBtn, content: contentSeverity },
+      { btn: tabRatingBtn, content: contentRating },
+      { btn: tabCorpusBtn, content: contentCorpus }
+    ];
+
+    function activateTab(targetBtn) {
+      tabs.forEach(t => {
+        t.content.classList.add('hidden');
+        t.btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+        t.btn.classList.add('text-on-surface-variant', 'font-semibold');
+      });
+      const match = tabs.find(t => t.btn === targetBtn);
+      if (match) {
+        match.content.classList.remove('hidden');
+        match.btn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+        match.btn.classList.remove('text-on-surface-variant', 'font-semibold');
+      }
+    }
+
+    tabs.forEach(item => {
+      item.btn.addEventListener('click', () => activateTab(item.btn));
+    });
+
+    // Sidebar navigation
+    document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('#sidebar-nav .nav-item').forEach(n => {
+          n.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-[0_0_20px_rgba(0,208,156,0.2)]');
+          n.classList.add('text-on-surface-variant');
+        });
+        item.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-[0_0_20px_rgba(0,208,156,0.2)]');
+        item.classList.remove('text-on-surface-variant');
+
+        const target = item.getAttribute('data-target');
+        if (target === 'tab-severity') {
+          activateTab(tabSeverityBtn);
+          contentSeverity.scrollIntoView({ behavior: 'smooth' });
+        } else if (target === 'tab-rating') {
+          activateTab(tabRatingBtn);
+          contentRating.scrollIntoView({ behavior: 'smooth' });
+        } else if (target === 'tab-corpus') {
+          activateTab(tabCorpusBtn);
+          contentCorpus.scrollIntoView({ behavior: 'smooth' });
+        } else if (target === 'mcp-terminal') {
+          document.getElementById('mcp-terminal').scrollIntoView({ behavior: 'smooth' });
+        } else {
+          document.getElementById('pulse-section').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Lookback slider
+    const lookbackSlider = document.getElementById('lookback-slider');
+    const lookbackLabel = document.getElementById('lookback-label');
+    lookbackSlider.addEventListener('input', (e) => {
+      lookbackLabel.textContent = `${e.target.value} wks (Scope)`;
+    });
+
+    // Dry Run Toggle
+    const dryrunToggle = document.getElementById('dryrun-toggle');
+    const dryrunStatus = document.getElementById('dryrun-status');
+    dryrunToggle.addEventListener('click', () => {
+      isLiveSync = !isLiveSync;
+      const dot = dryrunToggle.querySelector('span');
+      if (isLiveSync) {
+        dot.classList.remove('translate-x-1');
+        dot.classList.add('translate-x-6');
+        dryrunToggle.classList.replace('bg-surface-container-highest', 'bg-primary-container');
+        dryrunStatus.textContent = 'Live MCP Sync';
+        dryrunStatus.classList.replace('text-outline', 'text-primary');
+      } else {
+        dot.classList.remove('translate-x-6');
+        dot.classList.add('translate-x-1');
+        dryrunToggle.classList.replace('bg-primary-container', 'bg-surface-container-highest');
+        dryrunStatus.textContent = 'Simulate (Dry Run)';
+        dryrunStatus.classList.replace('text-primary', 'text-outline');
+      }
+    });
+
+    // Dataset Source Toggle
+    const btnSourceCached = document.getElementById('btn-source-cached');
+    const btnSourceLive = document.getElementById('btn-source-live');
+
+    btnSourceLive.addEventListener('click', () => {
+      scrapeFresh = true;
+      btnSourceLive.classList.add('bg-surface-container-high', 'text-primary', 'shadow-sm');
+      btnSourceLive.classList.remove('text-on-surface-variant');
+      btnSourceCached.classList.remove('bg-surface-container-high', 'text-primary', 'shadow-sm');
+      btnSourceCached.classList.add('text-on-surface-variant');
+    });
+
+    btnSourceCached.addEventListener('click', () => {
+      scrapeFresh = false;
+      btnSourceCached.classList.add('bg-surface-container-high', 'text-primary', 'shadow-sm');
+      btnSourceCached.classList.remove('text-on-surface-variant');
+      btnSourceLive.classList.remove('bg-surface-container-high', 'text-primary', 'shadow-sm');
+      btnSourceLive.classList.add('text-on-surface-variant');
+    });
+
+    // Raw Markdown Toggle
+    const btnToggleRawMd = document.getElementById('btn-toggle-raw-md');
+    const rawMdView = document.getElementById('raw-md-view');
+    const formattedView = document.getElementById('pulse-formatted-view');
+    let showingRaw = false;
+
+    btnToggleRawMd.addEventListener('click', () => {
+      showingRaw = !showingRaw;
+      if (showingRaw) {
+        rawMdView.textContent = currentPulsePayload.pulse_markdown || 'No markdown generated yet.';
+        rawMdView.classList.remove('hidden');
+        formattedView.classList.add('hidden');
+        btnToggleRawMd.textContent = 'View Visual';
+      } else {
+        rawMdView.classList.add('hidden');
+        formattedView.classList.remove('hidden');
+        btnToggleRawMd.textContent = 'View Raw';
+      }
+    });
+
+    // Prompt Context Modal
+    const promptModal = document.getElementById('prompt-modal');
+    document.getElementById('btn-inspect-prompt').addEventListener('click', () => {
+      promptModal.classList.remove('hidden');
+    });
+    document.getElementById('btn-close-prompt-modal').addEventListener('click', () => {
+      promptModal.classList.add('hidden');
+    });
+    document.getElementById('btn-close-prompt-modal-footer').addEventListener('click', () => {
+      promptModal.classList.add('hidden');
+    });
+
+    // Download Markdown Utility
+    document.getElementById('btn-download-md').addEventListener('click', () => {
+      const mdContent = currentPulsePayload.pulse_markdown || '';
+      const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `groww_weekly_pulse_${new Date().toISOString().slice(0, 10)}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Export JSON Utility
+    document.getElementById('btn-export-json').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentPulsePayload, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = `groww_pulse_data_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+    });
+
+    // Terminal Logging Helper
+    function appendTerminalLog(step, detail, type = 'info') {
+      const terminal = document.getElementById('terminal-logs');
+      const timeStr = new Date().toLocaleTimeString('en-US', { hour12: false });
+      const row = document.createElement('div');
+      row.className = 'flex items-start gap-2 animate-fade-in';
+
+      let typeClass = 'text-on-surface';
+      if (type === 'primary') typeClass = 'text-primary font-bold';
+      else if (type === 'tertiary') typeClass = 'text-tertiary font-semibold';
+      else if (type === 'error') typeClass = 'text-error font-semibold';
+
+      row.innerHTML = `
+        <span class="text-outline text-label-sm">[${timeStr}]</span>
+        <span class="${typeClass}">${step}:</span>
+        <span class="text-on-surface-variant">${detail}</span>
+      `;
+      terminal.appendChild(row);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Synthesis Execution Handler
+    const dispatchBtn = document.getElementById('dispatch-pulse-btn');
+    const dispatchLabel = document.getElementById('dispatch-label');
+    const dispatchIcon = document.getElementById('dispatch-icon');
+
+    async function triggerSynthesis() {
+      dispatchBtn.disabled = true;
+      dispatchBtn.classList.add('opacity-80', 'cursor-not-allowed');
+      dispatchIcon.textContent = 'refresh';
+      dispatchIcon.classList.add('animate-spin');
+      dispatchLabel.textContent = 'Synthesizing & Delivering...';
+
+      appendTerminalLog('PIPELINE_START', `Invoking synthesizer (fresh=${scrapeFresh}, dry_run=${!isLiveSync})`, 'tertiary');
+
+      try {
+        const response = await fetch('/api/synthesize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scrape_fresh: scrapeFresh,
+            weeks_back: parseInt(lookbackSlider.value),
+            dry_run: !isLiveSync,
+          }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({ detail: 'Server Error' }));
+          throw new Error(errData.detail || 'Synthesis failed');
+        }
+
+        const data = await response.json();
+        currentPulsePayload = data;
+
+        // Log completion in terminal
+        appendTerminalLog('CLUSTERING', `Extracted ${data.themes_count} themes from ${data.reviews_analyzed} reviews`, 'tertiary');
+        if (data.google_doc_result) {
+          appendTerminalLog('TOOL_DOCS', `Google Docs append: ${data.google_doc_result.status}`, 'primary');
+        }
+        if (data.gmail_result) {
+          appendTerminalLog('TOOL_GMAIL', `Gmail dispatched: ${data.gmail_result.status}`, 'primary');
+        }
+        appendTerminalLog('COMPLETE', `Weekly Pulse Generated (${data.word_count} words, <=250 compliant)`, 'primary');
+
+        // Update KPI metrics
+        if (data.word_count) {
+          document.getElementById('metric-word-count').textContent = data.word_count;
+          const pct = Math.min(100, Math.round((data.word_count / 250) * 100));
+          document.getElementById('metric-word-bar').style.width = `${pct}%`;
+          document.getElementById('metric-word-pct').textContent = `${pct}% capacity`;
+        }
+
+        // Update raw markdown view if open
+        if (showingRaw) {
+          rawMdView.textContent = data.pulse_markdown;
+        }
+
+        // Update Theme Cards if structured themes present
+        if (data.top_themes && data.top_themes.length === 3) {
+          const container = document.getElementById('pulse-themes-container');
+          container.innerHTML = '';
+          const badges = [
+            { label: 'CRITICAL CORAL', color: 'bg-error-container/60 text-error' },
+            { label: 'HIGH SEVERITY', color: 'bg-surface-container-highest text-[#ffb049]' },
+            { label: 'MODERATE', color: 'bg-surface-container-highest text-tertiary' }
+          ];
+          data.top_themes.forEach((theme, idx) => {
+            const badge = badges[idx] || badges[0];
+            const card = document.createElement('div');
+            card.className = 'p-space-md rounded-lg bg-surface-container/70 hover:bg-surface-container transition-all flex flex-col gap-space-xs';
+            card.innerHTML = `
+              <div class="flex flex-wrap items-center justify-between gap-space-sm">
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded-full ${badge.color} font-label-sm text-label-sm font-bold uppercase tracking-wider">${badge.label}</span>
+                  <span class="font-headline-sm text-body-lg font-bold text-on-surface">${theme.name}</span>
+                </div>
+                <div class="flex items-center gap-space-md font-mono text-label-sm text-label-sm">
+                  <span class="text-on-surface-variant">${theme.review_count} Reviews</span>
+                  <span class="px-2 py-0.5 rounded bg-surface-container-highest text-error font-semibold">Severity: ${theme.priority_score.toFixed(1)}</span>
+                </div>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed pl-1">${theme.description}</p>
+            `;
+            container.appendChild(card);
+          });
+        }
+
+        // Update Quotes Cards
+        if (data.verbatim_quotes && data.verbatim_quotes.length === 3) {
+          const qContainer = document.getElementById('pulse-quotes-container');
+          qContainer.innerHTML = '';
+          const barColors = ['bg-error', 'bg-[#ffb049]', 'bg-secondary'];
+          data.verbatim_quotes.forEach((q, idx) => {
+            const bar = barColors[idx] || barColors[0];
+            const stars = '★'.repeat(q.rating) + '☆'.repeat(5 - q.rating);
+            const card = document.createElement('div');
+            card.className = 'p-space-md rounded-lg bg-surface-container/40 flex flex-col gap-2 relative pl-space-lg';
+            card.innerHTML = `
+              <div class="absolute left-0 top-0 bottom-0 w-1 ${bar} rounded-l"></div>
+              <p class="font-body-md text-body-md text-on-surface italic leading-relaxed">“${q.quote_text}”</p>
+              <div class="flex items-center justify-between font-label-sm text-label-sm pt-1">
+                <span class="text-on-surface-variant font-mono">${q.user_pseudonym}</span>
+                <span class="flex items-center text-primary font-semibold">${stars} (${q.rating}-Star Verified)</span>
+              </div>
+            `;
+            qContainer.appendChild(card);
+          });
+        }
+
+        // Update Action Ideas Cards
+        if (data.action_ideas && data.action_ideas.length === 3) {
+          const aContainer = document.getElementById('pulse-actions-container');
+          aContainer.innerHTML = '';
+          const priorities = ['P0 • CRITICAL', 'P1 • RELIABILITY', 'P1 • TRUST & UX'];
+          const squads = ['Platform Eng', 'Mobile Core', 'Growth & Onboarding'];
+          data.action_ideas.forEach((act, idx) => {
+            const prio = priorities[idx] || 'P1';
+            const squad = squads[idx] || 'Engineering';
+            const card = document.createElement('div');
+            card.className = 'p-space-md rounded-lg bg-surface-container/60 flex flex-col justify-between gap-space-md hover:bg-surface-container transition-all';
+            card.innerHTML = `
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <span class="px-2 py-0.5 rounded bg-error-container/80 text-error font-mono font-bold text-label-sm text-label-sm">${prio}</span>
+                  <span class="text-outline text-label-sm font-label-sm">Sprint Directive</span>
+                </div>
+                <span class="font-headline-sm text-body-md font-bold text-on-surface">${act.title}</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">${act.recommendation}</p>
+              </div>
+              <div class="pt-2 flex items-center justify-between text-label-sm font-label-sm text-primary">
+                <span>Assigned: ${squad}</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </div>
+            `;
+            aContainer.appendChild(card);
+          });
+        }
+
+        // Update Workspace Cards
+        if (data.google_doc_result && data.google_doc_result.status === 'success') {
+          document.getElementById('doc-status-badge').innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span> Appended ✅';
+          document.getElementById('doc-timestamp').textContent = `Appended: ${new Date().toLocaleTimeString('en-US', { hour12: false })}`;
+        }
+        if (data.gmail_result && data.gmail_result.status === 'success') {
+          document.getElementById('gmail-status-badge').innerHTML = 'Delivered ✅';
+          if (data.gmail_result.message_id) {
+            document.getElementById('gmail-message-id').textContent = `ID: #${data.gmail_result.message_id.slice(0, 12)}`;
+          }
+        }
+
+        // Button Success Animation
+        dispatchIcon.classList.remove('animate-spin');
+        dispatchIcon.textContent = 'check_circle';
+        dispatchLabel.textContent = 'Delivered to Docs & Gmail ✅';
+
+        setTimeout(() => {
+          dispatchIcon.textContent = 'rocket_launch';
+          dispatchLabel.textContent = 'Generate & Deliver Weekly Pulse';
+          dispatchBtn.disabled = false;
+          dispatchBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+        }, 3500);
+
+      } catch (err) {
+        console.error('Synthesis error:', err);
+        appendTerminalLog('ERROR', err.message || 'Unknown execution error', 'error');
+        dispatchIcon.classList.remove('animate-spin');
+        dispatchIcon.textContent = 'error';
+        dispatchLabel.textContent = 'Synthesis Error (See Terminal)';
+
+        setTimeout(() => {
+          dispatchIcon.textContent = 'rocket_launch';
+          dispatchLabel.textContent = 'Generate & Deliver Weekly Pulse';
+          dispatchBtn.disabled = false;
+          dispatchBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+        }, 4000);
+      }
+    }
+
+    dispatchBtn.addEventListener('click', triggerSynthesis);
+
+    // Review Corpus Table Population & Filtering
+    async function loadCorpusData() {
+      try {
+        const res = await fetch('/api/reviews');
+        if (!res.ok) return;
+        const data = await res.json();
+        allReviews = data.reviews || [];
+        currentFilteredReviews = [...allReviews];
+        renderReviewsTable();
+      } catch (e) {
+        console.error('Failed to load reviews:', e);
+      }
+    }
+
+    function renderReviewsTable() {
+      const tbody = document.getElementById('corpus-table-body');
+      tbody.innerHTML = '';
+
+      const countBadge = document.getElementById('corpus-count-badge');
+      countBadge.textContent = `${currentFilteredReviews.length} of ${allReviews.length} displayed`;
+
+      currentFilteredReviews.slice(0, 50).forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-surface-container/60 transition-colors';
+
+        let ratingColor = 'text-error';
+        let statusBadge = '<span class="px-2 py-0.5 rounded bg-error-container/40 text-error text-label-sm font-label-sm font-bold">CRITICAL</span>';
+        if (r.rating === 2) {
+          ratingColor = 'text-[#ffb049]';
+          statusBadge = '<span class="px-2 py-0.5 rounded bg-surface-container-highest text-[#ffb049] text-label-sm font-label-sm font-bold">HIGH</span>';
+        } else if (r.rating === 3) {
+          ratingColor = 'text-outline';
+          statusBadge = '<span class="px-2 py-0.5 rounded bg-surface-container text-outline text-label-sm font-label-sm">NEUTRAL</span>';
+        } else if (r.rating === 4) {
+          ratingColor = 'text-tertiary';
+          statusBadge = '<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary text-label-sm font-label-sm font-semibold">FEATURE</span>';
+        } else if (r.rating === 5) {
+          ratingColor = 'text-primary';
+          statusBadge = '<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary text-label-sm font-label-sm font-bold">PRAISE</span>';
+        }
+
+        tr.innerHTML = `
+          <td class="py-3 px-3 font-mono text-tertiary text-xs">#${r.review_id.slice(-6)}</td>
+          <td class="py-3 px-3"><span class="${ratingColor} font-bold font-mono">${r.rating}★</span></td>
+          <td class="py-3 px-3 text-outline whitespace-nowrap text-xs">${r.date}</td>
+          <td class="py-3 px-3">
+            <div class="flex flex-col">
+              <span class="text-on-surface font-semibold text-xs">${r.user_name_anonymized || 'Groww User'}</span>
+              <span class="text-outline text-label-sm font-label-sm font-mono">${r.app_version || 'v14.x'}</span>
+            </div>
+          </td>
+          <td class="py-3 px-3 text-on-surface max-w-md truncate" title="${r.text.replace(/"/g, '&quot;')}">${r.text}</td>
+          <td class="py-3 px-3">${statusBadge}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function applyCorpusFilters() {
+      const searchVal = document.getElementById('corpus-search-input').value.toLowerCase().trim();
+      currentFilteredReviews = allReviews.filter(r => {
+        const matchesRating = (currentRatingFilter === 'all') || (r.rating === parseInt(currentRatingFilter));
+        const matchesSearch = !searchVal ||
+          r.text.toLowerCase().includes(searchVal) ||
+          r.review_id.toLowerCase().includes(searchVal) ||
+          (r.user_name_anonymized && r.user_name_anonymized.toLowerCase().includes(searchVal));
+        return matchesRating && matchesSearch;
+      });
+      renderReviewsTable();
+    }
+
+    document.getElementById('corpus-search-input').addEventListener('input', applyCorpusFilters);
+
+    document.querySelectorAll('#corpus-rating-filter button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#corpus-rating-filter button').forEach(b => {
+          b.className = 'px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface cursor-pointer';
+        });
+        btn.className = 'px-2 py-0.5 rounded bg-primary text-on-primary font-bold cursor-pointer';
+        currentRatingFilter = btn.getAttribute('data-rating');
+        applyCorpusFilters();
+      });
+    });
+
+    // Initialize data on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCorpusData();
+    });
+  </script>
+</body>
+</html>

@@ -21,12 +21,12 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy application source, data, config, and documentation
 COPY . .
 
-# Expose port (Streamlit default or Railway dynamic PORT)
+# Expose port (Default or Railway dynamic PORT)
 EXPOSE 8501
 
 # Run healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/_stcore/health || exit 1
+    CMD curl -f http://localhost:${PORT}/health || exit 1
 
-# Launch Streamlit dashboard
-CMD ["sh", "-c", "streamlit run src/app.py --server.port=${PORT} --server.address=0.0.0.0 --server.enableCORS=false --server.enableXsrfProtection=false"]
+# Launch FastAPI web application
+CMD ["sh", "-c", "uvicorn src.web:app --host 0.0.0.0 --port ${PORT:-8501}"]
