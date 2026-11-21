@@ -96,7 +96,7 @@ class VercelMCPClient:
                     "status": "success",
                     "tool": tool_name,
                     "summary": summary,
-                    "raw_result": result,
+                    "raw_result": str(result),
                 }
             except MCPClientError:
                 # Logical errors returned by server tools should not be retried

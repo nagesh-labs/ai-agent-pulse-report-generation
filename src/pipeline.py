@@ -12,6 +12,7 @@ import argparse
 import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
+from datetime import timedelta
 
 from dotenv import load_dotenv
 
@@ -68,6 +69,18 @@ class GrowwPulsePipeline:
             for line in f:
                 if line.strip():
                     reviews.append(ReviewRecord.model_validate_json(line))
+
+        if reviews and weeks_back:
+            latest_date = max(r.date for r in reviews)
+            cutoff_date = latest_date - timedelta(weeks=weeks_back)
+            filtered = [r for r in reviews if r.date >= cutoff_date]
+            if filtered:
+                logger.info(
+                    "Filtered cached reviews for past %d weeks: %d of %d reviews retained (>= %s)",
+                    weeks_back, len(filtered), len(reviews), cutoff_date.strftime("%Y-%m-%d")
+                )
+                return filtered
+
         return reviews
 
     def run(

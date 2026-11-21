@@ -176,7 +176,11 @@
       <div class="flex flex-wrap items-center justify-between pb-4 border-b border-surface-border gap-2">
         <div>
           <h2 class="text-lg font-bold font-heading text-white tracking-tight">Groww App Pulse — Executive Weekly</h2>
-          <span class="text-xs text-slate-400">Synthesized via Groq Llama 3.3 70B • 100% Substring Grounded</span>
+          <div class="flex items-center gap-2 mt-0.5">
+            <span class="text-xs text-brand font-medium" id="pulse-date-range">Oct 21, 2026 – Oct 31, 2026</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-xs text-slate-400">100% Substring Grounded</span>
+          </div>
         </div>
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-1 rounded bg-surface-subtle font-mono text-xs text-brand font-medium">#PULSE-W44-2026</span>
@@ -522,6 +526,14 @@
 
         appendTerminalLog('COMPLETE', `Weekly report synthesized (${data.word_count} words)`, 'primary');
 
+        // Update date range and reviews analyzed
+        if (data.date_range) {
+          document.getElementById('pulse-date-range').textContent = data.date_range;
+        }
+        if (data.reviews_analyzed) {
+          document.getElementById('metric-total-reviews').textContent = data.reviews_analyzed;
+        }
+
         // Update word count metrics
         if (data.word_count) {
           document.getElementById('metric-word-count').textContent = data.word_count;
@@ -606,21 +618,40 @@
         }
 
         // Update Workspace Delivery Status
-        if (data.google_doc_result && data.google_doc_result.status === 'success') {
+        const docsOk = data.google_doc_result && data.google_doc_result.status === 'success';
+        const gmailOk = data.gmail_result && data.gmail_result.status === 'success';
+
+        if (docsOk) {
           document.getElementById('doc-status-badge').textContent = 'Appended to "AI Agent Report" ✅';
+          document.getElementById('doc-status-badge').className = 'text-brand font-medium';
           document.getElementById('doc-timestamp').textContent = `Appended: ${new Date().toLocaleTimeString('en-US', { hour12: false })}`;
+        } else {
+          const errSummary = data.google_doc_result?.summary || 'Delivery Error';
+          document.getElementById('doc-status-badge').textContent = `Failed ⚠️ (${errSummary.slice(0, 30)})`;
+          document.getElementById('doc-status-badge').className = 'text-red-400 font-medium';
         }
-        if (data.gmail_result && data.gmail_result.status === 'success') {
+
+        if (gmailOk) {
           document.getElementById('gmail-status-badge').textContent = 'Dispatched to Leadership Inboxes ✅';
+          document.getElementById('gmail-status-badge').className = 'text-emerald-400 font-medium';
           if (data.gmail_result.message_id) {
             document.getElementById('gmail-message-id').textContent = `Ref #${data.gmail_result.message_id.slice(0, 12)}`;
           }
+        } else {
+          const errSummary = data.gmail_result?.summary || 'Dispatch Error';
+          document.getElementById('gmail-status-badge').textContent = `Failed ⚠️ (${errSummary.slice(0, 30)})`;
+          document.getElementById('gmail-status-badge').className = 'text-red-400 font-medium';
         }
 
         // Success state
         dispatchIcon.classList.remove('animate-spin');
-        dispatchIcon.textContent = 'check_circle';
-        dispatchLabel.textContent = 'Report Delivered to Google Docs & Email ✅';
+        if (docsOk && gmailOk) {
+          dispatchIcon.textContent = 'check_circle';
+          dispatchLabel.textContent = 'Report Delivered to Google Docs & Email ✅';
+        } else {
+          dispatchIcon.textContent = 'warning';
+          dispatchLabel.textContent = 'Report Generated (Check Delivery Below)';
+        }
 
         setTimeout(() => {
           dispatchIcon.textContent = 'send';

@@ -160,8 +160,11 @@ async def get_initial_data():
 async def run_synthesis(payload: SynthesizeRequest):
     """Executes the complete feedback pulse pipeline and delivers to Google Workspace & Gmail."""
     try:
+        import asyncio
         pipeline = GrowwPulsePipeline()
-        result = pipeline.run(
+        # Offload synchronous execution (which calls anyio.run internally) to a worker thread
+        result = await asyncio.to_thread(
+            pipeline.run,
             scrape_fresh=payload.scrape_fresh,
             weeks_back=payload.weeks_back,
             dry_run=payload.dry_run,
