@@ -74,10 +74,6 @@
           <span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span>
           <span>MCP Online</span>
         </div>
-        <div class="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-md bg-surface-card border border-surface-border text-slate-400">
-          <span class="material-symbols-outlined text-xs text-slate-500">mail</span>
-          <span class="truncate max-w-[160px]">{{ target_email }}</span>
-        </div>
         <a class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-subtle hover:bg-slate-700 text-brand text-xs font-medium transition-all" href="{{ target_doc_url }}" target="_blank">
           <span class="material-symbols-outlined text-sm">open_in_new</span>
           <span>Google Doc ↗</span>
@@ -141,38 +137,32 @@
     </section>
 
     <!-- LAYER 2: Core Action Bar (Select Week Range + Generate & Send Report) -->
-    <section class="p-5 rounded-2xl bg-surface-card border border-surface-border shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+    <section class="p-4 sm:p-5 rounded-2xl bg-surface-card border border-surface-border shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
       
-      <!-- Week Range Selector & Options -->
-      <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-        <div class="flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs">
-          <span class="material-symbols-outlined text-sm text-brand">calendar_month</span>
+      <!-- Week Range Selector -->
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-surface-bg border border-surface-border text-xs w-full sm:w-auto">
+          <span class="material-symbols-outlined text-base text-brand">calendar_month</span>
           <span class="text-slate-400">Week Range:</span>
-          <select class="bg-transparent text-white font-semibold focus:outline-none cursor-pointer" id="week-range-select">
-            <option value="4" class="bg-surface-card text-white">Last 4 Weeks</option>
-            <option value="8" class="bg-surface-card text-white">Last 8 Weeks</option>
-            <option value="10" selected class="bg-surface-card text-white">Last 10 Weeks (Oct 21 – Oct 31)</option>
-            <option value="12" class="bg-surface-card text-white">Last 12 Weeks</option>
+          <select class="bg-transparent text-white font-semibold focus:outline-none cursor-pointer pr-2" id="week-range-select">
+            <option value="1" class="bg-surface-card text-white">Past 1 Week (Recent Spike)</option>
+            <option value="2" selected class="bg-surface-card text-white">Past 2 Weeks (Oct 21 – Oct 31, 2026)</option>
+            <option value="4" class="bg-surface-card text-white">Past 4 Weeks (Monthly Scope)</option>
+            <option value="8" class="bg-surface-card text-white">Past 8 Weeks (Bi-Monthly Trend)</option>
+            <option value="12" class="bg-surface-card text-white">Past 12 Weeks (Quarterly Scope)</option>
           </select>
-          <!-- Hidden input slider for backward compatibility -->
-          <input class="hidden" id="lookback-slider" max="12" min="4" type="range" value="10"/>
-          <span class="hidden" id="lookback-label">10 wks</span>
-        </div>
-
-        <!-- Mode Toggle (Live Sync vs Preview) -->
-        <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300 px-3 py-2 rounded-xl bg-surface-bg border border-surface-border">
-          <input type="checkbox" checked id="send-dispatch-checkbox" class="accent-brand cursor-pointer w-4 h-4 rounded"/>
-          <span>Send Gmail &amp; Update Google Doc</span>
-          <!-- Hidden elements for test compatibility -->
+          <!-- Hidden inputs for backward compatibility -->
+          <input class="hidden" id="lookback-slider" max="12" min="1" type="range" value="2"/>
+          <span class="hidden" id="lookback-label">2 wks</span>
           <button class="hidden" id="dryrun-toggle"><span></span></button>
           <span class="hidden" id="dryrun-status">Live MCP Sync</span>
           <button class="hidden" id="btn-source-cached"></button>
           <button class="hidden" id="btn-source-live"></button>
-        </label>
+        </div>
       </div>
 
       <!-- Prominent Primary Action Button -->
-      <button class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand hover:bg-brand-hover text-slate-950 font-heading font-bold text-sm tracking-tight shadow-lg shadow-brand/20 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer" id="dispatch-pulse-btn">
+      <button class="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand hover:bg-brand-hover text-slate-950 font-heading font-bold text-sm tracking-tight shadow-lg shadow-brand/20 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer" id="dispatch-pulse-btn">
         <span class="material-symbols-outlined text-lg" id="dispatch-icon">send</span>
         <span id="dispatch-label">Generate &amp; Send Pulse Report</span>
       </button>
@@ -346,23 +336,24 @@
       </div>
 
       <!-- Live Delivery Confirmation Strip -->
-      <div class="pt-4 border-t border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs">
-        <div class="flex items-center gap-4">
+      <div class="pt-4 border-t border-surface-border flex flex-wrap items-center justify-between gap-4 text-xs">
+        <div class="flex flex-wrap items-center gap-5">
           <div class="flex items-center gap-2">
-            <span class="text-brand">●</span>
+            <span class="h-2 w-2 rounded-full bg-brand"></span>
             <span class="text-slate-300">Google Doc:</span>
-            <span class="text-brand font-medium" id="doc-status-badge">Appended ✅</span>
+            <span class="text-brand font-medium" id="doc-status-badge">Appended to "AI Agent Report" ✅</span>
+            <a href="{{ target_doc_url }}" target="_blank" class="text-brand hover:underline text-[11px] ml-1">Open ↗</a>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-emerald-400">●</span>
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
             <span class="text-slate-300">Email:</span>
-            <span class="text-emerald-400 font-medium" id="gmail-status-badge">Sent to {{ target_email }} ✅</span>
+            <span class="text-emerald-400 font-medium" id="gmail-status-badge">Dispatched to Leadership Inboxes ✅</span>
           </div>
         </div>
-        <div class="flex items-center gap-2 font-mono text-[11px] text-slate-500">
+        <div class="flex items-center gap-3 font-mono text-[11px] text-slate-500">
           <span id="doc-timestamp">Synced: Live MCP</span>
           <span>•</span>
-          <span id="gmail-message-id">Msg #1a1fcf982e04</span>
+          <span id="gmail-message-id">Ref #1a1fcf982e04</span>
         </div>
       </div>
 
@@ -500,17 +491,15 @@
     const dispatchBtn = document.getElementById('dispatch-pulse-btn');
     const dispatchLabel = document.getElementById('dispatch-label');
     const dispatchIcon = document.getElementById('dispatch-icon');
-    const sendCheckbox = document.getElementById('send-dispatch-checkbox');
 
     async function triggerSynthesis() {
-      const shouldDispatch = sendCheckbox.checked;
       dispatchBtn.disabled = true;
       dispatchBtn.classList.add('opacity-75', 'cursor-not-allowed');
       dispatchIcon.textContent = 'refresh';
       dispatchIcon.classList.add('animate-spin');
-      dispatchLabel.textContent = shouldDispatch ? 'Generating & Delivering Report...' : 'Generating Report Preview...';
+      dispatchLabel.textContent = 'Generating & Delivering Report...';
 
-      appendTerminalLog('START', `Generating pulse report (weeks=${weekSelect.value}, live_sync=${shouldDispatch})`, 'tertiary');
+      appendTerminalLog('START', `Generating and delivering pulse report (weeks=${weekSelect.value})`, 'tertiary');
 
       try {
         const response = await fetch('/api/synthesize', {
@@ -519,7 +508,7 @@
           body: JSON.stringify({
             scrape_fresh: false,
             weeks_back: parseInt(weekSelect.value),
-            dry_run: !shouldDispatch,
+            dry_run: false,
           }),
         });
 
@@ -618,20 +607,20 @@
 
         // Update Workspace Delivery Status
         if (data.google_doc_result && data.google_doc_result.status === 'success') {
-          document.getElementById('doc-status-badge').textContent = 'Appended ✅';
+          document.getElementById('doc-status-badge').textContent = 'Appended to "AI Agent Report" ✅';
           document.getElementById('doc-timestamp').textContent = `Appended: ${new Date().toLocaleTimeString('en-US', { hour12: false })}`;
         }
         if (data.gmail_result && data.gmail_result.status === 'success') {
-          document.getElementById('gmail-status-badge').textContent = `Sent to {{ target_email }} ✅`;
+          document.getElementById('gmail-status-badge').textContent = 'Dispatched to Leadership Inboxes ✅';
           if (data.gmail_result.message_id) {
-            document.getElementById('gmail-message-id').textContent = `Msg #${data.gmail_result.message_id.slice(0, 12)}`;
+            document.getElementById('gmail-message-id').textContent = `Ref #${data.gmail_result.message_id.slice(0, 12)}`;
           }
         }
 
         // Success state
         dispatchIcon.classList.remove('animate-spin');
         dispatchIcon.textContent = 'check_circle';
-        dispatchLabel.textContent = shouldDispatch ? 'Delivered to Docs & Gmail ✅' : 'Report Generated ✅';
+        dispatchLabel.textContent = 'Report Delivered to Google Docs & Email ✅';
 
         setTimeout(() => {
           dispatchIcon.textContent = 'send';
