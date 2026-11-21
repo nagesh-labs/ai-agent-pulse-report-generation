@@ -1,0 +1,42 @@
+app:
+  package_id: "com.nextbillion.groww"
+  platform: "google_play"
+  country: "in"
+  lang: "en"
+
+ingestion:
+  default_weeks_back: 10
+  min_weeks: 8
+  max_weeks: 12
+  batch_size: 200
+  max_reviews_sample: 1500
+  rate_limit_delay_seconds: 1.0
+  min_word_count: 9
+  remove_emojis: true
+  english_only: true
+
+agent:
+  provider: "groq"
+  model_name: "llama-3.3-70b-versatile"
+  temperature: 0.2
+  api_key_env: "GROQ_API_KEY"
+  max_themes: 5
+  top_themes_count: 3
+  quotes_count: 3
+  action_ideas_count: 3
+  max_word_count: 250
+
+delivery:
+  email_recipient: "stakeholders@groww.in"
+  pulse_title_prefix: "[Weekly Pulse] Groww App Reviews"
+  google_doc_id: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+
+mcp:
+  server_url: "https://ai-agent-mcp-server.vercel.app/sse"
+  health_url: "https://ai-agent-mcp-server.vercel.app/health"
+  auth_key_env: "MCP_AUTH_KEY"
+  timeout_seconds: 30.0
+
+storage:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"

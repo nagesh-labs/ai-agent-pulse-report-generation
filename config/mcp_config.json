@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config.json",
+  "mcpServers": {
+    "google-workspace-vercel": {
+      "url": "https://ai-agent-mcp-server.vercel.app/sse",
+      "headers": {
+        "Authorization": "Bearer ${MCP_AUTH_KEY}"
+      },
+      "transport": "sse",
+      "description": "Remote Google Workspace MCP Server deployed on Vercel providing send_gmail and append_to_google_doc."
+    },
+    "google-workspace-local": {
+      "command": "python",
+      "args": [
+        "-m",
+        "src.server"
+      ],
+      "cwd": "C:/GenAI_Projects/MCP Server-Project",
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "transport": "stdio",
+      "description": "Local development fallback communicating over stdio."
+    }
+  }
+}

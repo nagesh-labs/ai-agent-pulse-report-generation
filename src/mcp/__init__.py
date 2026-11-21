@@ -1,0 +1,2 @@
+"""MCP integration subsystem package."""
+

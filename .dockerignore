@@ -1,0 +1,13 @@
+.git/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+tests/
+.env
+.env.local
+data/raw/*
+!data/raw/.gitkeep

@@ -1,0 +1,103 @@
+name: Generate Groww Feedback Pulse
+
+on:
+  # On-demand manual trigger from GitHub UI / CLI / API
+  workflow_dispatch:
+    inputs:
+      scrape_fresh:
+        description: 'Scrape fresh reviews from Google Play Store? (uncheck to use clean cache)'
+        type: boolean
+        required: true
+        default: false
+      weeks_back:
+        description: 'Review lookback window (weeks)'
+        type: choice
+        options:
+          - '8'
+          - '10'
+          - '12'
+        default: '10'
+      dry_run:
+        description: 'Dry run? (uncheck to execute live delivery to Docs & Gmail)'
+        type: boolean
+        required: true
+        default: false
+      custom_recipient:
+        description: 'Override recipient email (optional, leave blank to use default)'
+        type: string
+        required: false
+        default: ''
+
+  # Optional automated weekly cron schedule (every Monday at 09:00 AM IST / 03:30 UTC)
+  # Uncomment the lines below if you also want automatic weekly execution alongside manual triggers:
+  # schedule:
+  #   - cron: '30 3 * * 1'
+
+jobs:
+  run-pulse-pipeline:
+    name: Synthesize & Deliver Feedback Pulse
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Test Suite Verification
+        run: |
+          pytest -v
+
+      - name: Execute Feedback Pulse Pipeline
+        id: run_pulse
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          MCP_AUTH_KEY: ${{ secrets.MCP_AUTH_KEY }}
+          GOOGLE_DOC_ID: ${{ secrets.GOOGLE_DOC_ID }}
+          PULSE_EMAIL_RECIPIENT: ${{ secrets.PULSE_EMAIL_RECIPIENT }}
+          MCP_SERVER_URL: ${{ secrets.MCP_SERVER_URL || 'https://ai-agent-mcp-server.vercel.app/sse' }}
+          MCP_HEALTH_URL: ${{ secrets.MCP_HEALTH_URL || 'https://ai-agent-mcp-server.vercel.app/health' }}
+        run: |
+          CMD="python -m src.pipeline --weeks ${{ github.event.inputs.weeks_back || '10' }}"
+
+          if [ "${{ github.event.inputs.scrape_fresh }}" = "true" ]; then
+            CMD="$CMD --scrape"
+          fi
+
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            CMD="$CMD --dry-run"
+          fi
+
+          if [ -n "${{ github.event.inputs.custom_recipient }}" ]; then
+            CMD="$CMD --email-to ${{ github.event.inputs.custom_recipient }}"
+          fi
+
+          echo "Executing: $CMD"
+          eval $CMD | tee execution_output.log
+
+      - name: Publish Summary to GitHub Actions Job Summary
+        if: always()
+        run: |
+          echo "## 📊 Groww Feedback Pulse Run Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger**: Manual (\`workflow_dispatch\`)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Doc ID**: \`${{ secrets.GOOGLE_DOC_ID }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Recipient Email**: \`${{ github.event.inputs.custom_recipient || secrets.PULSE_EMAIL_RECIPIENT }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dry Run**: \`${{ github.event.inputs.dry_run || 'false' }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Scrape Fresh**: \`${{ github.event.inputs.scrape_fresh || 'false' }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f execution_output.log ]; then
+            echo "### Pipeline Log Output" >> $GITHUB_STEP_SUMMARY
+            echo '```text' >> $GITHUB_STEP_SUMMARY
+            cat execution_output.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
