@@ -54,6 +54,13 @@ async def health_check():
     return {"status": "healthy", "service": "groww-feedback-pulse", "version": "2.8.4"}
 
 
+@app.get("/_stcore/host-config")
+@app.get("/_stcore/allowed-message-origins")
+async def stcore_compat():
+    """Compatibility handler for residual browser tab polling."""
+    return {"allowedOrigins": [], "useExternalAuthToken": False}
+
+
 @app.get("/api/health")
 async def api_health():
     """MCP agent and environment connectivity telemetry."""
