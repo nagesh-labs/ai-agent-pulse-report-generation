@@ -20,6 +20,17 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dotenv import load_dotenv
 
+# Fix Streamlit sys.path resolution: remove 'src' from sys.path to prevent
+# shadowing installed packages (like 'mcp'), and ensure repository root is first.
+SRC_DIR = Path(__file__).resolve().parent
+ROOT_DIR = SRC_DIR.parent
+
+while str(SRC_DIR) in sys.path:
+    sys.path.remove(str(SRC_DIR))
+
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 # Ensure UTF-8 output encoding on Windows consoles
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
@@ -72,7 +83,7 @@ st.markdown(
 @st.cache_data
 def load_cached_reviews() -> list[ReviewRecord]:
     """Load pre-sanitized clean review records."""
-    data_path = Path("data/processed/reviews_clean.jsonl")
+    data_path = ROOT_DIR / "data" / "processed" / "reviews_clean.jsonl"
     if not data_path.exists():
         return []
     reviews = []
